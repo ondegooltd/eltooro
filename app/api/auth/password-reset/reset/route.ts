@@ -1,0 +1,66 @@
+import { NextRequest } from "next/server";
+import { initModels } from "@/lib/models/helpers";
+import { User } from "@/lib/models";
+import { successResponse, handleApiError } from "@/lib/api/response";
+import { ValidationError } from "@/lib/errors/api-error";
+import { z } from "zod";
+import bcrypt from "bcryptjs";
+import { logger, logRequest } from "@/lib/logger";
+
+const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  password: z.string().min(8),
+});
+
+/**
+ * POST /api/auth/password-reset/reset - Reset password with token
+ */
+export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  try {
+    await initModels();
+    const body = await request.json();
+
+    const validatedData = resetPasswordSchema.parse(body);
+
+    // Find user with valid reset token
+    const user = await User.findOne({
+      passwordResetToken: validatedData.token,
+      passwordResetExpiry: { $gt: new Date() },
+    } as any);
+
+    if (!user) {
+      throw new ValidationError("Invalid or expired reset token");
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(validatedData.password, 12);
+
+    // Update password and clear reset token
+    user.password = hashedPassword;
+    (user as any).passwordResetToken = undefined;
+    (user as any).passwordResetExpiry = undefined;
+    await user.save();
+
+    logRequest(
+      "POST",
+      "/api/auth/password-reset/reset",
+      200,
+      Date.now() - startTime
+    );
+    return successResponse({
+      message: "Password reset successfully",
+    });
+  } catch (error) {
+    logger.error("Password reset failed", error as Error, {
+      endpoint: "/api/auth/password-reset/reset",
+    });
+    logRequest(
+      "POST",
+      "/api/auth/password-reset/reset",
+      (error as any).statusCode || 500,
+      Date.now() - startTime
+    );
+    return handleApiError(error);
+  }
+}
