@@ -28,7 +28,7 @@ export async function initializePayment(data: InitializePaymentData) {
   // Add phone number if provided
   if (data.phone || data.metadata?.phone) {
     requestBody.mobile_money = {
-      phone: data.phone || data.metadata.phone,
+      phone: data.phone || data.metadata?.phone,
     };
   }
 

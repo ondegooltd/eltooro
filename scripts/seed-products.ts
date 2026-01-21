@@ -15,8 +15,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { Product, Category } from "../lib/models";
 
 // MongoDB connection URI with fallback
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/db_etoroo";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // Set MONGODB_URI in process.env for models that might need it
 if (!process.env.MONGODB_URI) {
@@ -966,7 +965,7 @@ const products = [
 async function seedProducts() {
   try {
     // Connect to MongoDB directly with fallback URI
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(MONGODB_URI as string);
     console.log("✅ Connected to MongoDB");
     console.log("✅ Models ready");
 

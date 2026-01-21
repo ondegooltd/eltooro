@@ -1,8 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb+srv://eltooroDb:xjt9OFhPbNwGwQ6U@eltooromain.vpvy4kq.mongodb.net/abdb?appName=eltooroMain" // "mongodb://localhost:27017/db_etoroo";
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 async function seed() {
   const client = new MongoClient(MONGODB_URI);
