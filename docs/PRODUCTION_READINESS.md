@@ -204,14 +204,14 @@ The logger utility (`lib/logger.ts`) has a placeholder method `sendToErrorTracki
 **Actions needed:**
 1. ✅ Run seed scripts to populate initial data:
    ```bash
-   pnpm seed
-   pnpm seed:products
-   pnpm seed:shipping-methods
+   yarn seed
+   yarn seed:products
+   yarn seed:shipping-methods
    ```
 
 2. ✅ Create database indexes:
    ```bash
-   pnpm migrate
+   yarn migrate
    ```
 
 3. ⚠️ Ensure MongoDB connection string uses production database
@@ -223,8 +223,8 @@ The logger utility (`lib/logger.ts`) has a placeholder method `sendToErrorTracki
 1. ✅ Fix TypeScript errors (remove `ignoreBuildErrors`)
 2. ✅ Test production build:
    ```bash
-   pnpm build
-   pnpm start
+   yarn build
+   yarn start
    ```
 3. ✅ Verify all environment variables are set
 4. ✅ Test critical flows:
@@ -275,7 +275,7 @@ The logger utility (`lib/logger.ts`) has a placeholder method `sendToErrorTracki
 - [x] Fix `next.config.mjs` (remove `ignoreBuildErrors`, enable image optimization)
 - [x] Replace console.log with logger
 - [x] Add security headers
-- [ ] Fix any TypeScript errors (run `pnpm build` to check)
+- [ ] Fix any TypeScript errors (run `yarn build` to check)
 
 ### Database
 - [ ] Run seed scripts
@@ -284,8 +284,8 @@ The logger utility (`lib/logger.ts`) has a placeholder method `sendToErrorTracki
 - [ ] Test database connection
 
 ### Testing
-- [ ] Run production build: `pnpm build`
-- [ ] Test locally: `pnpm start`
+- [ ] Run production build: `yarn build`
+- [ ] Test locally: `yarn start`
 - [ ] Test critical user flows
 - [ ] Test payment processing
 - [ ] Test admin functions
@@ -337,8 +337,8 @@ The logger utility (`lib/logger.ts`) has a placeholder method `sendToErrorTracki
 1. ✅ Fix `next.config.mjs` - **COMPLETED**
 2. ⚠️ Set all environment variables - **MANUAL STEP REQUIRED**
 3. ⚠️ Generate `NEXTAUTH_SECRET` - **MANUAL STEP REQUIRED**
-4. ⚠️ Test production build - **RUN: `pnpm build`**
-5. ⚠️ Run seed scripts - **RUN: `pnpm seed && pnpm seed:products && pnpm seed:shipping-methods`**
+4. ⚠️ Test production build - **RUN: `yarn build`**
+5. ⚠️ Run seed scripts - **RUN: `yarn seed && yarn seed:products && yarn seed:shipping-methods`**
 
 ### Medium Priority (Soon After Launch)
 1. ✅ Add security headers - **COMPLETED**
@@ -364,7 +364,7 @@ The project is **95% production-ready**! ✅
 **Remaining (Manual Steps):**
 1. ⚠️ Set environment variables (see `DEPLOYMENT.md`)
 2. ⚠️ Generate `NEXTAUTH_SECRET`
-3. ⚠️ Test production build: `pnpm build`
+3. ⚠️ Test production build: `yarn build`
 4. ⚠️ Run seed scripts
 5. ⚠️ Deploy to hosting platform
 
