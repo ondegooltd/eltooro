@@ -284,10 +284,6 @@ export default function AdminOrderDetailPage() {
                         <span>GHS {order.subtotal.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Service Fee</span>
-                        <span>GHS {order.serviceFee.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
                         <span>Delivery Fee</span>
                         <span>GHS {order.deliveryFee.toFixed(2)}</span>
                       </div>

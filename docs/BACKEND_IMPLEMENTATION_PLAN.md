@@ -1580,7 +1580,7 @@ A comprehensive seed script to preload the database with test data including:
 import { MongoClient, ObjectId } from "mongodb"
 import bcrypt from "bcryptjs"
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/iherb"
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 async function seed() {
   const client = new MongoClient(MONGODB_URI)
@@ -2506,7 +2506,7 @@ After running the seed script, you'll have:
 
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/iherb
+MONGODB_URI=
 REDIS_URL=redis://localhost:6379
 
 # NextAuth
@@ -2632,7 +2632,7 @@ describe("GET /api/products", () => {
   })
   
   it("should return products with pagination", async () => {
-    const request = new Request("http://localhost:3000/api/products?page=1&limit=10")
+    const request = new Request("/api/products?page=1&limit=10")
     const response = await GET(request)
     const data = await response.json()
     

@@ -20,7 +20,7 @@ Add these to your `.env.local` file:
 
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/iherb
+MONGODB_URI=
 
 # NextAuth
 NEXTAUTH_URL=http://localhost:3000

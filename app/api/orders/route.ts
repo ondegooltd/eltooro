@@ -155,10 +155,7 @@ export async function POST(request: NextRequest) {
 
     // Calculate fees
     const isInternational = validatedData.currency === "USD";
-    const serviceFee = await calculateServiceFee(
-      validatedData.items,
-      isInternational
-    );
+    const serviceFee = 0; // No service fee charged
     const deliveryFee = await calculateDeliveryFee(
       validatedData.shipping.city,
       isInternational

@@ -178,7 +178,7 @@ export function CheckoutContent() {
     subtotal >= (deliveryFees?.settings?.freeShippingThreshold || 200);
   const finalShipping =
     freeShippingEligible && shippingMethod === "standard" ? 0 : shippingCost;
-  const serviceFee = items.length * (deliveryFees?.serviceFees?.ghana || 3);
+  const serviceFee = 0; // No service fee charged
   const total = subtotal + finalShipping + serviceFee - savings;
 
   const steps = [
@@ -1020,10 +1020,6 @@ function OrderSummaryContent({
             <span>-GH₵{savings.toFixed(2)}</span>
           </div>
         )}
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Service Fee</span>
-          <span className="font-medium">GH₵{serviceFee.toFixed(2)}</span>
-        </div>
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Shipping</span>
           <span

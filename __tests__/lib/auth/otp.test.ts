@@ -12,7 +12,7 @@ describe("OTP System", () => {
   let client: MongoClient;
 
   beforeAll(async () => {
-    const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/iherb";
+    const uri = process.env.MONGODB_URI as string;
     client = new MongoClient(uri);
     await client.connect();
   });
