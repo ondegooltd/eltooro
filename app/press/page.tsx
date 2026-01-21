@@ -154,12 +154,14 @@ export default function PressPage() {
             <div className="grid md:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="border rounded-lg overflow-hidden">
-                  <div className="relative h-40">
+                  <div className="relative h-40 bg-muted">
                     <Image
-                      src={`/news-article.png?height=200&width=400&query=news article ${i}`}
-                      alt="News article"
+                      src="/news-article.png"
+                      alt={`News article ${i}`}
                       fill
                       className="object-cover"
+                      width={400}
+                      height={200}
                     />
                   </div>
                   <div className="p-4">

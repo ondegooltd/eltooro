@@ -17,7 +17,7 @@ import {
   Check,
   Shield,
   Clock,
-  Loader2,
+  Loader2, 
   Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,6 +49,8 @@ export function CheckoutContent() {
   const [isInitializingPayment, setIsInitializingPayment] = useState(false);
   const [deliveryFees, setDeliveryFees] = useState<any>(null);
   const [isLoadingFees, setIsLoadingFees] = useState(true);
+  const [shippingMethods, setShippingMethods] = useState<any[]>([]);
+  const [isLoadingShippingMethods, setIsLoadingShippingMethods] = useState(true);
 
   // Shipping Form State
   const [shippingData, setShippingData] = useState({
@@ -65,7 +67,7 @@ export function CheckoutContent() {
   });
 
   // Shipping Method State
-  const [shippingMethod, setShippingMethod] = useState("standard");
+  const [shippingMethod, setShippingMethod] = useState<string>("");
 
   // Payment State - Only Mobile Money
   const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
@@ -82,9 +84,10 @@ export function CheckoutContent() {
     }
   }, []);
 
-  // Fetch delivery fees
+  // Fetch delivery fees and shipping methods
   useEffect(() => {
     fetchDeliveryFees();
+    fetchShippingMethods();
   }, []);
 
   // Load user data if logged in
@@ -106,6 +109,25 @@ export function CheckoutContent() {
       console.error("Failed to fetch delivery fees:", error);
     } finally {
       setIsLoadingFees(false);
+    }
+  };
+
+  const fetchShippingMethods = async () => {
+    try {
+      setIsLoadingShippingMethods(true);
+      const response = await fetch("/api/shipping-methods");
+      const data = await response.json();
+      if (data.success && data.data && data.data.length > 0) {
+        setShippingMethods(data.data);
+        // Set default to first method if not set
+        if (!shippingMethod) {
+          setShippingMethod(data.data[0].code);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch shipping methods:", error);
+    } finally {
+      setIsLoadingShippingMethods(false);
     }
   };
 
@@ -170,10 +192,11 @@ export function CheckoutContent() {
   };
 
   // Calculations
-  const shippingCost =
-    shippingMethod === "express"
-      ? calculateShippingCost() * 1.5
-      : calculateShippingCost();
+  const selectedShippingMethod = shippingMethods.find(
+    (method) => method.code === shippingMethod
+  );
+  const multiplier = selectedShippingMethod?.multiplier || 1.0;
+  const shippingCost = calculateShippingCost() * multiplier;
   const freeShippingEligible =
     subtotal >= (deliveryFees?.settings?.freeShippingThreshold || 200);
   const finalShipping =
@@ -611,73 +634,67 @@ export function CheckoutContent() {
                   Shipping Method
                 </h2>
 
-                <RadioGroup
-                  value={shippingMethod}
-                  onValueChange={setShippingMethod}
-                >
-                  <label
-                    className={cn(
-                      "flex items-center justify-between p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors mb-3 min-h-[3.5rem]",
-                      shippingMethod === "standard"
-                        ? "border-iherb-green bg-iherb-green/5"
-                        : "border-border hover:border-muted-foreground"
-                    )}
+                {isLoadingShippingMethods ? (
+                  <div className="space-y-3">
+                    <div className="h-16 bg-muted animate-pulse rounded-lg" />
+                    <div className="h-16 bg-muted animate-pulse rounded-lg" />
+                  </div>
+                ) : shippingMethods.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    No shipping methods available
+                  </p>
+                ) : (
+                  <RadioGroup
+                    value={shippingMethod}
+                    onValueChange={setShippingMethod}
                   >
-                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-                      <RadioGroupItem
-                        value="standard"
-                        id="standard"
-                        className="shrink-0"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="font-medium text-sm sm:text-base">
-                          Standard Shipping
-                        </p>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          4-7 business days
-                        </p>
-                      </div>
-                    </div>
-                    <span
-                      className={cn(
-                        "font-semibold text-sm sm:text-base shrink-0 ml-2",
-                        freeShippingEligible && "text-iherb-green"
-                      )}
-                    >
-                      {freeShippingEligible
-                        ? "FREE"
-                        : `GH₵${shippingCost.toFixed(2)}`}
-                    </span>
-                  </label>
+                    {shippingMethods.map((method, index) => {
+                      const methodCost = calculateShippingCost() * method.multiplier;
+                      const isFreeShipping =
+                        freeShippingEligible && method.code === "standard";
+                      const isSelected = shippingMethod === method.code;
 
-                  <label
-                    className={cn(
-                      "flex items-center justify-between p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors min-h-[3.5rem]",
-                      shippingMethod === "express"
-                        ? "border-iherb-green bg-iherb-green/5"
-                        : "border-border hover:border-muted-foreground"
-                    )}
-                  >
-                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-                      <RadioGroupItem
-                        value="express"
-                        id="express"
-                        className="shrink-0"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="font-medium text-sm sm:text-base">
-                          Express Shipping
-                        </p>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          2-3 business days
-                        </p>
-                      </div>
-                    </div>
-                    <span className="font-semibold text-sm sm:text-base shrink-0 ml-2">
-                      GH₵{(shippingCost * 1.5).toFixed(2)}
-                    </span>
-                  </label>
-                </RadioGroup>
+                      return (
+                        <label
+                          key={method._id || method.code}
+                          className={cn(
+                            "flex items-center justify-between p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors min-h-[3.5rem]",
+                            index < shippingMethods.length - 1 && "mb-3",
+                            isSelected
+                              ? "border-iherb-green bg-iherb-green/5"
+                              : "border-border hover:border-muted-foreground"
+                          )}
+                        >
+                          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                            <RadioGroupItem
+                              value={method.code}
+                              id={method.code}
+                              className="shrink-0"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-sm sm:text-base">
+                                {method.name}
+                              </p>
+                              <p className="text-xs sm:text-sm text-muted-foreground">
+                                {method.deliveryTime}
+                              </p>
+                            </div>
+                          </div>
+                          <span
+                            className={cn(
+                              "font-semibold text-sm sm:text-base shrink-0 ml-2",
+                              isFreeShipping && "text-iherb-green"
+                            )}
+                          >
+                            {isFreeShipping
+                              ? "FREE"
+                              : `GH₵${methodCost.toFixed(2)}`}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </RadioGroup>
+                )}
               </div>
 
               <Button

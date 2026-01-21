@@ -7,6 +7,7 @@ import { initModels } from "@/lib/models/helpers";
 import { User } from "@/lib/models";
 import { normalizePhoneNumber } from "@/lib/utils/phone";
 import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -20,12 +21,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials) {
-          console.error("[NextAuth] No credentials provided");
+          logger.warn("NextAuth: No credentials provided");
           return null;
         }
 
         if (!credentials.password) {
-          console.error("[NextAuth] No password provided");
+          logger.warn("NextAuth: No password provided");
           return null;
         }
 
@@ -37,41 +38,32 @@ export const authOptions: NextAuthOptions = {
           // Try email/password login
           if (credentials.email && credentials.password) {
             const emailToSearch = credentials.email.toLowerCase().trim();
-            console.log(
-              "[NextAuth] Searching for user with email:",
-              emailToSearch
-            );
+            
+            if (process.env.NODE_ENV === "development") {
+              logger.debug("NextAuth: Searching for user with email", { email: emailToSearch });
+            }
 
             user = await User.findOne({
               email: emailToSearch,
             }).lean();
-
-            console.log(
-              "[NextAuth] User lookup result:",
-              user ? `Found user: ${user.email}` : "Not found"
-            );
 
             // Also try exact match (case-sensitive) as fallback
             if (!user) {
               user = await User.findOne({
                 email: credentials.email.trim(),
               }).lean();
-              console.log(
-                "[NextAuth] Exact match search result:",
-                user ? `Found user: ${user.email}` : "Not found"
-              );
             }
 
             if (user) {
               if (!user.password) {
-                console.error("[NextAuth] User found but no password set");
+                logger.warn("NextAuth: User found but no password set", { userId: user._id });
                 return null;
               }
               const passwordHash = String(user.password);
               const password = String(credentials.password);
               const isValid = await bcrypt.compare(password, passwordHash);
               if (!isValid) {
-                console.error("[NextAuth] Invalid password for email login");
+                logger.warn("NextAuth: Invalid password for email login", { email: emailToSearch });
                 return null;
               }
             }
@@ -82,28 +74,23 @@ export const authOptions: NextAuthOptions = {
             try {
               // Only normalize if phone is not empty/undefined
               if (!credentials.phone || credentials.phone.trim() === "") {
-                console.log("[NextAuth] Phone is empty, skipping phone login");
+                // Skip phone login if phone is empty
               } else {
                 const normalizedPhone = normalizePhoneNumber(
                   String(credentials.phone)
                 );
-                console.log(
-                  "[NextAuth] Searching for user with phone:",
-                  normalizedPhone
-                );
+                
+                if (process.env.NODE_ENV === "development") {
+                  logger.debug("NextAuth: Searching for user with phone", { phone: normalizedPhone });
+                }
 
                 user = await User.findOne({
                   phone: normalizedPhone,
                 }).lean();
 
-                console.log(
-                  "[NextAuth] Phone lookup result:",
-                  user ? "Found" : "Not found"
-                );
-
                 if (user) {
                   if (!user.password) {
-                    console.error("[NextAuth] User found but no password set");
+                    logger.warn("NextAuth: User found but no password set", { userId: user._id });
                     return null;
                   }
                   const passwordHash = String(user.password);
@@ -112,27 +99,24 @@ export const authOptions: NextAuthOptions = {
                     passwordHash
                   );
                   if (!isValid) {
-                    console.error("[NextAuth] Invalid password for phone login");
+                    logger.warn("NextAuth: Invalid password for phone login", { phone: normalizedPhone });
                     return null;
                   }
                 }
               }
             } catch (phoneError) {
-              console.error(
-                "[NextAuth] Phone normalization error:",
-                phoneError
-              );
+              logger.error("NextAuth: Phone normalization error", phoneError as Error);
               // Continue without phone login if normalization fails
             }
           }
 
           if (!user) {
-            console.error("[NextAuth] User not found");
+            logger.warn("NextAuth: User not found");
             return null;
           }
 
-          console.log("[NextAuth] User authenticated successfully:", {
-            id: user._id.toString(),
+          logger.info("NextAuth: User authenticated successfully", {
+            userId: user._id.toString(),
             email: user.email,
             role: user.role,
           });
@@ -147,7 +131,7 @@ export const authOptions: NextAuthOptions = {
             role: user.role || "customer",
           };
         } catch (error) {
-          console.error("[NextAuth] Authorize error:", error);
+          logger.error("NextAuth: Authorize error", error as Error);
           return null;
         }
       },
@@ -206,7 +190,7 @@ async function handler(
     const response = await (NextAuth as any)(req, context, authOptions);
     return response;
   } catch (error) {
-    console.error("[NextAuth] Handler error:", error);
+    logger.error("NextAuth: Handler error", error as Error);
     return NextResponse.json(
       { error: "Authentication error" },
       { status: 500 }

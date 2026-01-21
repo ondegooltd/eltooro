@@ -3,6 +3,7 @@ import { initModels } from "@/lib/models/helpers";
 import { Order, Product } from "@/lib/models";
 import { successResponse, handleApiError } from "@/lib/api/response";
 import { verifyWebhookSignature, verifyPayment } from "@/lib/payments/paystack";
+import { logger } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -78,7 +79,9 @@ export async function POST(request: NextRequest) {
 
     return successResponse({ received: true });
   } catch (error) {
-    console.error("Webhook error:", error);
+    logger.error("Paystack webhook error", error as Error, {
+      endpoint: "/api/payments/webhook",
+    });
     return handleApiError(error);
   }
 }

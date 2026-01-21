@@ -13,3 +13,7 @@ export {
   NewsletterSubscription,
   type INewsletterSubscription,
 } from "./newsletter";
+export {
+  ShippingMethod,
+  type IShippingMethod,
+} from "./shipping-method";

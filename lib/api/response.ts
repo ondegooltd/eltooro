@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ApiError, ValidationError } from "@/lib/errors/api-error";
+import { logger } from "@/lib/logger";
 
 export function successResponse(data: any, meta?: any, status: number = 200) {
   return NextResponse.json(
@@ -37,7 +38,11 @@ export function errorResponse(error: ApiError) {
 
 export function handleApiError(error: unknown) {
   // Log error for monitoring
-  console.error("API Error:", error);
+  if (error instanceof Error) {
+    logger.error("API Error", error);
+  } else {
+    logger.error("API Error", new Error(String(error)));
+  }
 
   if (error instanceof ApiError) {
     return errorResponse(error);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -9,7 +9,7 @@ import { ProductFilters } from "@/components/product-filters";
 import { ProductSort } from "@/components/product-sort";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [categoryName, setCategoryName] = useState<string>("All Products");
@@ -141,5 +141,30 @@ export default function ProductsPage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex flex-col bg-background">
+          <Header />
+          <main className="flex-1">
+            <div className="container mx-auto px-4 py-12">
+              <Skeleton className="h-8 w-48 mb-4" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {[...Array(8)].map((_, i) => (
+                  <Skeleton key={i} className="h-64" />
+                ))}
+              </div>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      }
+    >
+      <ProductsPageContent />
+    </Suspense>
   );
 }

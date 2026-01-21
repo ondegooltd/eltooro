@@ -6,6 +6,8 @@ import { ValidationError } from "@/lib/errors/api-error";
 import { z } from "zod";
 import { ObjectId } from "mongodb";
 import { logger, logRequest } from "@/lib/logger";
+import { initModels } from "@/lib/models/helpers";
+import { SMSTemplate } from "@/lib/models";
 import {
   SMSEventType,
   validateTemplateLength,

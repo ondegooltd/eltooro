@@ -17,6 +17,7 @@ import {
   AdminSettings,
   SMSTemplate,
   NewsletterSubscription,
+  ShippingMethod,
 } from "./index";
 
 /**
@@ -38,6 +39,7 @@ export async function initModels() {
     AdminSettings,
     SMSTemplate,
     NewsletterSubscription,
+    ShippingMethod,
   };
 }
 
@@ -59,5 +61,6 @@ export function getModels() {
     AdminSettings,
     SMSTemplate,
     NewsletterSubscription,
+    ShippingMethod,
   };
 }

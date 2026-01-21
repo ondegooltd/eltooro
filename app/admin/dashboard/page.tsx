@@ -24,6 +24,7 @@ import {
   MessageSquare,
   BarChart3,
   FolderTree,
+  Truck,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -313,6 +314,17 @@ export default function AdminDashboardPage() {
                     <CardTitle className="text-base flex items-center gap-2">
                       <FolderTree className="h-5 w-5 text-iherb-green" />
                       Manage Categories
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </Link>
+
+              <Link href="/admin/shipping-methods">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <Truck className="h-5 w-5 text-iherb-green" />
+                      Shipping Methods
                     </CardTitle>
                   </CardHeader>
                 </Card>
