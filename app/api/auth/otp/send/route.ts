@@ -31,11 +31,13 @@ export async function POST(request: NextRequest) {
       await addEmailJob("otp", {
         email: validatedData.identifier,
         otp,
+        expiryMinutes: 10,
       });
     } else {
       await addSMSJob("otp", {
         phone: validatedData.identifier,
         otp,
+        expiryMinutes: 10,
       });
     }
 

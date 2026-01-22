@@ -76,7 +76,10 @@ export function Header() {
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target as Node)
       ) {
-        setShowSearchResults(false);
+        // Small delay to allow click events to fire first
+        setTimeout(() => {
+          setShowSearchResults(false);
+        }, 100);
       }
     };
 
@@ -142,10 +145,14 @@ export function Header() {
     }
   };
 
-  const handleSearchResultClick = (product: SearchProduct) => {
+  const handleSearchResultClick = (product: SearchProduct, e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
     setShowSearchResults(false);
     setSearchQuery("");
-    router.push(`/product/${product.slug}`);
+    // Use product ID if available, otherwise use slug
+    const productIdentifier = product._id || product.slug;
+    router.push(`/product/${productIdentifier}`);
   };
 
   const clearSearch = () => {
@@ -330,7 +337,15 @@ export function Header() {
                       setShowSearchResults(true);
                     }
                   }}
-                  onBlur={() => {
+                  onBlur={(e) => {
+                    // Don't blur if clicking on search results
+                    const relatedTarget = e.relatedTarget as HTMLElement;
+                    if (
+                      searchContainerRef.current?.contains(relatedTarget) ||
+                      relatedTarget?.closest('[data-search-result]')
+                    ) {
+                      return;
+                    }
                     // Delay to allow click on search results
                     setTimeout(() => setIsSearchFocused(false), 200);
                   }}
@@ -376,8 +391,12 @@ export function Header() {
                       return (
                         <button
                           key={product._id}
-                          onClick={() => handleSearchResultClick(product)}
-                          className="w-full px-4 py-3 hover:bg-muted/50 transition-colors text-left flex items-center gap-3"
+                          data-search-result
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            handleSearchResultClick(product, e);
+                          }}
+                          className="w-full px-4 py-3 hover:bg-muted/50 transition-colors text-left flex items-center gap-3 cursor-pointer"
                         >
                           <img
                             src={product.images?.[0]?.url || "/placeholder.svg"}
@@ -402,8 +421,12 @@ export function Header() {
                     })}
                     <div className="border-t border-border px-4 py-2">
                       <button
-                        onClick={handleSearchSubmit}
-                        className="w-full text-sm text-iherb-green hover:underline font-medium text-center"
+                        data-search-result
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          handleSearchSubmit(e as any);
+                        }}
+                        className="w-full text-sm text-iherb-green hover:underline font-medium text-center cursor-pointer"
                       >
                         View all results for &quot;{searchQuery}&quot;
                       </button>
@@ -569,7 +592,15 @@ export function Header() {
                     setShowSearchResults(true);
                   }
                 }}
-                onBlur={() => {
+                onBlur={(e) => {
+                  // Don't blur if clicking on search results
+                  const relatedTarget = e.relatedTarget as HTMLElement;
+                  if (
+                    searchContainerRef.current?.contains(relatedTarget) ||
+                    relatedTarget?.closest('[data-search-result]')
+                  ) {
+                    return;
+                  }
                   setTimeout(() => setIsSearchFocused(false), 200);
                 }}
               />
@@ -614,8 +645,12 @@ export function Header() {
                     return (
                       <button
                         key={product._id}
-                        onClick={() => handleSearchResultClick(product)}
-                        className="w-full px-3 py-2 hover:bg-muted/50 transition-colors text-left flex items-center gap-2"
+                        data-search-result
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          handleSearchResultClick(product, e);
+                        }}
+                        className="w-full px-3 py-2 hover:bg-muted/50 transition-colors text-left flex items-center gap-2 cursor-pointer"
                       >
                         <img
                           src={product.images?.[0]?.url || "/placeholder.svg"}
@@ -640,8 +675,12 @@ export function Header() {
                   })}
                   <div className="border-t border-border px-3 py-2">
                     <button
-                      onClick={handleSearchSubmit}
-                      className="w-full text-xs text-iherb-green hover:underline font-medium text-center"
+                      data-search-result
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSearchSubmit(e as any);
+                      }}
+                      className="w-full text-xs text-iherb-green hover:underline font-medium text-center cursor-pointer"
                     >
                       View all results for &quot;{searchQuery}&quot;
                     </button>

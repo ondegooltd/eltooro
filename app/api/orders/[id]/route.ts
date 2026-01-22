@@ -130,22 +130,25 @@ export async function PUT(
       const user = await User.findById(order.userId).lean();
 
       if (user) {
+        const userName = user.name
+          ? `${user.name.first} ${user.name.last}`
+          : order.shipping.firstName || "Customer";
+
         if (body.status === "shipped") {
           await addNotificationJob(
             "order_shipped",
             {
               email: user.email,
+              name: userName,
               orderNumber: order.orderNumber,
               trackingNumber: body.trackingNumber,
             },
             user.phone
               ? {
                   phone: user.phone,
+                  name: userName,
                   orderNumber: order.orderNumber,
                   trackingNumber: body.trackingNumber,
-                  name: user.name
-                    ? `${user.name.first} ${user.name.last}`
-                    : order.shipping.firstName,
                   estimatedDelivery: order.shipping.estimatedDelivery
                     ? new Date(
                         order.shipping.estimatedDelivery
@@ -159,15 +162,14 @@ export async function PUT(
             "order_delivered",
             {
               email: user.email,
+              name: userName,
               orderNumber: order.orderNumber,
             },
             user.phone
               ? {
                   phone: user.phone,
+                  name: userName,
                   orderNumber: order.orderNumber,
-                  name: user.name
-                    ? `${user.name.first} ${user.name.last}`
-                    : order.shipping.firstName,
                 }
               : undefined
           );

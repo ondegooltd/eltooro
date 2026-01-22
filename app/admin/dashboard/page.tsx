@@ -25,6 +25,7 @@ import {
   BarChart3,
   FolderTree,
   Truck,
+  Mail,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -325,6 +326,17 @@ export default function AdminDashboardPage() {
                     <CardTitle className="text-base flex items-center gap-2">
                       <Truck className="h-5 w-5 text-iherb-green" />
                       Shipping Methods
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              </Link>
+
+              <Link href="/admin/notification-templates">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                  <CardHeader>
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <Mail className="h-5 w-5 text-iherb-green" />
+                      Notification Templates
                     </CardTitle>
                   </CardHeader>
                 </Card>

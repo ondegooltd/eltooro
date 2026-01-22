@@ -21,9 +21,10 @@ import {
   DollarSign,
   Box,
   Image as ImageIcon,
+  Copy,
 } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -69,9 +70,11 @@ interface Product {
 export default function AdminProductDetailPage() {
   const { data: session } = useSession();
   const params = useParams();
+  const router = useRouter();
   const { toast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDuplicating, setIsDuplicating] = useState(false);
 
   useEffect(() => {
     if (params.id) {
@@ -103,6 +106,85 @@ export default function AdminProductDetailPage() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const duplicateProduct = async () => {
+    if (!product) return;
+
+    try {
+      setIsDuplicating(true);
+      // Generate new name and slug for the duplicate
+      const generateSlug = (name: string) => {
+        return name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "");
+      };
+
+      const newName = `${product.name} (Copy)`;
+      const newSlug = `${generateSlug(product.name)}-copy-${Date.now()}`;
+
+      // Prepare duplicate product data
+      const duplicateData = {
+        name: newName,
+        slug: newSlug,
+        description: product.description || "",
+        shortDescription: product.shortDescription || "",
+        costPrice: product.costPrice,
+        price:
+          typeof product.price === "object" ? product.price.ghs : product.price,
+        stock:
+          typeof product.stock === "object"
+            ? product.stock.quantity
+            : product.stock || 0,
+        category: product.category || { main: "" },
+        brand: product.brand || "",
+        status: "draft", // Set as draft so user can review before publishing
+        sku: "", // Will be auto-generated
+        weight: product.weight,
+        dimensions: product.dimensions,
+        tags: product.tags || [],
+        highlights: product.highlights || [],
+        specifications: product.specifications || [],
+        images: product.images?.map((img: any) =>
+          typeof img === "string" ? img : img.url
+        ) || [],
+        isTrending: false, // Reset flags
+        isNewArrival: false,
+        isBestSeller: false,
+      };
+
+      // Create the duplicate product
+      const createResponse = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(duplicateData),
+      });
+
+      if (!createResponse.ok) throw new Error("Failed to create duplicate");
+
+      const createData = await createResponse.json();
+      if (!createData.success) throw new Error("Failed to create duplicate");
+
+      toast({
+        title: "Success",
+        description: "Product duplicated successfully",
+      });
+
+      // Redirect to edit page for the new product
+      router.push(`/admin/products/${createData.data._id}/edit`);
+    } catch (error) {
+      console.error("Failed to duplicate product:", error);
+      toast({
+        title: "Error",
+        description: "Failed to duplicate product",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDuplicating(false);
     }
   };
 
@@ -144,12 +226,22 @@ export default function AdminProductDetailPage() {
                   <h1 className="text-3xl font-bold">{product.name}</h1>
                   <p className="text-muted-foreground mt-1">{product.slug}</p>
                 </div>
-                <Link href={`/admin/products/${product._id}/edit`}>
-                  <Button>
-                    <Edit className="h-4 w-4 mr-2" />
-                    Edit Product
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={duplicateProduct}
+                    disabled={isDuplicating}
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    {isDuplicating ? "Duplicating..." : "Duplicate"}
                   </Button>
-                </Link>
+                  <Link href={`/admin/products/${product._id}/edit`}>
+                    <Button>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit Product
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
 

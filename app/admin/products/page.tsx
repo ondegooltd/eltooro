@@ -38,6 +38,7 @@ import {
   Eye,
   Image as ImageIcon,
   ArrowLeft,
+  Copy,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -132,6 +133,90 @@ export default function AdminProductsPage() {
         description: "Failed to delete product",
         variant: "destructive",
       });
+    }
+  };
+
+  const duplicateProduct = async (productId: string) => {
+    try {
+      setIsLoading(true);
+      // Fetch the full product data
+      const response = await fetch(`/api/products/${productId}`);
+      if (!response.ok) throw new Error("Failed to fetch product");
+
+      const data = await response.json();
+      if (!data.success) throw new Error("Failed to fetch product");
+
+      const product = data.data;
+
+      // Generate new name and slug for the duplicate
+      const generateSlug = (name: string) => {
+        return name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "");
+      };
+
+      const newName = `${product.name} (Copy)`;
+      const newSlug = `${generateSlug(product.name)}-copy-${Date.now()}`;
+
+      // Prepare duplicate product data
+      const duplicateData = {
+        name: newName,
+        slug: newSlug,
+        description: product.description || "",
+        shortDescription: product.shortDescription || "",
+        costPrice: product.costPrice,
+        price:
+          typeof product.price === "object" ? product.price.ghs : product.price,
+        stock:
+          typeof product.stock === "object"
+            ? product.stock.quantity
+            : product.stock || 0,
+        category: product.category || { main: "" },
+        brand: product.brand || "",
+        status: "draft", // Set as draft so user can review before publishing
+        sku: "", // Will be auto-generated
+        weight: product.weight,
+        dimensions: product.dimensions,
+        tags: product.tags || [],
+        highlights: product.highlights || [],
+        specifications: product.specifications || [],
+        images: product.images?.map((img: any) => img.url) || [],
+        isTrending: false, // Reset flags
+        isNewArrival: false,
+        isBestSeller: false,
+      };
+
+      // Create the duplicate product
+      const createResponse = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(duplicateData),
+      });
+
+      if (!createResponse.ok) throw new Error("Failed to create duplicate");
+
+      const createData = await createResponse.json();
+      if (!createData.success) throw new Error("Failed to create duplicate");
+
+      toast({
+        title: "Success",
+        description: "Product duplicated successfully",
+      });
+
+      // Redirect to edit page for the new product
+      window.location.href = `/admin/products/${createData.data._id}/edit`;
+    } catch (error) {
+      console.error("Failed to duplicate product:", error);
+      toast({
+        title: "Error",
+        description: "Failed to duplicate product",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -320,21 +405,39 @@ export default function AdminProductsPage() {
                             <TableCell>
                               <div className="flex gap-2">
                                 <Link href={`/admin/products/${product._id}`}>
-                                  <Button variant="outline" size="sm">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    title="View"
+                                  >
                                     <Eye className="h-4 w-4" />
                                   </Button>
                                 </Link>
                                 <Link
                                   href={`/admin/products/${product._id}/edit`}
                                 >
-                                  <Button variant="outline" size="sm">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    title="Edit"
+                                  >
                                     <Edit className="h-4 w-4" />
                                   </Button>
                                 </Link>
                                 <Button
                                   variant="outline"
                                   size="sm"
+                                  onClick={() => duplicateProduct(product._id)}
+                                  title="Duplicate"
+                                  disabled={isLoading}
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
                                   onClick={() => deleteProduct(product._id)}
+                                  title="Delete"
                                 >
                                   <Trash2 className="h-4 w-4" />
                                 </Button>

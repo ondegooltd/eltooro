@@ -55,8 +55,12 @@ export async function POST(request: NextRequest) {
     const resetLink = `${
       process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
     }/reset-password?token=${resetToken}`;
+    const userName = user.name
+      ? `${user.name.first} ${user.name.last}`
+      : "Customer";
     await addEmailJob("password_reset", {
       email: validatedData.email,
+      name: userName,
       resetLink,
     });
 

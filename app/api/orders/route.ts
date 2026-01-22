@@ -214,22 +214,26 @@ export async function POST(request: NextRequest) {
 
     if (user) {
       const { addNotificationJob } = await import("@/lib/jobs/queue");
+      const userName = user.name
+        ? `${user.name.first} ${user.name.last}`
+        : order.shipping.firstName || "Customer";
+      
       await addNotificationJob(
         "order_confirmation",
         {
           email: user.email || order.shipping.email,
+          name: userName,
           orderNumber: order.orderNumber,
-          orderTotal: order.pricing.total,
+          orderTotal: order.pricing.total.toFixed(2),
           currency: order.pricing.currency,
+          itemCount: order.items.length,
         },
         user.phone || order.shipping.phone
           ? {
               phone: user.phone || order.shipping.phone,
+              name: userName,
               orderNumber: order.orderNumber,
-              name: user.name
-                ? `${user.name.first} ${user.name.last}`
-                : order.shipping.firstName,
-              orderTotal: order.pricing.total,
+              orderTotal: order.pricing.total.toFixed(2),
               currency: order.pricing.currency,
               itemCount: order.items.length,
             }

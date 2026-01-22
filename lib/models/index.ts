@@ -17,3 +17,7 @@ export {
   ShippingMethod,
   type IShippingMethod,
 } from "./shipping-method";
+export {
+  NotificationTemplate,
+  type INotificationTemplate,
+} from "./notification-template";

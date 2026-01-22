@@ -29,6 +29,7 @@ import {
   X,
   Plus,
   Image as ImageIcon,
+  Copy,
 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -88,6 +89,7 @@ export default function AdminProductEditPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDuplicating, setIsDuplicating] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [product, setProduct] = useState<Product | null>(null);
 
@@ -380,6 +382,89 @@ export default function AdminProductEditPage() {
     }
   };
 
+  const duplicateProduct = async () => {
+    if (!product) return;
+
+    try {
+      setIsDuplicating(true);
+      // Generate new name and slug for the duplicate
+      const generateSlug = (name: string) => {
+        return name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "");
+      };
+
+      const newName = `${product.name} (Copy)`;
+      const newSlug = `${generateSlug(product.name)}-copy-${Date.now()}`;
+
+      // Prepare duplicate product data using current form data
+      const duplicateData = {
+        name: newName,
+        slug: newSlug,
+        description: formData.description || "",
+        shortDescription: formData.shortDescription || "",
+        costPrice: formData.costPrice ? parseFloat(formData.costPrice) : undefined,
+        price: parseFloat(formData.price),
+        stock: parseInt(formData.stock),
+        category: {
+          main: formData.category,
+        },
+        brand: formData.brand || "",
+        status: "draft", // Set as draft so user can review before publishing
+        sku: "", // Will be auto-generated
+        weight: formData.weight ? parseFloat(formData.weight) : undefined,
+        dimensions:
+          formData.dimensions.length && formData.dimensions.width && formData.dimensions.height
+            ? {
+                length: parseFloat(formData.dimensions.length),
+                width: parseFloat(formData.dimensions.width),
+                height: parseFloat(formData.dimensions.height),
+              }
+            : undefined,
+        tags: formData.tags || [],
+        highlights: formData.highlights || [],
+        specifications: formData.specifications || [],
+        images: formData.images || [],
+        isTrending: false, // Reset flags
+        isNewArrival: false,
+        isBestSeller: false,
+      };
+
+      // Create the duplicate product
+      const createResponse = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${(session as any)?.accessToken || ""}`,
+        },
+        body: JSON.stringify(duplicateData),
+      });
+
+      if (!createResponse.ok) throw new Error("Failed to create duplicate");
+
+      const createData = await createResponse.json();
+      if (!createData.success) throw new Error("Failed to create duplicate");
+
+      toast({
+        title: "Success",
+        description: "Product duplicated successfully",
+      });
+
+      // Redirect to edit page for the new product
+      router.push(`/admin/products/${createData.data._id}/edit`);
+    } catch (error) {
+      console.error("Failed to duplicate product:", error);
+      toast({
+        title: "Error",
+        description: "Failed to duplicate product",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDuplicating(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <ProtectedRoute requireAdmin>
@@ -415,10 +500,20 @@ export default function AdminProductEditPage() {
               </Link>
               <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Edit Product</h1>
-                <Button variant="destructive" onClick={handleDelete}>
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Delete
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={duplicateProduct}
+                    disabled={isDuplicating}
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    {isDuplicating ? "Duplicating..." : "Duplicate"}
+                  </Button>
+                  <Button variant="destructive" onClick={handleDelete}>
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete
+                  </Button>
+                </div>
               </div>
             </div>
 

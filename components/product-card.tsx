@@ -98,7 +98,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       )}
 
-      <Link href={`/product/${product.id}`} className="block flex-1 flex flex-col">
+      <Link href={`/product/${product.id}`} className="flex-1 flex flex-col">
         {/* Product Image */}
         <div className="relative aspect-square p-2 sm:p-4">
           <Image
@@ -155,7 +155,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       </Link>
 
       {/* Add to Cart Button */}
-      <div className="px-2 pb-2 sm:px-3 sm:pb-3 mt-auto">
+      <div className="px-2 pb-2 sm:px-3 sm:pb-3">
         <Button
           onClick={handleAddToCart}
           disabled={isAddingToCart}

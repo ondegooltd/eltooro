@@ -219,7 +219,7 @@ export async function POST(request: NextRequest) {
         email: adminSettings.business.email,
         ticketNumber,
         subject: validatedData.subject,
-        priority: validatedData.priority,
+        priority: validatedData.priority.toUpperCase(),
         customerEmail: validatedData.email,
       });
     }

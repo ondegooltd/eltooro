@@ -72,43 +72,46 @@ export async function POST(request: NextRequest) {
 
       // Send notifications via background jobs
       if (user) {
+        const userName = user.name
+          ? `${user.name.first} ${user.name.last}`
+          : order.shipping.firstName || "Customer";
+        
         await addNotificationJob(
           "payment_confirmation",
           {
             email: user.email,
+            name: userName,
             orderNumber: order.orderNumber,
-            amount: order.pricing.total,
+            amount: order.pricing.total.toFixed(2),
             currency: order.pricing.currency,
           },
           user.phone
             ? {
                 phone: user.phone,
+                name: userName,
                 orderNumber: order.orderNumber,
-                amount: order.pricing.total,
+                amount: order.pricing.total.toFixed(2),
                 currency: order.pricing.currency,
-                name: user.name
-                  ? `${user.name.first} ${user.name.last}`
-                  : order.shipping.firstName,
               }
             : undefined
         );
-
+        
         await addNotificationJob(
           "order_confirmation",
           {
             email: user.email,
+            name: userName,
             orderNumber: order.orderNumber,
-            orderTotal: order.pricing.total,
+            orderTotal: order.pricing.total.toFixed(2),
             currency: order.pricing.currency,
+            itemCount: order.items.length,
           },
           user.phone
             ? {
                 phone: user.phone,
+                name: userName,
                 orderNumber: order.orderNumber,
-                name: user.name
-                  ? `${user.name.first} ${user.name.last}`
-                  : order.shipping.firstName,
-                orderTotal: order.pricing.total,
+                orderTotal: order.pricing.total.toFixed(2),
                 currency: order.pricing.currency,
                 itemCount: order.items.length,
               }
