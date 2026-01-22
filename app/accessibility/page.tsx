@@ -3,6 +3,25 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Accessibility, CheckCircle, Mail } from "lucide-react";
 import Link from "next/link";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Accessibility Statement - Eltooro Ghana",
+  description:
+    "Eltooro is committed to making our website accessible to everyone. Learn about our accessibility features, WCAG compliance, and how we ensure an inclusive shopping experience for all users.",
+  keywords: [
+    "Eltooro accessibility",
+    "website accessibility Ghana",
+    "WCAG compliance",
+    "accessible shopping",
+    "inclusive design",
+    "screen reader support",
+    "keyboard navigation",
+    "accessibility features",
+  ],
+  url: "https://www.eltooro.com/accessibility",
+});
 
 const features = [
   "Keyboard navigation support throughout the website",

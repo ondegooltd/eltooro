@@ -120,6 +120,15 @@ export default function AdminNotificationTemplateEditPage() {
   };
 
   const handlePreview = async () => {
+    if (!formData.body || formData.body.trim().length === 0) {
+      toast({
+        title: "Error",
+        description: "Please enter a template body before previewing",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const response = await fetch("/api/admin/notification-templates/preview", {
         method: "POST",
@@ -137,12 +146,14 @@ export default function AdminNotificationTemplateEditPage() {
       const data = await response.json();
       if (data.success) {
         setPreviewData(data.data.rendered);
+      } else {
+        throw new Error(data.message || "Failed to preview template");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Preview failed:", error);
       toast({
         title: "Error",
-        description: "Failed to preview template",
+        description: error.message || "Failed to preview template",
         variant: "destructive",
       });
     }

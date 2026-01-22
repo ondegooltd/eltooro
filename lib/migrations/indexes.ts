@@ -17,6 +17,7 @@ export async function createIndexes(): Promise<void> {
     .createIndex({ phone: 1 }, { unique: true, sparse: true });
   await db.collection("users").createIndex({ createdAt: -1 });
   await db.collection("users").createIndex({ role: 1 });
+  await db.collection("users").createIndex({ lastLogin: -1 }); // For querying recently active users
 
   // Products Collection Indexes
   await db.collection("products").createIndex({ slug: 1 }, { unique: true });

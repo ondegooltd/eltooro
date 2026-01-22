@@ -74,13 +74,14 @@ export async function getSMSTemplate(
 
 /**
  * Render SMS message using template or fallback to default
+ * Now also checks unified NotificationTemplate system for backward compatibility
  */
 export async function renderSMSMessage(
   eventType: SMSEventType,
   context: TemplateContext
 ): Promise<string> {
   try {
-    // Try to get template from database
+    // First, try to get template from old SMS templates collection
     const template = await getSMSTemplate(eventType);
 
     if (template && template.message) {
@@ -103,6 +104,37 @@ export async function renderSMSMessage(
       await trackTemplateUsage(template._id!);
 
       return rendered;
+    }
+
+    // Fallback: Check unified NotificationTemplate system
+    try {
+      const { NotificationTemplate } = await import("@/lib/models");
+      const { renderTemplate } = await import("./template-renderer");
+      
+      const unifiedTemplate = await NotificationTemplate.findOne({
+        channel: "sms",
+        event: eventType,
+        isEnabled: true,
+        locale: context.locale || "en",
+      });
+
+      if (unifiedTemplate && unifiedTemplate.body) {
+        const rendered = renderTemplate(unifiedTemplate.body, context);
+        const validation = validateTemplateLength(rendered);
+        if (!validation.valid) {
+          logger.warn(`SMS template exceeds 160 characters for ${eventType}`, {
+            length: validation.length,
+            exceeds: validation.exceeds,
+            templateId: unifiedTemplate._id?.toString(),
+          });
+          return rendered.substring(0, 160);
+        }
+        return rendered;
+      }
+    } catch (unifiedError) {
+      logger.debug("Could not check unified notification templates", {
+        error: unifiedError instanceof Error ? unifiedError.message : String(unifiedError),
+      });
     }
 
     // Fallback to default template

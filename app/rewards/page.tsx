@@ -4,6 +4,26 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Gift, Star, Trophy, Zap, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Rewards Program - Earn Points & Save | Eltooro Ghana",
+  description:
+    "Join the Eltooro Rewards Program and earn points on every purchase. Redeem points for discounts, exclusive offers, and special rewards. Bronze, Silver, Gold, and Platinum tiers available.",
+  keywords: [
+    "Eltooro rewards",
+    "loyalty program Ghana",
+    "earn points Eltooro",
+    "rewards program Ghana",
+    "customer rewards",
+    "points program",
+    "loyalty points",
+    "Eltooro membership",
+    "rewards tiers",
+  ],
+  url: "https://www.eltooro.com/rewards",
+});
 
 const rewardTiers = [
   { name: "Bronze", minPoints: 0, discount: "5%", color: "bg-amber-700" },

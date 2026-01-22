@@ -16,6 +16,27 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Returns & Refunds Policy - Eltooro Ghana",
+  description:
+    "Easy, hassle-free returns within 60 days of purchase. Free returns with prepaid shipping labels. Quick refunds processed within 4-7 business days. Learn about eligible items, return process, and refund policy at Eltooro.",
+  keywords: [
+    "Eltooro returns",
+    "Eltooro refund policy",
+    "return policy Ghana",
+    "free returns Ghana",
+    "organic products return",
+    "beauty products refund",
+    "return process Eltooro",
+    "refund time Ghana",
+    "return shipping Ghana",
+    "return policy organic store",
+  ],
+  url: "https://www.eltooro.com/returns",
+});
 
 const returnSteps = [
   {

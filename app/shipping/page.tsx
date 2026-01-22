@@ -3,6 +3,27 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Truck, Plane, Clock, Globe, Package, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import { generateMetadata } from "@/lib/seo/metadata"
+import { Metadata } from "next"
+
+export const metadata: Metadata = generateMetadata({
+  title: "Shipping & Delivery - Eltooro Ghana",
+  description:
+    "Fast, reliable shipping to Ghana and worldwide. Free shipping on orders over $40. Standard, Express, and Priority shipping options. Track your order in real-time. Delivery to Accra, Kumasi, Cape Coast, Tamale, and all of Ghana.",
+  keywords: [
+    "Eltooro shipping",
+    "Eltooro delivery Ghana",
+    "free shipping Ghana",
+    "organic products delivery Accra",
+    "beauty products shipping Ghana",
+    "international shipping Ghana",
+    "track order Eltooro",
+    "shipping methods Ghana",
+    "delivery times Ghana",
+    "express shipping Ghana",
+  ],
+  url: "https://www.eltooro.com/shipping",
+})
 
 const shippingMethods = [
   {

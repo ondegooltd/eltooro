@@ -115,6 +115,21 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
+          // Update lastLogin timestamp
+          try {
+            await User.findByIdAndUpdate(
+              user._id,
+              { lastLogin: new Date() },
+              { new: false } // Don't return updated doc, just update
+            );
+          } catch (updateError) {
+            // Log but don't fail login if lastLogin update fails
+            logger.warn("NextAuth: Failed to update lastLogin", {
+              error: updateError instanceof Error ? updateError.message : String(updateError),
+              userId: user._id.toString(),
+            });
+          }
+
           logger.info("NextAuth: User authenticated successfully", {
             userId: user._id.toString(),
             email: user.email,

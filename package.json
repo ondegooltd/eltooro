@@ -14,6 +14,7 @@
     "seed:shipping-methods": "tsx scripts/seed-shipping-methods.ts",
     "seed:notification-templates": "tsx scripts/seed-notification-templates.ts",
     "migrate": "tsx scripts/migrate.ts",
+    "migrate:sms-templates": "tsx scripts/migrate-sms-templates.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"

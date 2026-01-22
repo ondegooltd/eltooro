@@ -199,6 +199,7 @@ const UserSchema = new Schema<IUser>(
 // UserSchema.index({ phone: 1 }, { unique: true, sparse: true });
 UserSchema.index({ createdAt: -1 });
 UserSchema.index({ role: 1 });
+UserSchema.index({ lastLogin: -1 }); // For querying recently active users
 
 export const User =
   mongoose.models.User || mongoose.model<IUser>("User", UserSchema);

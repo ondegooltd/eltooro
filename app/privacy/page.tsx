@@ -1,6 +1,27 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Shield, Lock, Mail, Eye, FileText } from "lucide-react";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Privacy Policy - Eltooro Ghana",
+  description:
+    "Eltooro Privacy Policy. Learn how we collect, use, and protect your personal information. Compliant with Ghana Data Protection Act 2012. Your privacy matters to us. Read our complete privacy policy.",
+  keywords: [
+    "Eltooro privacy policy",
+    "data protection Ghana",
+    "privacy policy Ghana",
+    "Eltooro data protection",
+    "Ghana Data Protection Act",
+    "privacy policy organic store",
+    "customer data protection",
+    "online privacy Ghana",
+    "data security Eltooro",
+    "personal information protection",
+  ],
+  url: "https://www.eltooro.com/privacy",
+});
 
 export default function PrivacyPage() {
   return (

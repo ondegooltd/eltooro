@@ -311,6 +311,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
 
 /**
  * Default SMS templates (fallback if DB template not found or disabled)
+ * These match the old SMS template system for consistency
  */
 const DEFAULT_SMS_TEMPLATES: Record<string, string> = {
   order_confirmation: "Hi {{name}}, your order {{orderNumber}} has been confirmed. Total: {{currency}} {{orderTotal}}. We'll notify you when it ships. Thank you!",
@@ -318,6 +319,15 @@ const DEFAULT_SMS_TEMPLATES: Record<string, string> = {
   order_shipped: "Your order {{orderNumber}} has been shipped!{{#if trackingNumber}} Tracking: {{trackingNumber}}.{{/if}} Track in your account.",
   order_delivered: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Eltooro!",
   otp: "Your Eltooro verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
+  // Additional event types for backward compatibility
+  order_confirmed: "Hi {{name}}, your order {{orderNumber}} ({{currency}} {{orderTotal}}) has been confirmed and is being prepared.",
+  order_processing: "Hi {{name}}, your order {{orderNumber}} is now being processed. Expected delivery: {{estimatedDelivery}}.",
+  order_cancelled: "Hi {{name}}, your order {{orderNumber}} has been cancelled. Refund of {{currency}} {{refundAmount}} will be processed if applicable.",
+  order_refunded: "Hi {{name}}, refund of {{currency}} {{refundAmount}} for order {{orderNumber}} has been processed via {{refundMethod}}.",
+  password_reset: "Hi {{name}}, reset your password: {{resetLink}}. Link expires in {{expiryMinutes}} minutes.",
+  support_ticket_created: "Hi {{name}}, we've received your support request (Ticket: {{ticketNumber}}). We'll respond within 24 hours.",
+  support_ticket_status_update: "Hi {{name}}, your ticket {{ticketNumber}} status has been updated to {{status}}.",
+  support_ticket_response: "Hi {{name}}, you have a new response to ticket {{ticketNumber}}. Check your account for details.",
 };
 
 /**

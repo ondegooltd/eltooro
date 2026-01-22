@@ -12,6 +12,27 @@ import {
   Package,
 } from "lucide-react";
 import Image from "next/image";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "About Eltooro - Organic Beauty & Wellness in Ghana",
+  description:
+    "Learn about Eltooro, Ghana's premier organic beauty and wellness store. Discover our mission, values, and commitment to natural hair care, skin care, beard products, and organic supplements. Quality, transparency, and customer care.",
+  keywords: [
+    "Eltooro Ghana",
+    "about Eltooro",
+    "organic beauty store Ghana",
+    "natural wellness products Ghana",
+    "organic hair care Ghana",
+    "organic skincare Ghana",
+    "herbal beauty shop Accra",
+    "organic supplements Ghana",
+    "Ghanaian organic products",
+    "natural beauty products Ghana",
+  ],
+  url: "https://www.eltooro.com/about",
+});
 
 export default function AboutPage() {
   return (

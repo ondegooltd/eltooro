@@ -177,6 +177,7 @@ export async function sendSMS(options: SMSOptions): Promise<void> {
 
 /**
  * Send order confirmation SMS
+ * Uses unified notification template system
  */
 export async function sendOrderConfirmationSMS(
   phone: string,
@@ -188,25 +189,21 @@ export async function sendOrderConfirmationSMS(
     itemCount?: number;
   }
 ): Promise<void> {
-  const { renderSMSMessage } = await import("./sms-template-service");
-  const { SMSEventType } = await import("./sms-templates");
+  const { sendTemplatedSMS } = await import("./templated-notifications");
 
-  const message = await renderSMSMessage(SMSEventType.ORDER_CONFIRMATION, {
+  await sendTemplatedSMS("order_confirmation", {
+    phone,
     name: context?.name || "Customer",
     orderNumber,
-    orderTotal: context?.orderTotal || 0,
+    orderTotal: (context?.orderTotal || 0).toFixed(2),
     currency: context?.currency || "GHS",
     itemCount: context?.itemCount || 1,
-  });
-
-  await sendSMS({
-    to: phone,
-    message,
   });
 }
 
 /**
  * Send payment confirmation SMS
+ * Uses unified notification template system
  */
 export async function sendPaymentConfirmationSMS(
   phone: string,
@@ -215,24 +212,20 @@ export async function sendPaymentConfirmationSMS(
   currency: string = "GHS",
   context?: { name?: string }
 ): Promise<void> {
-  const { renderSMSMessage } = await import("./sms-template-service");
-  const { SMSEventType } = await import("./sms-templates");
+  const { sendTemplatedSMS } = await import("./templated-notifications");
 
-  const message = await renderSMSMessage(SMSEventType.PAYMENT_CONFIRMATION, {
+  await sendTemplatedSMS("payment_confirmation", {
+    phone,
     name: context?.name || "Customer",
     orderNumber,
     amount: amount.toFixed(2),
     currency,
   });
-
-  await sendSMS({
-    to: phone,
-    message,
-  });
 }
 
 /**
  * Send order shipped SMS
+ * Uses unified notification template system
  */
 export async function sendOrderShippedSMS(
   phone: string,
@@ -240,63 +233,50 @@ export async function sendOrderShippedSMS(
   trackingNumber?: string,
   context?: { name?: string; estimatedDelivery?: string }
 ): Promise<void> {
-  const { renderSMSMessage } = await import("./sms-template-service");
-  const { SMSEventType } = await import("./sms-templates");
+  const { sendTemplatedSMS } = await import("./templated-notifications");
 
-  const message = await renderSMSMessage(SMSEventType.ORDER_SHIPPED, {
+  await sendTemplatedSMS("order_shipped", {
+    phone,
     name: context?.name || "Customer",
     orderNumber,
-    trackingNumber: trackingNumber || "N/A",
+    trackingNumber: trackingNumber || "",
     estimatedDelivery: context?.estimatedDelivery || "",
-  });
-
-  await sendSMS({
-    to: phone,
-    message,
   });
 }
 
 /**
  * Send order delivered SMS
+ * Uses unified notification template system
  */
 export async function sendOrderDeliveredSMS(
   phone: string,
   orderNumber: string,
   context?: { name?: string }
 ): Promise<void> {
-  const { renderSMSMessage } = await import("./sms-template-service");
-  const { SMSEventType } = await import("./sms-templates");
+  const { sendTemplatedSMS } = await import("./templated-notifications");
 
-  const message = await renderSMSMessage(SMSEventType.ORDER_DELIVERED, {
+  await sendTemplatedSMS("order_delivered", {
+    phone,
     name: context?.name || "Customer",
     orderNumber,
-  });
-
-  await sendSMS({
-    to: phone,
-    message,
   });
 }
 
 /**
  * Send OTP SMS
+ * Uses unified notification template system
  */
 export async function sendOTPSMS(
   phone: string,
   otp: string,
   context?: { name?: string; expiryMinutes?: number }
 ): Promise<void> {
-  const { renderSMSMessage } = await import("./sms-template-service");
-  const { SMSEventType } = await import("./sms-templates");
+  const { sendTemplatedSMS } = await import("./templated-notifications");
 
-  const message = await renderSMSMessage(SMSEventType.OTP, {
+  await sendTemplatedSMS("otp", {
+    phone,
     name: context?.name || "Customer",
     otp,
     expiryMinutes: context?.expiryMinutes || 10,
-  });
-
-  await sendSMS({
-    to: phone,
-    message,
   });
 }

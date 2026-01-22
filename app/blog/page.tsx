@@ -6,6 +6,27 @@ import { Input } from "@/components/ui/input";
 import { Search, Calendar, User, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Blog - Health & Wellness Articles | Eltooro Ghana",
+  description:
+    "Read health and wellness articles, beauty tips, and product guides from Eltooro. Learn about organic hair care, natural skincare, supplements, and wellness. Expert advice for your natural beauty journey.",
+  keywords: [
+    "Eltooro blog",
+    "health and wellness blog Ghana",
+    "organic beauty tips",
+    "natural hair care tips",
+    "skincare advice Ghana",
+    "wellness articles",
+    "beauty blog Ghana",
+    "organic products guide",
+    "health tips Ghana",
+    "natural beauty advice",
+  ],
+  url: "https://www.eltooro.com/blog",
+});
 
 const featuredPost = {
   id: 1,

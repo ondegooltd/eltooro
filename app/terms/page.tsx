@@ -12,6 +12,27 @@ import {
   Globe,
   Mail,
 } from "lucide-react";
+import { generateMetadata } from "@/lib/seo/metadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = generateMetadata({
+  title: "Terms of Service - Eltooro Ghana",
+  description:
+    "Eltooro Terms of Service. Read our terms and conditions for using our platform. Product disclaimers, shipping policies, returns policy, payment terms, and user responsibilities. Effective January 2026.",
+  keywords: [
+    "Eltooro terms of service",
+    "terms and conditions Ghana",
+    "Eltooro user agreement",
+    "terms of use Ghana",
+    "online store terms",
+    "product disclaimer",
+    "shipping terms Ghana",
+    "return terms Eltooro",
+    "payment terms Ghana",
+    "user agreement organic store",
+  ],
+  url: "https://www.eltooro.com/terms",
+});
 
 export default function TermsPage() {
   return (

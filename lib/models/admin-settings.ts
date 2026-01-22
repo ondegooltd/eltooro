@@ -42,8 +42,8 @@ export interface IAdminSettingsSettings {
 }
 
 export interface IAdminSettingsPayment {
-  paystackPublicKey: string;
-  paystackSecretKey: string;
+  paystackPublicKey: string; // Can be empty string if not configured
+  paystackSecretKey: string; // Can be empty string if not configured
   testMode: boolean;
   allowedMethods?: string[];
 }
@@ -178,8 +178,8 @@ const SettingsSchema = new Schema<IAdminSettingsSettings>(
 
 const PaymentSchema = new Schema<IAdminSettingsPayment>(
   {
-    paystackPublicKey: { type: String, required: true },
-    paystackSecretKey: { type: String, required: true },
+    paystackPublicKey: { type: String, required: false, default: "" },
+    paystackSecretKey: { type: String, required: false, default: "" },
     testMode: { type: Boolean, default: true },
     allowedMethods: { type: [String] },
   },

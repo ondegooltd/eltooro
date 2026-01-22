@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
       const user = await User.findOne({ email: identifier.toLowerCase() });
       if (user) {
         user.emailVerified = true;
+        user.lastLogin = new Date();
         await user.save();
       }
     } else {
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
       const user = await User.findOne({ phone: normalizedPhone });
       if (user) {
         user.phoneVerified = true;
+        user.lastLogin = new Date();
         await user.save();
       }
     }
