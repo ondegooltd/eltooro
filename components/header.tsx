@@ -117,7 +117,7 @@ export function Header() {
     try {
       setIsSearching(true);
       const response = await fetch(
-        `/api/products/search?q=${encodeURIComponent(query)}&limit=5`
+        `/api/products/search?q=${encodeURIComponent(query)}&limit=5`,
       );
       const data = await response.json();
       if (data.success) {
@@ -145,7 +145,10 @@ export function Header() {
     }
   };
 
-  const handleSearchResultClick = (product: SearchProduct, e?: React.MouseEvent) => {
+  const handleSearchResultClick = (
+    product: SearchProduct,
+    e?: React.MouseEvent,
+  ) => {
     e?.preventDefault();
     e?.stopPropagation();
     setShowSearchResults(false);
@@ -177,10 +180,10 @@ export function Header() {
       <div className="bg-iherb-green text-white text-sm">
         <div className="container mx-auto px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
+            {/* <div className="flex items-center gap-1">
               <MapPin className="h-4 w-4" />
               <span>Ship to Ghana</span>
-            </div>
+            </div> */}
           </div>
           <div className="hidden md:flex items-center gap-4">
             <Link href="/help" className="hover:underline">
@@ -321,7 +324,7 @@ export function Header() {
               <div
                 className={cn(
                   "flex items-center border-2 rounded-full transition-colors",
-                  isSearchFocused ? "border-iherb-green" : "border-border"
+                  isSearchFocused ? "border-iherb-green" : "border-border",
                 )}
               >
                 <Input
@@ -342,7 +345,7 @@ export function Header() {
                     const relatedTarget = e.relatedTarget as HTMLElement;
                     if (
                       searchContainerRef.current?.contains(relatedTarget) ||
-                      relatedTarget?.closest('[data-search-result]')
+                      relatedTarget?.closest("[data-search-result]")
                     ) {
                       return;
                     }
@@ -576,7 +579,7 @@ export function Header() {
             <div
               className={cn(
                 "flex items-center border-2 rounded-full transition-colors",
-                isSearchFocused ? "border-iherb-green" : "border-border"
+                isSearchFocused ? "border-iherb-green" : "border-border",
               )}
             >
               <Input
@@ -597,7 +600,7 @@ export function Header() {
                   const relatedTarget = e.relatedTarget as HTMLElement;
                   if (
                     searchContainerRef.current?.contains(relatedTarget) ||
-                    relatedTarget?.closest('[data-search-result]')
+                    relatedTarget?.closest("[data-search-result]")
                   ) {
                     return;
                   }
