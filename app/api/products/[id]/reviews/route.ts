@@ -33,16 +33,12 @@ export async function GET(
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ValidationError("Invalid product ID format");
-    }
-
     const skip = (page - 1) * limit;
 
     // Support both ObjectId and slug - if not ObjectId, find product by slug first
     let productId = id;
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      const product = await Product.findOne({ slug: id }).lean();
+      const product = await Product.findOne({ slug: id, status: "active" }).lean();
       if (!product) {
         throw new NotFoundError("Product");
       }
@@ -86,23 +82,24 @@ export async function POST(
     const { id } = await params;
     const body = await request.json();
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new ValidationError("Invalid product ID format");
-    }
-
-    // Verify product exists
-    const product = await Product.findById(id);
+    // Support both ObjectId and slug - find product first
+    const isObjectId = mongoose.Types.ObjectId.isValid(id);
+    const productQuery: any = isObjectId ? { _id: id } : { slug: id };
+    const product = await Product.findOne(productQuery);
 
     if (!product) {
       throw new NotFoundError("Product");
     }
+
+    // Use product._id for review creation
+    const productId = product._id.toString();
 
     // Validate input
     const validatedData = reviewSchema.parse(body);
 
     // Create review
     const review = new Review({
-      productId: id,
+      productId: productId,
       userId: session.user.id,
       orderId: validatedData.orderId || undefined,
       rating: validatedData.rating,
@@ -117,7 +114,7 @@ export async function POST(
     await review.save();
 
     // Update product rating
-    const allReviews = await Review.find({ productId: id }).lean();
+    const allReviews = await Review.find({ productId: productId }).lean();
 
     const avgRating =
       allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
