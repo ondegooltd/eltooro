@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, X, Plus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -41,6 +41,7 @@ export default function AdminProductCreatePage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [newImageUrl, setNewImageUrl] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -90,6 +91,24 @@ export default function AdminProductCreatePage() {
       ...formData,
       name,
       slug: generateSlug(name),
+    });
+  };
+
+  const addImage = () => {
+    const url = newImageUrl.trim();
+    if (!url) return;
+    if (formData.images.includes(url)) {
+      setNewImageUrl("");
+      return;
+    }
+    setFormData({ ...formData, images: [...formData.images, url] });
+    setNewImageUrl("");
+  };
+
+  const removeImage = (url: string) => {
+    setFormData({
+      ...formData,
+      images: formData.images.filter((img) => img !== url),
     });
   };
 
@@ -361,6 +380,64 @@ export default function AdminProductCreatePage() {
                           placeholder="e.g. ELT-HAIR-001"
                         />
                       </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Images Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Product Images</CardTitle>
+                      <CardDescription>
+                        Add image URLs (Cloudinary or external URLs)
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Image URL"
+                          value={newImageUrl}
+                          onChange={(e) => setNewImageUrl(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              addImage();
+                            }
+                          }}
+                        />
+                        <Button type="button" onClick={addImage}>
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+
+                      {formData.images.length > 0 && (
+                        <div className="grid grid-cols-2 gap-4">
+                          {formData.images.map((url, index) => (
+                            <div
+                              key={`${url}-${index}`}
+                              className="relative group border rounded-lg overflow-hidden"
+                            >
+                              <img
+                                src={url}
+                                alt={`Product image ${index + 1}`}
+                                className="w-full h-32 object-cover"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src =
+                                    "/placeholder.svg";
+                                }}
+                              />
+                              <Button
+                                type="button"
+                                variant="destructive"
+                                size="sm"
+                                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={() => removeImage(url)}
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </div>
