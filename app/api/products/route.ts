@@ -158,6 +158,7 @@ const createProductSchema = z.object({
   name: z.string().min(1),
   slug: z.string().min(1),
   description: z.string().min(1),
+  shortDescription: z.string().optional(),
   costPrice: z.number().optional(),
   price: z.union([
     z.number(),
@@ -190,6 +191,19 @@ const createProductSchema = z.object({
     })
     .optional(),
   images: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  highlights: z.array(z.string()).optional(),
+  specifications: z
+    .array(
+      z.object({
+        label: z.string().min(1),
+        value: z.string().min(1),
+      })
+    )
+    .optional(),
+  isTrending: z.boolean().optional(),
+  isNewArrival: z.boolean().optional(),
+  isBestSeller: z.boolean().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -223,6 +237,7 @@ export async function POST(request: NextRequest) {
       name: validatedData.name,
       slug: validatedData.slug,
       description: validatedData.description,
+      shortDescription: validatedData.shortDescription,
       costPrice: validatedData.costPrice,
       price:
         typeof validatedData.price === "number"
@@ -249,12 +264,18 @@ export async function POST(request: NextRequest) {
           alt: validatedData.name,
           order: index,
         })) || [],
+      tags: validatedData.tags || [],
+      highlights: validatedData.highlights || [],
+      specifications: validatedData.specifications || [],
       rating: {
         average: 0,
         count: 0,
       },
       views: 0,
       sales: 0,
+      isTrending: validatedData.isTrending || false,
+      isNewArrival: validatedData.isNewArrival || false,
+      isBestSeller: validatedData.isBestSeller || false,
     });
 
     await product.save();

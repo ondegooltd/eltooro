@@ -28,6 +28,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 interface Category {
   _id: string;
@@ -42,11 +43,16 @@ export default function AdminProductCreatePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [newImageUrl, setNewImageUrl] = useState("");
+  const [newTag, setNewTag] = useState("");
+  const [newHighlight, setNewHighlight] = useState("");
+  const [newSpecLabel, setNewSpecLabel] = useState("");
+  const [newSpecValue, setNewSpecValue] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
     description: "",
+    shortDescription: "",
     costPrice: "",
     price: "",
     stock: "",
@@ -61,6 +67,12 @@ export default function AdminProductCreatePage() {
       width: "",
       height: "",
     },
+    tags: [] as string[],
+    highlights: [] as string[],
+    specifications: [] as Array<{ label: string; value: string }>,
+    isTrending: false,
+    isNewArrival: false,
+    isBestSeller: false,
   });
 
   useEffect(() => {
@@ -112,6 +124,61 @@ export default function AdminProductCreatePage() {
     });
   };
 
+  const addTag = () => {
+    const tag = newTag.trim();
+    if (!tag) return;
+    if (formData.tags.includes(tag)) {
+      setNewTag("");
+      return;
+    }
+    setFormData({ ...formData, tags: [...formData.tags, tag] });
+    setNewTag("");
+  };
+
+  const removeTag = (tag: string) => {
+    setFormData({ ...formData, tags: formData.tags.filter((t) => t !== tag) });
+  };
+
+  const addHighlight = () => {
+    const highlight = newHighlight.trim();
+    if (!highlight) return;
+    if (formData.highlights.includes(highlight)) {
+      setNewHighlight("");
+      return;
+    }
+    setFormData({
+      ...formData,
+      highlights: [...formData.highlights, highlight],
+    });
+    setNewHighlight("");
+  };
+
+  const removeHighlight = (highlight: string) => {
+    setFormData({
+      ...formData,
+      highlights: formData.highlights.filter((h) => h !== highlight),
+    });
+  };
+
+  const addSpecification = () => {
+    const label = newSpecLabel.trim();
+    const value = newSpecValue.trim();
+    if (!label || !value) return;
+    setFormData({
+      ...formData,
+      specifications: [...formData.specifications, { label, value }],
+    });
+    setNewSpecLabel("");
+    setNewSpecValue("");
+  };
+
+  const removeSpecification = (index: number) => {
+    setFormData({
+      ...formData,
+      specifications: formData.specifications.filter((_, i) => i !== index),
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -121,6 +188,7 @@ export default function AdminProductCreatePage() {
         name: formData.name,
         slug: formData.slug,
         description: formData.description,
+        shortDescription: formData.shortDescription || undefined,
         costPrice: formData.costPrice
           ? parseFloat(formData.costPrice)
           : undefined,
@@ -143,6 +211,16 @@ export default function AdminProductCreatePage() {
                 height: parseFloat(formData.dimensions.height),
               }
             : undefined,
+        tags: formData.tags.length > 0 ? formData.tags : undefined,
+        highlights:
+          formData.highlights.length > 0 ? formData.highlights : undefined,
+        specifications:
+          formData.specifications.length > 0
+            ? formData.specifications
+            : undefined,
+        isTrending: formData.isTrending,
+        isNewArrival: formData.isNewArrival,
+        isBestSeller: formData.isBestSeller,
       };
 
       // Remove undefined fields to keep payload clean
@@ -248,6 +326,23 @@ export default function AdminProductCreatePage() {
                           required
                         />
                       </div>
+                    <div>
+                      <Label htmlFor="shortDescription" className="mb-2">
+                        Short Description
+                      </Label>
+                      <Textarea
+                        id="shortDescription"
+                        value={formData.shortDescription}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            shortDescription: e.target.value,
+                          })
+                        }
+                        rows={3}
+                        placeholder="Brief product summary..."
+                      />
+                    </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
                           <Label htmlFor="costPrice" className="mb-2">
@@ -440,6 +535,149 @@ export default function AdminProductCreatePage() {
                       )}
                     </CardContent>
                   </Card>
+
+                  {/* Tags Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Tags</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Add tag"
+                          value={newTag}
+                          onChange={(e) => setNewTag(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              addTag();
+                            }
+                          }}
+                        />
+                        <Button type="button" onClick={addTag}>
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      {formData.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {formData.tags.map((tag) => (
+                            <div
+                              key={tag}
+                              className="flex items-center gap-1 bg-muted px-2 py-1 rounded text-sm"
+                            >
+                              {tag}
+                              <button
+                                title="Remove tag"
+                                type="button"
+                                onClick={() => removeTag(tag)}
+                                className="text-muted-foreground hover:text-foreground"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+
+                  {/* Highlights Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Highlights</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Add highlight"
+                          value={newHighlight}
+                          onChange={(e) => setNewHighlight(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              addHighlight();
+                            }
+                          }}
+                        />
+                        <Button type="button" onClick={addHighlight}>
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      {formData.highlights.length > 0 && (
+                        <ul className="space-y-2">
+                          {formData.highlights.map((highlight, index) => (
+                            <li
+                              key={index}
+                              className="flex items-center justify-between bg-muted px-3 py-2 rounded"
+                            >
+                              <span>{highlight}</span>
+                              <button
+                                title="Remove highlight"
+                                type="button"
+                                onClick={() => removeHighlight(highlight)}
+                                className="text-muted-foreground hover:text-foreground ml-2"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </CardContent>
+                  </Card>
+
+                  {/* Specifications Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Specifications</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Input
+                          placeholder="Label"
+                          value={newSpecLabel}
+                          onChange={(e) => setNewSpecLabel(e.target.value)}
+                        />
+                        <Input
+                          placeholder="Value"
+                          value={newSpecValue}
+                          onChange={(e) => setNewSpecValue(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              addSpecification();
+                            }
+                          }}
+                        />
+                      </div>
+                      <Button type="button" onClick={addSpecification}>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Specification
+                      </Button>
+                      {formData.specifications.length > 0 && (
+                        <div className="space-y-2">
+                          {formData.specifications.map((spec, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-between bg-muted px-3 py-2 rounded"
+                            >
+                              <span className="text-sm">
+                                <strong>{spec.label}:</strong> {spec.value}
+                              </span>
+                              <button
+                                title="Remove specification"
+                                type="button"
+                                onClick={() => removeSpecification(index)}
+                                className="text-muted-foreground hover:text-foreground ml-2"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </div>
 
                 <div className="space-y-6">
@@ -467,6 +705,53 @@ export default function AdminProductCreatePage() {
                             <SelectItem value="draft">Draft</SelectItem>
                           </SelectContent>
                         </Select>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Flags</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <Separator />
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="isTrending">Trending Product</Label>
+                          <Switch
+                            id="isTrending"
+                            checked={formData.isTrending}
+                            onCheckedChange={(checked) =>
+                              setFormData({ ...formData, isTrending: checked })
+                            }
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="isNewArrival">New Arrival</Label>
+                          <Switch
+                            id="isNewArrival"
+                            checked={formData.isNewArrival}
+                            onCheckedChange={(checked) =>
+                              setFormData({
+                                ...formData,
+                                isNewArrival: checked,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="isBestSeller">Best Seller</Label>
+                          <Switch
+                            id="isBestSeller"
+                            checked={formData.isBestSeller}
+                            onCheckedChange={(checked) =>
+                              setFormData({
+                                ...formData,
+                                isBestSeller: checked,
+                              })
+                            }
+                          />
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
