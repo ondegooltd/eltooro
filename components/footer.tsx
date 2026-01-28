@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Twitter,
@@ -309,28 +310,25 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <svg viewBox="0 0 120 40" className="h-8 w-auto">
-                <text
-                  x="0"
-                  y="30"
-                  className="fill-white font-bold text-3xl"
-                  style={{ fontFamily: "Arial, sans-serif" }}
-                >
-                  Eltooro
-                </text>
-              </svg>
+              <Image
+                src="/eltoroo.png"
+                alt="Eltooro"
+                width={156}
+                height={52}
+                className="h-[42px] w-auto"
+              />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
-              <Link href="/terms" className="hover:text-white">
+              <Link href="/terms" className="hover:text-white transition-colors">
                 Terms of Use
               </Link>
-              <Link href="/privacy" className="hover:text-white">
+              <Link href="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/accessibility" className="hover:text-white">
+              <Link href="/accessibility" className="hover:text-white transition-colors">
                 Accessibility
               </Link>
-              <span>© 2026 Eltooro, LLC. All Rights Reserved.</span>
+              <span>© {new Date().getFullYear()} Eltooro. All Rights Reserved.</span>
             </div>
           </div>
         </div>

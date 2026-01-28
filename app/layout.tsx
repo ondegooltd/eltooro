@@ -13,21 +13,31 @@ import "./globals.css";
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-export const metadata: Metadata = generateSEOMetadata({
-  title: "Eltooro - Organic Beauty & Wellness Products in Ghana",
-  description:
-    "Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements. Fast delivery across Accra, Winneba, Kumasi, and all of Ghana. Organic hair growth oil, natural skincare, beard care products.",
-  keywords: [
-    "Eltooro Ghana",
-    "organic hair care Ghana",
-    "natural skin care products Ghana",
-    "beard growth oil Ghana",
-    "organic supplements Ghana",
-    "herbal beauty shop Accra",
-    "natural hair products Ghana",
-    "organic skincare Ghana",
-  ],
-});
+export const metadata: Metadata = {
+  ...generateSEOMetadata({
+    title: "Eltooro - Organic Beauty & Wellness Products in Ghana",
+    description:
+      "Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements. Fast delivery across Accra, Winneba, Kumasi, and all of Ghana. Organic hair growth oil, natural skincare, beard care products.",
+    keywords: [
+      "Eltooro Ghana",
+      "organic hair care Ghana",
+      "natural skin care products Ghana",
+      "beard growth oil Ghana",
+      "organic supplements Ghana",
+      "herbal beauty shop Accra",
+      "natural hair products Ghana",
+      "organic skincare Ghana",
+    ],
+  }),
+  icons: {
+    icon: [
+      { url: "/eltoroo.png", type: "image/png" },
+      { url: "/eltoroo.png", type: "image/png", sizes: "32x32" },
+      { url: "/eltoroo.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: [{ url: "/eltoroo.png", type: "image/png" }],
+  },
+};
 
 export default function RootLayout({
   children,

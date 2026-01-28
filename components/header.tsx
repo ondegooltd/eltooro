@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Search,
   User,
@@ -165,10 +166,11 @@ export function Header() {
     // If we're currently on /products with a ?q=... search, removing the query should reload the list
     // (navigate back to /products without q and refresh)
     const currentUrl =
-      typeof window !== "undefined"
-        ? new URL(window.location.href)
-        : undefined;
-    if (currentUrl?.pathname === "/products" && currentUrl.searchParams.has("q")) {
+      typeof window !== "undefined" ? new URL(window.location.href) : undefined;
+    if (
+      currentUrl?.pathname === "/products" &&
+      currentUrl.searchParams.has("q")
+    ) {
       currentUrl.searchParams.delete("q");
       currentUrl.searchParams.delete("page");
       const next = currentUrl.searchParams.toString();
@@ -317,16 +319,14 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <div className="flex items-center">
-              <svg viewBox="0 0 120 40" className="h-10 w-auto">
-                <text
-                  x="0"
-                  y="30"
-                  className="fill-iherb-green font-bold text-3xl"
-                  style={{ fontFamily: "Arial, sans-serif" }}
-                >
-                  Eltooro
-                </text>
-              </svg>
+              <Image
+                src="/eltoroo.png"
+                alt="Eltooro"
+                width={182}
+                height={59}
+                priority
+                className="h-[52px] w-auto"
+              />
             </div>
           </Link>
 
