@@ -4,13 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Facebook,
-  Twitter,
   Instagram,
-  Youtube,
   Mail,
+  Phone,
   Loader2,
   Check,
+  Music,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -255,54 +254,56 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Connect */}
+          {/* Contact Us */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <h4 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">
-              Connect with us
+              Contact Us
             </h4>
-            <div className="flex gap-4 mb-6">
-              <Link
-                href="#"
-                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <Youtube className="h-5 w-5" />
-              </Link>
-            </div>
-            {/* <div>
-              <p className="text-white/70 text-sm mb-2">Download the App</p>
-              <div className="flex gap-2">
-                <Link
-                  href="#"
-                  className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded text-xs transition-colors"
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-start gap-2">
+                <Mail className="h-4 w-4 mt-0.5 shrink-0" />
+                <a
+                  href="mailto:eltooroltd@gmail.com"
+                  className="text-white/70 hover:text-white transition-colors text-sm break-all"
                 >
-                  App Store
+                  eltooroltd@gmail.com
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <Phone className="h-4 w-4 mt-0.5 shrink-0" />
+                <a
+                  href="https://wa.me/233537182367"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors text-sm"
+                >
+                  +233-537-182-367
+                </a>
+              </li>
+            </ul>
+            <div>
+              <h5 className="font-semibold text-sm mb-3">Follow Us</h5>
+              <div className="flex gap-3">
+                <Link
+                  href="https://www.instagram.com/eltooro_gh/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
                 </Link>
                 <Link
-                  href="#"
-                  className="bg-white/10 hover:bg-white/20 px-3 py-2 rounded text-xs transition-colors"
+                  href="https://www.tiktok.com/@eltooro.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                  aria-label="TikTok"
                 >
-                  Google Play
+                  <Music className="h-5 w-5" />
                 </Link>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
 
