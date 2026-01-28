@@ -98,22 +98,38 @@ export default function AdminProductCreatePage() {
     setIsLoading(true);
 
     try {
-      const productData = {
-        ...formData,
+      const productData: any = {
+        name: formData.name,
+        slug: formData.slug,
+        description: formData.description,
         costPrice: formData.costPrice
           ? parseFloat(formData.costPrice)
           : undefined,
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
+        // API expects category as an object: { main, sub? }
+        category: { main: formData.category },
+        brand: formData.brand || undefined,
+        status: formData.status,
+        images: formData.images.length > 0 ? formData.images : undefined,
+        sku: formData.sku || undefined,
         weight: formData.weight ? parseFloat(formData.weight) : undefined,
-        dimensions: formData.dimensions.length
-          ? {
-              length: parseFloat(formData.dimensions.length),
-              width: parseFloat(formData.dimensions.width),
-              height: parseFloat(formData.dimensions.height),
-            }
-          : undefined,
+        dimensions:
+          formData.dimensions.length &&
+          formData.dimensions.width &&
+          formData.dimensions.height
+            ? {
+                length: parseFloat(formData.dimensions.length),
+                width: parseFloat(formData.dimensions.width),
+                height: parseFloat(formData.dimensions.height),
+              }
+            : undefined,
       };
+
+      // Remove undefined fields to keep payload clean
+      Object.keys(productData).forEach((key) => {
+        if (productData[key] === undefined) delete productData[key];
+      });
 
       const response = await fetch("/api/products", {
         method: "POST",
@@ -170,27 +186,35 @@ export default function AdminProductCreatePage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="name">Product Name *</Label>
+                        <Label htmlFor="name" className="mb-2">
+                          Product Name *
+                        </Label>
                         <Input
                           id="name"
                           value={formData.name}
                           onChange={(e) => handleNameChange(e.target.value)}
+                          placeholder="e.g. Organic Hair Booster"
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="slug">Slug *</Label>
+                        <Label htmlFor="slug" className="mb-2">
+                          Slug *
+                        </Label>
                         <Input
                           id="slug"
                           value={formData.slug}
                           onChange={(e) =>
                             setFormData({ ...formData, slug: e.target.value })
                           }
+                          placeholder="e.g. organic-hair-booster"
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="description">Description *</Label>
+                        <Label htmlFor="description" className="mb-2">
+                          Description *
+                        </Label>
                         <Textarea
                           id="description"
                           value={formData.description}
@@ -200,13 +224,16 @@ export default function AdminProductCreatePage() {
                               description: e.target.value,
                             })
                           }
+                          placeholder="Write a detailed product description..."
                           rows={6}
                           required
                         />
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <Label htmlFor="costPrice">Cost Price (GHS)</Label>
+                          <Label htmlFor="costPrice" className="mb-2">
+                            Cost Price (GHS)
+                          </Label>
                           <Input
                             id="costPrice"
                             type="number"
@@ -225,7 +252,9 @@ export default function AdminProductCreatePage() {
                           </p>
                         </div>
                         <div>
-                          <Label htmlFor="price">Selling Price (GHS) *</Label>
+                          <Label htmlFor="price" className="mb-2">
+                            Selling Price (GHS) *
+                          </Label>
                           <Input
                             id="price"
                             type="number"
@@ -237,6 +266,7 @@ export default function AdminProductCreatePage() {
                                 price: e.target.value,
                               })
                             }
+                            placeholder="0.00"
                             required
                           />
                           <p className="text-xs text-muted-foreground mt-1">
@@ -244,7 +274,9 @@ export default function AdminProductCreatePage() {
                           </p>
                         </div>
                         <div>
-                          <Label htmlFor="stock">Stock *</Label>
+                          <Label htmlFor="stock" className="mb-2">
+                            Stock *
+                          </Label>
                           <Input
                             id="stock"
                             type="number"
@@ -255,6 +287,7 @@ export default function AdminProductCreatePage() {
                                 stock: e.target.value,
                               })
                             }
+                            placeholder="e.g. 50"
                             required
                           />
                           {formData.costPrice && formData.price && (
@@ -280,7 +313,9 @@ export default function AdminProductCreatePage() {
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="category">Category *</Label>
+                        <Label htmlFor="category" className="mb-2">
+                          Category *
+                        </Label>
                         <Select
                           value={formData.category}
                           onValueChange={(value) =>
@@ -301,23 +336,29 @@ export default function AdminProductCreatePage() {
                         </Select>
                       </div>
                       <div>
-                        <Label htmlFor="brand">Brand</Label>
+                        <Label htmlFor="brand" className="mb-2">
+                          Brand
+                        </Label>
                         <Input
                           id="brand"
                           value={formData.brand}
                           onChange={(e) =>
                             setFormData({ ...formData, brand: e.target.value })
                           }
+                          placeholder="e.g. Eltooro"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="sku">SKU</Label>
+                        <Label htmlFor="sku" className="mb-2">
+                          SKU
+                        </Label>
                         <Input
                           id="sku"
                           value={formData.sku}
                           onChange={(e) =>
                             setFormData({ ...formData, sku: e.target.value })
                           }
+                          placeholder="e.g. ELT-HAIR-001"
                         />
                       </div>
                     </CardContent>
@@ -331,7 +372,9 @@ export default function AdminProductCreatePage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="status">Status</Label>
+                        <Label htmlFor="status" className="mb-2">
+                          Status
+                        </Label>
                         <Select
                           value={formData.status}
                           onValueChange={(value) =>
@@ -353,11 +396,15 @@ export default function AdminProductCreatePage() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle>Dimensions & Weight</CardTitle>
+                      <CardTitle className="mb-2">
+                        Dimensions & Weight
+                      </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <Label htmlFor="weight">Weight (kg)</Label>
+                        <Label htmlFor="weight" className="mb-2">
+                          Weight (kg)
+                        </Label>
                         <Input
                           id="weight"
                           type="number"
@@ -369,11 +416,14 @@ export default function AdminProductCreatePage() {
                               weight: e.target.value,
                             })
                           }
+                          placeholder="e.g. 0.25"
                         />
                       </div>
                       <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <Label htmlFor="length">Length</Label>
+                          <Label htmlFor="length" className="mb-2">
+                            Length
+                          </Label>
                           <Input
                             id="length"
                             type="number"
@@ -388,10 +438,13 @@ export default function AdminProductCreatePage() {
                                 },
                               })
                             }
+                            placeholder="e.g. 10"
                           />
                         </div>
                         <div>
-                          <Label htmlFor="width">Width</Label>
+                          <Label htmlFor="width" className="mb-2">
+                            Width
+                          </Label>
                           <Input
                             id="width"
                             type="number"
@@ -406,10 +459,13 @@ export default function AdminProductCreatePage() {
                                 },
                               })
                             }
+                            placeholder="e.g. 5"
                           />
                         </div>
                         <div>
-                          <Label htmlFor="height">Height</Label>
+                          <Label htmlFor="height" className="mb-2">
+                            Height
+                          </Label>
                           <Input
                             id="height"
                             type="number"
@@ -424,6 +480,7 @@ export default function AdminProductCreatePage() {
                                 },
                               })
                             }
+                            placeholder="e.g. 3"
                           />
                         </div>
                       </div>
