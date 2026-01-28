@@ -162,6 +162,21 @@ export function Header() {
     setSearchQuery("");
     setSearchResults([]);
     setShowSearchResults(false);
+    // If we're currently on /products with a ?q=... search, removing the query should reload the list
+    // (navigate back to /products without q and refresh)
+    const currentUrl =
+      typeof window !== "undefined"
+        ? new URL(window.location.href)
+        : undefined;
+    if (currentUrl?.pathname === "/products" && currentUrl.searchParams.has("q")) {
+      currentUrl.searchParams.delete("q");
+      currentUrl.searchParams.delete("page");
+      const next = currentUrl.searchParams.toString();
+      router.push(next ? `/products?${next}` : "/products");
+      router.refresh();
+      return;
+    }
+
     searchInputRef.current?.focus();
   };
 

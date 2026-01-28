@@ -43,7 +43,15 @@ function ProductsPageContent() {
       setCategoryName("All Products");
       setIsLoadingCategory(false);
     }
-  }, [category, type]);
+  }, [category, type, searchQuery]);
+
+  const clearSearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("q");
+    params.delete("page"); // reset pagination when clearing search
+    const qs = params.toString();
+    router.push(qs ? `/products?${qs}` : "/products");
+  };
 
   const fetchCategoryName = async (categorySlug: string) => {
     try {
@@ -109,13 +117,24 @@ function ProductsPageContent() {
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             <div className="flex-1 min-w-0">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+              <div className="flex items-start justify-between gap-3">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                 {isLoadingCategory ? (
                   <Skeleton className="h-6 sm:h-8 w-32" />
                 ) : (
                   categoryName
                 )}
-              </h1>
+                </h1>
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={clearSearch}
+                    className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 shrink-0"
+                  >
+                    Clear search
+                  </button>
+                )}
+              </div>
               <ProductListings showCount={true} />
             </div>
             <div className="shrink-0">
