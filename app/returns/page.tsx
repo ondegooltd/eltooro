@@ -3,11 +3,11 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import {
   RotateCcw,
-  CheckCircle,
   XCircle,
-  Clock,
   Package,
-  CreditCard,
+  Mail,
+  Phone,
+  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -20,64 +20,20 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Returns & Refunds Policy - Eltooro Ghana",
+  title: "Returns & Exchange Policy - Eltooro Ghana",
   description:
-    "Easy, hassle-free returns within 60 days of purchase. Free returns with prepaid shipping labels. Quick refunds processed within 4-7 business days. Learn about eligible items, return process, and refund policy at Eltooro.",
+    "Eltooro return and exchange policy. No refunds; exchanges within 7 days for unopened items. Damaged or defective goods reported within 48 hours get a free replacement. Contact us via WhatsApp or email.",
   keywords: [
     "Eltooro returns",
-    "Eltooro refund policy",
-    "return policy Ghana",
-    "free returns Ghana",
-    "organic products return",
-    "beauty products refund",
-    "return process Eltooro",
-    "refund time Ghana",
-    "return shipping Ghana",
-    "return policy organic store",
+    "Eltooro exchange policy",
+    "no refund policy Ghana",
+    "exchange policy Ghana",
+    "damaged goods replacement",
+    "organic products exchange",
+    "Eltooro contact",
   ],
   url: "https://www.eltooro.com/returns",
 });
-
-const returnSteps = [
-  {
-    step: 1,
-    title: "Request Return",
-    description: "Log in and submit a return request from your orders page",
-  },
-  {
-    step: 2,
-    title: "Pack Items",
-    description: "Securely pack products in original packaging if possible",
-  },
-  {
-    step: 3,
-    title: "Ship Back",
-    description: "Use the prepaid label or drop off at designated location",
-  },
-  {
-    step: 4,
-    title: "Get Refund",
-    description: "Refund processed within 4-7 business days after receipt",
-  },
-];
-
-const eligibleItems = [
-  "Unopened supplements and vitamins",
-  "Sealed beauty products",
-  "Unused sports nutrition items",
-  "Unopened grocery products",
-  "Defective or damaged items",
-  "Incorrect items received",
-];
-
-const nonEligibleItems = [
-  "Opened or used products",
-  "Products past expiration date",
-  "Items without original packaging",
-  "Perishable goods (after delivery)",
-  "Gift cards",
-  "Clearance items marked final sale",
-];
 
 export default function ReturnsPage() {
   return (
@@ -89,124 +45,141 @@ export default function ReturnsPage() {
           <div className="container mx-auto px-4 text-center">
             <RotateCcw className="h-16 w-16 mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Returns & Refunds
+              Return & Exchange Policy
             </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Easy, hassle-free returns within 60 days of purchase
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              At Eltooro, we take pride in the quality and organic integrity of
+              our products. Due to the nature of our items (supplements, serums,
+              and personal care), we maintain a strict hygiene and safety
+              protocol.
             </p>
           </div>
         </section>
 
-        {/* Return Policy Summary */}
+        {/* Policy Sections */}
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Our Return Policy</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                We want you to be completely satisfied with your purchase. If
-                you&apos;re not happy with your order, you can return eligible
-                items within{" "}
-                <span className="font-semibold text-foreground">60 days</span>{" "}
-                of delivery for a full refund.
-              </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="p-6 border rounded-lg">
-                  <Clock className="h-8 w-8 text-iherb-green mx-auto mb-3" />
-                  <h3 className="font-semibold mb-1">60-Day Window</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Return items within 60 days of delivery
-                  </p>
-                </div>
-                <div className="p-6 border rounded-lg">
-                  <Package className="h-8 w-8 text-iherb-green mx-auto mb-3" />
-                  <h3 className="font-semibold mb-1">Free Returns</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Prepaid shipping labels provided
-                  </p>
-                </div>
-                <div className="p-6 border rounded-lg">
-                  <CreditCard className="h-8 w-8 text-iherb-green mx-auto mb-3" />
-                  <h3 className="font-semibold mb-1">Quick Refunds</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Processed within 4-7 business days
-                  </p>
-                </div>
+            <div className="max-w-3xl mx-auto space-y-12">
+              {/* 1. No Refund Policy */}
+              <div>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <XCircle className="h-7 w-7 text-red-600" />
+                  1. No Refund Policy
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Please note that all sales are final. We do not offer cash or
+                  credit card refunds for goods purchased. Once a product has
+                  been bought and delivered, it is not returnable.
+                </p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* How to Return */}
-        <section className="py-16 bg-muted">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              How to Return an Item
-            </h2>
-            <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {returnSteps.map((item, index) => (
-                <div key={item.step} className="relative text-center">
-                  <div className="w-12 h-12 bg-iherb-green text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="font-semibold mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {item.description}
-                  </p>
-                  {index < returnSteps.length - 1 && (
-                    <div className="hidden md:block absolute top-6 left-[60%] w-[80%] h-0.5 bg-border" />
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-10">
-              <Link href="/account">
-                <Button className="bg-iherb-green hover:bg-iherb-green-dark">
-                  Start a Return
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+              {/* 2. Exchange Policy */}
+              <div>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <RotateCcw className="h-7 w-7 text-iherb-green" />
+                  2. Exchange Policy
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  While we do not offer refunds, we are happy to facilitate an
+                  exchange if you are not satisfied with your choice. To be
+                  eligible for an exchange:
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  <li>
+                    The item must be unopened, unused, and in its original
+                    packaging with the seal intact.
+                  </li>
+                  <li>
+                    The exchange request must be made within 7 days of purchase.
+                  </li>
+                  <li>
+                    Items can be exchanged for products of equal or higher value
+                    (the customer will pay the price difference).
+                  </li>
+                </ul>
+                <p className="text-muted-foreground mt-4">
+                  <strong>Note:</strong> Shipping costs for exchanges are the
+                  responsibility of the customer.
+                </p>
+              </div>
 
-        {/* Eligible / Non-Eligible */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="border rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <CheckCircle className="h-6 w-6 text-green-600" />
-                  <h3 className="text-xl font-semibold">Eligible for Return</h3>
-                </div>
-                <ul className="space-y-3">
-                  {eligibleItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-muted-foreground"
-                    >
-                      <CheckCircle className="h-4 w-4 text-green-600 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
+              {/* 3. Damaged or Defective Goods */}
+              <div>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <AlertCircle className="h-7 w-7 text-amber-600" />
+                  3. Damaged or Defective Goods
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  We strive for perfection, but we understand that accidents can
+                  happen during transit.
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex gap-2">
+                    <strong className="text-foreground shrink-0">
+                      Report Window:
+                    </strong>
+                    <span>
+                      For customers within Ghana, any damaged or defective goods
+                      must be reported within 48 hours of delivery.
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <strong className="text-foreground shrink-0">
+                      Evidence:
+                    </strong>
+                    <span>
+                      Please provide a photo or video of the damaged item along
+                      with your order number.
+                    </span>
+                  </li>
+                  <li className="flex gap-2">
+                    <strong className="text-foreground shrink-0">
+                      Resolution:
+                    </strong>
+                    <span>
+                      Once verified, we will arrange for a free replacement of
+                      the damaged item. Reports made after the 48-hour window
+                      will unfortunately not be eligible for replacement.
+                    </span>
+                  </li>
                 </ul>
               </div>
-              <div className="border rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <XCircle className="h-6 w-6 text-red-600" />
-                  <h3 className="text-xl font-semibold">
-                    Not Eligible for Return
-                  </h3>
-                </div>
-                <ul className="space-y-3">
-                  {nonEligibleItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-muted-foreground"
+
+              {/* 4. How to Initiate */}
+              <div className="border rounded-xl p-6 bg-muted/50">
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <Package className="h-7 w-7 text-iherb-green" />
+                  4. How to Initiate an Exchange or Report Damage
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  To start the process, please contact our support team via:
+                </p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-iherb-green shrink-0" />
+                    <a
+                      href="https://wa.me/233537182367"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-iherb-green hover:underline"
                     >
-                      <XCircle className="h-4 w-4 text-red-600 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
+                      WhatsApp/Phone: +233-537-182-367
+                    </a>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-iherb-green shrink-0" />
+                    <a
+                      href="mailto:eltooroltd@gmail.com"
+                      className="text-iherb-green hover:underline break-all"
+                    >
+                      Email: eltooroltd@gmail.com
+                    </a>
+                  </li>
                 </ul>
+                <p className="text-muted-foreground mt-4">
+                  <strong>Information needed:</strong> Order Number, Product
+                  Name, and Reason for Exchange/Damage Report.
+                </p>
               </div>
             </div>
           </div>
@@ -215,60 +188,78 @@ export default function ReturnsPage() {
         {/* FAQs */}
         <section className="py-16 bg-muted">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">Return FAQs</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">
+              Frequently Asked Questions
+            </h2>
             <div className="max-w-3xl mx-auto">
               <Accordion type="single" collapsible className="space-y-4">
                 <AccordionItem
-                  value="item-1"
+                  value="faq-1"
                   className="bg-card border rounded-lg px-6"
                 >
                   <AccordionTrigger className="hover:no-underline">
-                    How long do refunds take?
+                    Can I return my facial serum if I&apos;ve already opened it
+                    but don&apos;t like the scent?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Once we receive your return, refunds are processed within
-                    4-7 business days. The refund will be credited to your
-                    original payment method. Bank processing times may vary.
+                    No. For hygiene and safety reasons, we cannot accept returns
+                    or exchanges on any organic products that have been opened
+                    or had their safety seal broken.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem
-                  value="item-2"
+                  value="faq-2"
                   className="bg-card border rounded-lg px-6"
                 >
                   <AccordionTrigger className="hover:no-underline">
-                    Can I exchange an item instead of returning it?
+                    I received my order but realized I bought the wrong hair
+                    oil. Can I swap it?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    We currently don&apos;t offer direct exchanges. Please
-                    return the item for a refund and place a new order for the
-                    item you want.
+                    Yes! As long as the bottle is unopened and the seal is
+                    intact, you can exchange it within 7 days. You will just
+                    need to cover the delivery fee for the swap.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem
-                  value="item-3"
+                  value="faq-3"
                   className="bg-card border rounded-lg px-6"
                 >
                   <AccordionTrigger className="hover:no-underline">
-                    What if my item arrived damaged?
+                    What happens if my Bathing Lotion leaks in the package
+                    during delivery?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    If your item arrived damaged, please contact our customer
-                    service team immediately with photos of the damage.
-                    We&apos;ll arrange a replacement or full refund at no cost
-                    to you.
+                    We&apos;ve got you covered. Please take a photo of the leak
+                    and contact us within 48 hours. We will send you a fresh
+                    bottle at no extra cost to you.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem
-                  value="item-4"
+                  value="faq-4"
                   className="bg-card border rounded-lg px-6"
                 >
                   <AccordionTrigger className="hover:no-underline">
-                    Do I have to pay for return shipping?
+                    Why do I only have 48 hours to report a damaged item?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    For most returns, we provide a prepaid shipping label. For
-                    international returns, shipping costs may vary based on your
-                    location. Check your return request for specific details.
+                    As a local business, we want to resolve issues as quickly as
+                    possible while the delivery details are still fresh with our
+                    couriers. This allows us to investigate and replace your
+                    item promptly.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem
+                  value="faq-5"
+                  className="bg-card border rounded-lg px-6"
+                >
+                  <AccordionTrigger className="hover:no-underline">
+                    Can I exchange a supplement for a skin care product?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, you can exchange any unopened item for another product
+                    in a different category, provided the price is the same or
+                    you pay the difference.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -280,14 +271,16 @@ export default function ReturnsPage() {
         <section className="py-16">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold mb-4">
-              Need Help with a Return?
+              Need to Start an Exchange or Report Damage?
             </h2>
             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Our customer service team is here to help with any questions about
-              returns or refunds.
+              Contact our support team via WhatsApp or email with your order
+              number and details.
             </p>
             <Link href="/contact">
-              <Button variant="outline">Contact Support</Button>
+              <Button className="bg-iherb-green hover:bg-iherb-green-dark">
+                Contact Support
+              </Button>
             </Link>
           </div>
         </section>

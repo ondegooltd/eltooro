@@ -15,10 +15,10 @@ function LoginPageContent() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Redirect if already logged in
+    // Redirect if already logged in: admin → dashboard, others → home
     if (status === "authenticated" && session) {
       const isAdmin = (session.user as any)?.role === "admin";
-      router.push(isAdmin ? "/admin/dashboard" : "/account");
+      router.push(isAdmin ? "/admin/dashboard" : "/");
       return;
     }
 

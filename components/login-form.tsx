@@ -70,11 +70,11 @@ export function LoginForm() {
         });
         const session = await sessionResponse.json();
 
-        // Redirect based on user role
+        // Redirect based on user role: admin → dashboard, others → home
         if (session?.user?.role === "admin") {
           router.push("/admin/dashboard");
         } else {
-          router.push("/account");
+          router.push("/");
         }
 
         // Force a refresh to update the session

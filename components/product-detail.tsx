@@ -337,7 +337,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
               <div>
                 <p className="font-medium text-sm">Free Shipping</p>
                 <p className="text-xs text-muted-foreground">
-                  On orders over GH₵200
+                  On orders over GH₵1,000
                 </p>
               </div>
             </div>
@@ -355,7 +355,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
               <div>
                 <p className="font-medium text-sm">Easy Returns</p>
                 <p className="text-xs text-muted-foreground">
-                  30-day return policy
+                  2 days for Accra, Kumasi, Cape Coast & Takoradi; 3 days for other regions (damaged/faulty items).
                 </p>
               </div>
             </div>
