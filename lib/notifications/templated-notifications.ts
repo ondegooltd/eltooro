@@ -153,6 +153,35 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
       </html>
     `,
   },
+  account_welcome: {
+    subject: "Welcome to Eltooro!",
+    body: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Welcome to Eltooro</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+          <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h1 style="color: #4CAF50;">Welcome, {{name}}!</h1>
+            <p>Thank you for creating an account with Eltooro. We're excited to have you.</p>
+            
+            <p>You can now:</p>
+            <ul>
+              <li>Browse our natural hair growth, wellness, and skincare products</li>
+              <li>Save your favorite items and shipping addresses</li>
+              <li>Track your orders and manage your account</li>
+            </ul>
+            
+            <p>If you have any questions, visit our <a href="{{loginUrl}}">account page</a> or contact us.</p>
+            
+            <p>Best regards,<br>Eltooro Team</p>
+          </div>
+        </body>
+      </html>
+    `,
+  },
   password_reset: {
     subject: "Reset Your Password",
     body: `
@@ -319,6 +348,7 @@ const DEFAULT_SMS_TEMPLATES: Record<string, string> = {
   order_shipped: "Your order {{orderNumber}} has been shipped!{{#if trackingNumber}} Tracking: {{trackingNumber}}.{{/if}} Track in your account.",
   order_delivered: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Eltooro!",
   otp: "Your Eltooro verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
+  account_welcome: "Welcome to Eltooro, {{name}}! Your account is ready. Browse products and track orders at eltooro.com. Thank you!",
   // Additional event types for backward compatibility
   order_confirmed: "Hi {{name}}, your order {{orderNumber}} ({{currency}} {{orderTotal}}) has been confirmed and is being prepared.",
   order_processing: "Hi {{name}}, your order {{orderNumber}} is now being processed. Expected delivery: {{estimatedDelivery}}.",

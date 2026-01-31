@@ -56,9 +56,12 @@ interface Order {
     quantity: number;
     price: number;
   }>;
-  total: number;
+  pricing?: {
+    total: number;
+    currency?: string;
+  };
   status: string;
-  paymentStatus: string;
+  payment?: { status: string };
   shipping: {
     firstName: string;
     lastName: string;
@@ -91,7 +94,7 @@ export default function AdminOrdersPage() {
         ...(statusFilter !== "all" && { status: statusFilter }),
       });
 
-      const response = await fetch(`/api/orders?${params}`, {
+      const response = await fetch(`/api/admin/orders?${params}`, {
         headers: {
           Authorization: `Bearer ${(session as any)?.accessToken || ""}`,
         },
@@ -292,19 +295,22 @@ export default function AdminOrdersPage() {
                               {order.items.length} item
                               {order.items.length !== 1 ? "s" : ""}
                             </TableCell>
-                            <TableCell>GHS {order.total.toFixed(2)}</TableCell>
+                            <TableCell>
+                              {(order.pricing?.currency ?? "GHS")}{" "}
+                              {(order.pricing?.total ?? 0).toFixed(2)}
+                            </TableCell>
                             <TableCell>
                               {getStatusBadge(order.status)}
                             </TableCell>
                             <TableCell>
                               <Badge
                                 variant={
-                                  order.paymentStatus === "paid"
+                                  order.payment?.status === "completed"
                                     ? "default"
                                     : "destructive"
                                 }
                               >
-                                {order.paymentStatus}
+                                {order.payment?.status ?? "—"}
                               </Badge>
                             </TableCell>
                             <TableCell>

@@ -48,13 +48,15 @@ interface Order {
   orderNumber: string;
   userId?: string;
   items: OrderItem[];
-  total: number;
-  subtotal: number;
-  serviceFee: number;
-  deliveryFee: number;
+  pricing?: {
+    subtotal: number;
+    serviceFee: number;
+    deliveryFee: number;
+    total: number;
+    currency?: string;
+  };
   status: string;
-  paymentStatus: string;
-  paymentMethod: string;
+  payment?: { status: string; method: string };
   shipping: {
     firstName: string;
     lastName: string;
@@ -281,16 +283,16 @@ export default function AdminOrderDetailPage() {
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span>Subtotal</span>
-                        <span>GHS {order.subtotal.toFixed(2)}</span>
+                        <span>{(order.pricing?.currency ?? "GHS")} {(order.pricing?.subtotal ?? 0).toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Delivery Fee</span>
-                        <span>GHS {order.deliveryFee.toFixed(2)}</span>
+                        <span>{(order.pricing?.currency ?? "GHS")} {(order.pricing?.deliveryFee ?? 0).toFixed(2)}</span>
                       </div>
                       <Separator />
                       <div className="flex justify-between font-bold text-lg">
                         <span>Total</span>
-                        <span>GHS {order.total.toFixed(2)}</span>
+                        <span>{(order.pricing?.currency ?? "GHS")} {(order.pricing?.total ?? 0).toFixed(2)}</span>
                       </div>
                     </div>
                   </CardContent>
@@ -360,19 +362,19 @@ export default function AdminOrderDetailPage() {
                       </div>
                       <Badge
                         variant={
-                          order.paymentStatus === "paid"
+                          order.payment?.status === "completed"
                             ? "default"
                             : "destructive"
                         }
                       >
-                        {order.paymentStatus}
+                        {order.payment?.status ?? "—"}
                       </Badge>
                     </div>
                     <div>
                       <div className="text-sm text-muted-foreground">
                         Payment Method
                       </div>
-                      <div className="capitalize">{order.paymentMethod}</div>
+                      <div className="capitalize">{order.payment?.method ?? "—"}</div>
                     </div>
                   </CardContent>
                 </Card>

@@ -40,6 +40,8 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   lastLogin?: Date | null;
+  passwordResetToken?: string;
+  passwordResetExpiry?: Date;
 }
 
 const AddressSchema = new Schema<IAddress>(
@@ -186,6 +188,16 @@ const UserSchema = new Schema<IUser>(
     lastLogin: {
       type: Date,
       default: null,
+    },
+    passwordResetToken: {
+      type: String,
+      default: undefined,
+      select: false,
+    },
+    passwordResetExpiry: {
+      type: Date,
+      default: undefined,
+      select: false,
     },
   },
   {

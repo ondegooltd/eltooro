@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
         "POST",
         "/api/auth/password-reset/request",
         200,
-        Date.now() - startTime
+        Date.now() - startTime,
       );
       return successResponse({
         message:
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
     // Send reset email
     const resetLink = `${
-      process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      process.env.NEXT_PUBLIC_APP_URL
     }/reset-password?token=${resetToken}`;
     const userName = user.name
       ? `${user.name.first} ${user.name.last}`
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       "POST",
       "/api/auth/password-reset/request",
       200,
-      Date.now() - startTime
+      Date.now() - startTime,
     );
     return successResponse({
       message:
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       "POST",
       "/api/auth/password-reset/request",
       (error as any).statusCode || 500,
-      Date.now() - startTime
+      Date.now() - startTime,
     );
     return handleApiError(error);
   }

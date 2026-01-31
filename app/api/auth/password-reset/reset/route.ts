@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     const validatedData = resetPasswordSchema.parse(body);
 
-    // Find user with valid reset token
+    // Find user with valid reset token (token fields are select:false but query still matches)
     const user = await User.findOne({
       passwordResetToken: validatedData.token,
       passwordResetExpiry: { $gt: new Date() },
@@ -36,11 +36,11 @@ export async function POST(request: NextRequest) {
     // Hash new password
     const hashedPassword = await bcrypt.hash(validatedData.password, 12);
 
-    // Update password and clear reset token
-    user.password = hashedPassword;
-    (user as any).passwordResetToken = undefined;
-    (user as any).passwordResetExpiry = undefined;
-    await user.save();
+    // Update password and clear reset token in one atomic update
+    await User.findByIdAndUpdate(user._id, {
+      $set: { password: hashedPassword },
+      $unset: { passwordResetToken: 1, passwordResetExpiry: 1 },
+    });
 
     logRequest(
       "POST",

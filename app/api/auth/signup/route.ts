@@ -92,6 +92,35 @@ export async function POST(request: NextRequest) {
 
     await newUser.save();
 
+    // Queue welcome notification (email and/or SMS) — don't block signup on send
+    const userName =
+      `${validatedData.firstName} ${validatedData.lastName}`.trim() || "there";
+    const loginUrl =
+      process.env.NEXTAUTH_URL?.replace(/\/$/, "") || "https://eltooro.com";
+    try {
+      const { addNotificationJob } = await import("@/lib/jobs/queue");
+      const emailData = validatedData.email
+        ? {
+            email: validatedData.email.toLowerCase(),
+            name: userName,
+            loginUrl: `${loginUrl}/login`,
+          }
+        : undefined;
+      const smsData =
+        validatedData.phone && newUser.phone
+          ? { phone: newUser.phone, name: userName }
+          : undefined;
+      if (emailData || smsData) {
+        await addNotificationJob("account_welcome", emailData, smsData);
+      }
+    } catch (notifyError) {
+      logger.error("Failed to queue welcome notification", notifyError as Error, {
+        endpoint: "/api/auth/signup",
+        userId: newUser._id.toString(),
+      });
+      // Don't fail signup if notification queue fails
+    }
+
     logRequest("POST", "/api/auth/signup", 201, Date.now() - startTime);
     return successResponse(
       {
