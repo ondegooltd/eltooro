@@ -165,7 +165,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
                     "relative w-16 h-16 lg:w-20 lg:h-20 rounded-lg border-2 overflow-hidden shrink-0 transition-colors",
                     selectedImage === index
                       ? "border-iherb-green"
-                      : "border-border hover:border-muted-foreground"
+                      : "border-border hover:border-muted-foreground",
                   )}
                 >
                   <Image
@@ -208,7 +208,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
                     "h-5 w-5",
                     isWishlisted
                       ? "fill-red-500 text-red-500"
-                      : "text-muted-foreground"
+                      : "text-muted-foreground",
                   )}
                 />
               </button>
@@ -243,7 +243,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
                     "h-4 w-4",
                     i < Math.floor(product.rating?.average || 0)
                       ? "fill-amber-400 text-amber-400"
-                      : "fill-muted text-muted"
+                      : "fill-muted text-muted",
                   )}
                 />
               ))}
@@ -281,7 +281,7 @@ export function ProductDetail({ productId }: ProductDetailProps) {
                 <Check className="h-5 w-5 text-iherb-green" />
                 <span className="text-iherb-green font-medium">In Stock</span>
                 <span className="text-muted-foreground">
-                  - Ships within 24 hours
+                  - Ships within 1-2 hours
                 </span>
               </>
             ) : (
@@ -325,8 +325,8 @@ export function ProductDetail({ productId }: ProductDetailProps) {
               {isAddingToCart
                 ? "Adding..."
                 : !stock.inStock
-                ? "Out of Stock"
-                : "Add to Cart"}
+                  ? "Out of Stock"
+                  : "Add to Cart"}
             </Button>
           </div>
 
@@ -355,7 +355,8 @@ export function ProductDetail({ productId }: ProductDetailProps) {
               <div>
                 <p className="font-medium text-sm">Easy Returns</p>
                 <p className="text-xs text-muted-foreground">
-                  2 days for Accra, Kumasi, Cape Coast & Takoradi; 3 days for other regions (damaged/faulty items).
+                  2 days for Accra, Kumasi, Cape Coast & Takoradi; 3 days for
+                  other regions (damaged/faulty items).
                 </p>
               </div>
             </div>
