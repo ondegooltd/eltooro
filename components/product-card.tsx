@@ -99,13 +99,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
       )}
 
       <Link href={`/product/${product.id}`} className="flex-1 flex flex-col">
-        {/* Product Image */}
-        <div className="relative aspect-square p-2 sm:p-4">
+        {/* Product Image - fills width and height with no empty space */}
+        <div className="relative aspect-square w-full overflow-hidden rounded-t-lg">
           <Image
             src={product.image || "/placeholder.svg"}
             alt={product.name}
             fill
-            className="object-contain"
+            className="object-cover"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         </div>
 
