@@ -34,14 +34,14 @@ function parseFAQs(adminInfoRecords: any[]): FAQItem[] {
     else if (record.content) {
       // Simple parsing for common FAQ HTML patterns
       const questionMatches = record.content.match(
-        /<h[23][^>]*>(.*?)<\/h[23]>/gi
+        /<h[23][^>]*>(.*?)<\/h[23]>/gi,
       );
       const answerMatches = record.content.match(/<p[^>]*>(.*?)<\/p>/gi);
 
       if (questionMatches && answerMatches) {
         const minLength = Math.min(
           questionMatches.length,
-          answerMatches.length
+          answerMatches.length,
         );
         for (let i = 0; i < minLength; i++) {
           const question = questionMatches[i].replace(/<[^>]*>/g, "").trim();
@@ -156,7 +156,7 @@ export async function GET(request: NextRequest) {
         {
           question: "How do I contact customer support?",
           answer:
-            "You can contact our customer support team via email at Eltoorosupport@gmail.com, through our Contact page, or by submitting a support ticket. We typically respond within 24 hours during business days. For urgent matters, please use our contact form with 'Urgent' in the subject line.",
+            "You can contact our customer support team via email at eltooroltd@gmail.com, through our Contact page, or by submitting a support ticket. We typically respond within 24 hours during business days. For urgent matters, please use our contact form with 'Urgent' in the subject line.",
           category: "support",
         },
       ];
@@ -169,7 +169,7 @@ export async function GET(request: NextRequest) {
       filteredFAQs = faqs.filter(
         (faq) =>
           faq.question.toLowerCase().includes(searchLower) ||
-          faq.answer.toLowerCase().includes(searchLower)
+          faq.answer.toLowerCase().includes(searchLower),
       );
     }
 
@@ -183,7 +183,7 @@ export async function GET(request: NextRequest) {
       "GET",
       "/api/help/faqs",
       (error as any).statusCode || 500,
-      Date.now() - startTime
+      Date.now() - startTime,
     );
     return handleApiError(error);
   }

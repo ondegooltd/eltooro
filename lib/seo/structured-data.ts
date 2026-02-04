@@ -43,7 +43,9 @@ export interface ProductSchema {
     "@type": "Offer";
     price: string;
     priceCurrency: string;
-    availability: "https://schema.org/InStock" | "https://schema.org/OutOfStock";
+    availability:
+      | "https://schema.org/InStock"
+      | "https://schema.org/OutOfStock";
     url?: string;
   };
   aggregateRating?: {
@@ -82,7 +84,7 @@ export interface FAQSchema {
  * Generate Organization structured data
  */
 export function generateOrganizationSchema(
-  options: Partial<OrganizationSchema> = {}
+  options: Partial<OrganizationSchema> = {},
 ): OrganizationSchema {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://eltooro.com";
 
@@ -91,7 +93,7 @@ export function generateOrganizationSchema(
     "@type": "Organization",
     name: "Eltooro",
     url: baseUrl,
-    logo: `${baseUrl}/logo.png`,
+    logo: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
     description:
       "Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements.",
     address: {
@@ -184,7 +186,7 @@ export function generateProductSchema(product: {
  * Generate Breadcrumb structured data
  */
 export function generateBreadcrumbSchema(
-  items: Array<{ name: string; url: string }>
+  items: Array<{ name: string; url: string }>,
 ): BreadcrumbSchema {
   return {
     "@context": "https://schema.org",
@@ -202,7 +204,7 @@ export function generateBreadcrumbSchema(
  * Generate FAQ structured data
  */
 export function generateFAQSchema(
-  faqs: Array<{ question: string; answer: string }>
+  faqs: Array<{ question: string; answer: string }>,
 ): FAQSchema {
   return {
     "@context": "https://schema.org",
@@ -234,7 +236,7 @@ export function generateLocalBusinessSchema(
     phone?: string;
     priceRange?: string;
     openingHours?: string[];
-  } = {}
+  } = {},
 ) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
 
@@ -243,7 +245,8 @@ export function generateLocalBusinessSchema(
     "@type": "LocalBusiness",
     "@id": `${baseUrl}#organization`,
     name: options.name || "Eltooro",
-    image: `${baseUrl}/logo.png`,
+    image:
+      "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
     url: baseUrl,
     telephone: options.phone,
     priceRange: options.priceRange || "$$",

@@ -437,7 +437,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold mb-1">Response Time</h3>
                       <p className="text-muted-foreground">
-                        We typically respond within 24 hours
+                        We typically respond within 30 minutes - 1 hour
                       </p>
                       <p className="text-muted-foreground">
                         during business days.

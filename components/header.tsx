@@ -320,7 +320,7 @@ export function Header() {
           <Link href="/" className="shrink-0">
             <div className="flex items-center">
               <Image
-                src="/eltoroo.png"
+                src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
                 alt="Eltooro"
                 width={182}
                 height={59}

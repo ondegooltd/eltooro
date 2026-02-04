@@ -3,13 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Instagram,
-  Mail,
-  Phone,
-  Loader2,
-  Check,
-} from "lucide-react";
+import { Instagram, Mail, Phone, Loader2, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -321,24 +315,35 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Image
-                src="/eltoroo.png"
+                src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
                 alt="Eltooro"
                 width={156}
                 height={52}
-                className="h-[42px] w-auto"
+                className="h-[72px] w-auto"
               />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link
+                href="/terms"
+                className="hover:text-white transition-colors"
+              >
                 Terms of Use
               </Link>
-              <Link href="/privacy" className="hover:text-white transition-colors">
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link href="/accessibility" className="hover:text-white transition-colors">
+              <Link
+                href="/accessibility"
+                className="hover:text-white transition-colors"
+              >
                 Accessibility
               </Link>
-              <span>© {new Date().getFullYear()} Eltooro. All Rights Reserved.</span>
+              <span>
+                © {new Date().getFullYear()} Eltooro. All Rights Reserved.
+              </span>
             </div>
           </div>
         </div>

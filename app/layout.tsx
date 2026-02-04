@@ -6,7 +6,10 @@ import { CartProvider } from "@/contexts/cart-context";
 import { WishlistProvider } from "@/contexts/wishlist-context";
 import { NextAuthSessionProvider } from "@/components/providers/session-provider";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo/metadata";
-import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/structured-data";
+import {
+  generateOrganizationSchema,
+  generateWebSiteSchema,
+} from "@/lib/seo/structured-data";
 import { StructuredData } from "@/components/seo/structured-data";
 import "./globals.css";
 
@@ -31,11 +34,27 @@ export const metadata: Metadata = {
   }),
   icons: {
     icon: [
-      { url: "/eltoroo.png", type: "image/png" },
-      { url: "/eltoroo.png", type: "image/png", sizes: "32x32" },
-      { url: "/eltoroo.png", type: "image/png", sizes: "16x16" },
+      {
+        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+        type: "image/jpeg",
+      },
+      {
+        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+        type: "image/jpeg",
+        sizes: "32x32",
+      },
+      {
+        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+        type: "image/jpeg",
+        sizes: "16x16",
+      },
     ],
-    apple: [{ url: "/eltoroo.png", type: "image/png" }],
+    apple: [
+      {
+        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+        type: "image/jpeg",
+      },
+    ],
   },
 };
 
