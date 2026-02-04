@@ -318,15 +318,17 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <div className="flex items-center">
-              <Image
-                src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
-                alt="Eltooro"
-                width={182}
-                height={59}
-                priority
-                className="h-[52px] w-auto"
-              />
+            <div className="flex items-center md:mr-4 mr-2 md:w-24 w-16">
+              <div className="absolute">
+                <Image
+                  src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
+                  alt="Eltooro"
+                  width={182}
+                  height={59}
+                  priority
+                  className="md:h-[72px] h-[52px] w-auto relative top-1"
+                />
+              </div>
             </div>
           </Link>
 
