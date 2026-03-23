@@ -421,13 +421,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Headquarters</h3>
-                      <p className="text-muted-foreground">Eltooro, LLC</p>
+                      <p className="text-muted-foreground">Eltooro Ghana</p>
                       <p className="text-muted-foreground">
-                        17400 Laguna Canyon Road
+                        ALX Tech Hub, 4th Floor, One Airport Square,
                       </p>
-                      <p className="text-muted-foreground">
-                        Irvine, CA 92618, USA
-                      </p>
+                      <p className="text-muted-foreground">Accra, Ghana</p>
                     </div>
                   </div>
                   <div className="flex gap-4">

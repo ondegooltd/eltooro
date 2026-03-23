@@ -48,7 +48,7 @@ const shippingRates = [
       {
         name: "Express Shipping",
         time: "1 hour to 2 hours",
-        price: "GH₵23",
+        price: "GH₵25",
       },
     ],
   },
@@ -58,7 +58,7 @@ const shippingRates = [
       {
         name: "Standard Shipping",
         time: "Within 3 hours to 12 hours (during working hours)",
-        price: "GH₵40",
+        price: "GH₵55",
       },
       {
         name: "Express Shipping",
@@ -98,10 +98,7 @@ export default function ShippingPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {shippingRates.map(({ area, options }) => (
-                <div
-                  key={area}
-                  className="border rounded-xl p-6 bg-card"
-                >
+                <div key={area} className="border rounded-xl p-6 bg-card">
                   <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-iherb-green" />
                     {area}
@@ -164,7 +161,9 @@ export default function ShippingPage() {
                 </span>
               </li>
             </ul>
-            <h3 className="text-xl font-semibold mb-4">Local Shipping Options</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Local Shipping Options
+            </h3>
             <ul className="space-y-2 text-muted-foreground max-w-3xl">
               <li className="flex gap-2">
                 <span className="font-medium text-foreground shrink-0">
@@ -213,8 +212,9 @@ export default function ShippingPage() {
                 <Truck className="h-5 w-5 text-iherb-green shrink-0 mt-0.5" />
                 <span>
                   <strong>Standard International Shipping:</strong> Estimated
-                  Delivery Time: 31 days. This timeframe allows for international
-                  logistics and customs clearance in your destination country.
+                  Delivery Time: 31 days. This timeframe allows for
+                  international logistics and customs clearance in your
+                  destination country.
                 </span>
               </li>
               <li className="flex gap-3">
@@ -249,7 +249,9 @@ export default function ShippingPage() {
               For international orders, customers are responsible for any local
               customs duties or taxes that may apply upon arrival.
             </p>
-            <p className="font-semibold mb-3">Have questions about your delivery? Contact our logistics team at:</p>
+            <p className="font-semibold mb-3">
+              Have questions about your delivery? Contact our logistics team at:
+            </p>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-iherb-green shrink-0" />
@@ -318,8 +320,8 @@ export default function ShippingPage() {
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
                     Our courier will call you. If you are unavailable, a second
-                    delivery attempt may be made, or the package will be held
-                    at a local hub for pickup.
+                    delivery attempt may be made, or the package will be held at
+                    a local hub for pickup.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
