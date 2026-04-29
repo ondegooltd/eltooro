@@ -79,7 +79,7 @@ export function TrendingProducts() {
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xs sm:text-sm text-muted-foreground hidden md:block">
-            The biggest gainers in Eltooro.com sales rank over the past 4 hours.
+            The biggest gainers in Toroglo.com sales rank over the past 4 hours.
           </span>
           <Link
             href="/products?type=trending"

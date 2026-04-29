@@ -10,11 +10,11 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Blog - Health & Wellness Articles | Eltooro Ghana",
+  title: "Blog - Health & Wellness Articles | Toroglo Ghana",
   description:
-    "Read health and wellness articles, beauty tips, and product guides from Eltooro. Learn about organic hair care, natural skincare, supplements, and wellness. Expert advice for your natural beauty journey.",
+    "Read health and wellness articles, beauty tips, and product guides from Toroglo. Learn about organic hair care, natural skincare, supplements, and wellness. Expert advice for your natural beauty journey.",
   keywords: [
-    "Eltooro blog",
+    "Toroglo blog",
     "health and wellness blog Ghana",
     "organic beauty tips",
     "natural hair care tips",
@@ -25,7 +25,7 @@ export const metadata: Metadata = generateMetadata({
     "health tips Ghana",
     "natural beauty advice",
   ],
-  url: "https://www.eltooro.com/blog",
+  url: "https://www.toroglo.com/blog",
 });
 
 const featuredPost = {
@@ -127,7 +127,7 @@ export default function BlogPage() {
         <section className="bg-iherb-green text-white py-12">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
-              Eltooro Blog
+              Toroglo Blog
             </h1>
             <p className="text-xl text-white/90 text-center max-w-2xl mx-auto mb-8">
               Your source for health tips, wellness advice, and product insights

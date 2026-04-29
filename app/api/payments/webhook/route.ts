@@ -2,8 +2,9 @@ import { NextRequest } from "next/server";
 import { initModels } from "@/lib/models/helpers";
 import { Order, Product } from "@/lib/models";
 import { successResponse, handleApiError } from "@/lib/api/response";
-import { verifyWebhookSignature, verifyPayment } from "@/lib/payments/paystack";
+import { verifyWebhookSignature } from "@/lib/payments/paystack";
 import { logger } from "@/lib/logger";
+import { finalizePaidOrderByReference } from "@/lib/orders/finalizePaidOrder";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +15,6 @@ export async function POST(request: NextRequest) {
       return new Response("Missing signature", { status: 400 });
     }
 
-    // Verify webhook signature
     const isValid = verifyWebhookSignature(body, signature);
     if (!isValid) {
       return new Response("Invalid signature", { status: 401 });
@@ -23,57 +23,48 @@ export async function POST(request: NextRequest) {
     await initModels();
     const event = body.event;
 
-    // Handle different webhook events
     if (event === "charge.success") {
-      const reference = body.data.reference;
+      const reference = body.data?.reference as string | undefined;
+      if (!reference) {
+        return new Response("Missing reference", { status: 400 });
+      }
 
-      // Verify payment with Paystack
-      const paymentData = await verifyPayment(reference);
-
-      // Find order by reference
-      const order = await Order.findOne({
-        "payment.reference": reference,
-      });
-
-      if (order && paymentData.data.status === "success") {
-        // Update order status
-        order.status = "confirmed";
-        order.payment.status = "completed";
-        order.payment.transactionId = paymentData.data.id;
-        order.payment.paidAt = new Date();
-        order.statusHistory.push({
-          status: "confirmed",
-          timestamp: new Date(),
-          note: "Payment confirmed via webhook",
-        });
-        await order.save();
-
-        // Update product sales count
-        for (const item of order.items) {
-          await Product.findByIdAndUpdate(item.productId, {
-            $inc: { sales: item.quantity },
-          });
-        }
-
-        // TODO: Send confirmation email/SMS
+      try {
+        await finalizePaidOrderByReference(reference, "webhook");
+      } catch (e) {
+        logger.error("Webhook finalize payment failed", e as Error, { reference });
+        return new Response("Processing error", { status: 500 });
       }
     } else if (event === "charge.failed") {
-      const reference = body.data.reference;
+      const reference = body.data?.reference as string | undefined;
+      if (!reference) {
+        return successResponse({ received: true });
+      }
 
       const order = await Order.findOne({
         "payment.reference": reference,
       });
 
-      if (order) {
-        order.payment.status = "failed";
-        await order.save();
+      if (!order) {
+        return successResponse({ received: true });
+      }
 
-        // Release stock
-        for (const item of order.items) {
-          await Product.findByIdAndUpdate(item.productId, {
-            $inc: { "stock.quantity": item.quantity },
-          });
-        }
+      if (order.payment.status === "failed") {
+        return successResponse({ received: true, duplicate: true });
+      }
+
+      if (order.payment.status === "completed") {
+        logger.warn("charge.failed after completed payment — ignoring", { reference });
+        return successResponse({ received: true, ignored: true });
+      }
+
+      order.payment.status = "failed";
+      await order.save();
+
+      for (const item of order.items) {
+        await Product.findByIdAndUpdate(item.productId, {
+          $inc: { "stock.quantity": item.quantity },
+        });
       }
     }
 

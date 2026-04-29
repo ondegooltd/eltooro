@@ -35,7 +35,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Eltooro",
+      title: "Product Not Found | Toroglo",
     };
   }
 
@@ -49,7 +49,7 @@ export async function generateMetadata({
     description:
       product.description ||
       product.shortDescription ||
-      `${product.name} - Organic beauty product from Eltooro. Fast delivery in Ghana.`,
+      `${product.name} - Organic beauty product from Toroglo. Fast delivery in Ghana.`,
     image: mainImage,
     slug: product.slug,
     price,
@@ -74,7 +74,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
   const price =
     typeof product.price === "object" ? product.price.ghs : product.price;
   const images = product.images?.map((img: { url: string }) => img.url) || [];

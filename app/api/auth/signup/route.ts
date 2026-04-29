@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
     const userName =
       `${validatedData.firstName} ${validatedData.lastName}`.trim() || "there";
     const loginUrl =
-      process.env.NEXTAUTH_URL?.replace(/\/$/, "") || "https://eltooro.com";
+      process.env.NEXTAUTH_URL?.replace(/\/$/, "") || "https://www.toroglo.com";
     try {
       const { addNotificationJob } = await import("@/lib/jobs/queue");
       const emailData = validatedData.email

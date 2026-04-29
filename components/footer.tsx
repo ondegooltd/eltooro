@@ -7,10 +7,11 @@ import { Instagram, Mail, Phone, Loader2, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { SITE_LOGO_URL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site";
 
 const footerLinks = {
   company: [
-    { name: "About Eltooro", href: "/about" },
+    { name: "About Toroglo", href: "/about" },
     // { name: "Careers", href: "/careers" },
     // { name: "Press", href: "/press" },
     // { name: "Affiliates", href: "/affiliates" },
@@ -256,21 +257,21 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0" />
                 <a
-                  href="mailto:eltooroltd@gmail.com"
+                  href="mailto:info@toroglo.com"
                   className="text-white/70 hover:text-white transition-colors text-sm break-all"
                 >
-                  eltooroltd@gmail.com
+                  info@toroglo.com
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0" />
                 <a
-                  href="https://wa.me/233537182367"
+                  href={`https://wa.me/${SITE_PHONE_E164.replace(/^\+/, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white transition-colors text-sm"
                 >
-                  +233-537-182-367
+                  {SITE_PHONE_DISPLAY}
                 </a>
               </li>
             </ul>
@@ -278,7 +279,7 @@ export function Footer() {
               <h5 className="font-semibold text-sm mb-3">Follow Us</h5>
               <div className="flex gap-3">
                 <Link
-                  href="https://www.instagram.com/eltooro_gh/"
+                  href="https://www.instagram.com/toroglo_gh/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
@@ -287,7 +288,7 @@ export function Footer() {
                   <Instagram className="h-5 w-5" />
                 </Link>
                 <Link
-                  href="https://www.tiktok.com/@eltooro.com"
+                  href="https://www.tiktok.com/@toroglo.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
@@ -315,8 +316,8 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Image
-                src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
-                alt="Eltooro"
+                src={SITE_LOGO_URL}
+                alt="Toroglo"
                 width={156}
                 height={52}
                 className="h-[72px] w-auto"
@@ -342,7 +343,7 @@ export function Footer() {
                 Accessibility
               </Link>
               <span>
-                © {new Date().getFullYear()} Eltooro. All Rights Reserved.
+                © {new Date().getFullYear()} Toroglo. All Rights Reserved.
               </span>
             </div>
           </div>

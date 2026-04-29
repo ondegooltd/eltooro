@@ -8,21 +8,21 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Rewards Program - Earn Points & Save | Eltooro Ghana",
+  title: "Rewards Program - Earn Points & Save | Toroglo Ghana",
   description:
-    "Join the Eltooro Rewards Program and earn points on every purchase. Redeem points for discounts, exclusive offers, and special rewards. Bronze, Silver, Gold, and Platinum tiers available.",
+    "Join the Toroglo Rewards Program and earn points on every purchase. Redeem points for discounts, exclusive offers, and special rewards. Bronze, Silver, Gold, and Platinum tiers available.",
   keywords: [
-    "Eltooro rewards",
+    "Toroglo rewards",
     "loyalty program Ghana",
-    "earn points Eltooro",
+    "earn points Toroglo",
     "rewards program Ghana",
     "customer rewards",
     "points program",
     "loyalty points",
-    "Eltooro membership",
+    "Toroglo membership",
     "rewards tiers",
   ],
-  url: "https://www.eltooro.com/rewards",
+  url: "https://www.toroglo.com/rewards",
 });
 
 const rewardTiers = [
@@ -81,7 +81,7 @@ export default function RewardsPage() {
           <div className="container mx-auto px-4 text-center">
             <Trophy className="h-16 w-16 mx-auto mb-4" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Eltooro Rewards
+              Toroglo Rewards
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Earn points on every purchase and unlock exclusive benefits

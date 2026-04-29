@@ -37,7 +37,9 @@ export async function POST(request: NextRequest) {
 
     // Upload to Cloudinary
     const { uploadImage } = await import("@/lib/cloudinary");
-    const folder = formData.get("folder")?.toString() || "products";
+    const rawFolder = formData.get("folder")?.toString() || "products";
+    const folder =
+      rawFolder.replace(/[^a-zA-Z0-9/_-]/g, "").slice(0, 64) || "products";
     const result = await uploadImage(buffer, folder);
 
     return successResponse({

@@ -12,6 +12,7 @@ if (!MONGODB_URI) {
  * during API Route usage.
  */
 declare global {
+  // eslint-disable-next-line no-var -- TypeScript global augmentation requires `var`
   var mongooseCache:
     | {
         conn: typeof mongoose | null;
@@ -20,7 +21,7 @@ declare global {
     | undefined;
 }
 
-let cached: {
+const cached: {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
 } = global.mongooseCache ?? { conn: null, promise: null };

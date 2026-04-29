@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -86,15 +87,15 @@ function ProductsPageContent() {
             <nav className="text-sm text-muted-foreground">
               <ol className="flex items-center gap-2">
                 <li>
-                  <a href="/" className="hover:text-iherb-green">
+                  <Link href="/" className="hover:text-iherb-green">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>/</li>
                 <li>
-                  <a href="/products" className="hover:text-iherb-green">
+                  <Link href="/products" className="hover:text-iherb-green">
                     Products
-                  </a>
+                  </Link>
                 </li>
                 {(category !== "all" || type || searchQuery) && (
                   <>

@@ -15,7 +15,7 @@ interface EmailOptions {
  */
 export async function sendEmail(options: EmailOptions): Promise<void> {
   try {
-    const from = options.from || process.env.EMAIL_FROM || "noreply@eltooro.com";
+    const from = options.from || process.env.EMAIL_FROM || "info@toroglo.com";
 
     await resend.emails.send({
       from,
@@ -65,7 +65,7 @@ export async function sendOrderConfirmationEmail(
           
           <p>If you have any questions, please contact our customer service team.</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -109,7 +109,7 @@ export async function sendPaymentConfirmationEmail(
           
           <p>Your order is now being processed and will be shipped soon.</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -154,7 +154,7 @@ export async function sendOrderShippedEmail(
           
           <p>You can track your order status in your account or using the tracking number above.</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -195,7 +195,7 @@ export async function sendOrderDeliveredEmail(
           
           <p>Thank you for shopping with us!</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -232,7 +232,7 @@ export async function sendOTPEmail(email: string, otp: string): Promise<void> {
           
           <p>If you didn't request this code, please ignore this email.</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -276,7 +276,7 @@ export async function sendPasswordResetEmail(
           
           <p>If you didn't request a password reset, please ignore this email.</p>
           
-          <p>Best regards,<br>Eltooro Team</p>
+          <p>Best regards,<br>Toroglo Team</p>
         </div>
       </body>
     </html>
@@ -321,7 +321,7 @@ export async function sendSupportTicketConfirmationEmail(
           
           <p>We typically respond within 24 hours during business days.</p>
           
-          <p>Best regards,<br>Eltooro Support Team</p>
+          <p>Best regards,<br>Toroglo Support Team</p>
         </div>
       </body>
     </html>
@@ -375,7 +375,7 @@ export async function sendSupportTicketStatusUpdateEmail(
           
           <p>You can view your ticket and add responses in your account.</p>
           
-          <p>Best regards,<br>Eltooro Support Team</p>
+          <p>Best regards,<br>Toroglo Support Team</p>
         </div>
       </body>
     </html>
@@ -415,7 +415,7 @@ export async function sendSupportTicketResponseEmail(
             <h2 style="margin-top: 0;">Ticket Details</h2>
             <p><strong>Ticket Number:</strong> ${ticketNumber}</p>
             <p><strong>From:</strong> ${
-              isFromAdmin ? "Eltooro Support Team" : "Customer"
+              isFromAdmin ? "Toroglo Support Team" : "Customer"
             }</p>
           </div>
           
@@ -425,7 +425,7 @@ export async function sendSupportTicketResponseEmail(
           
           <p>You can respond to this ticket by logging into your account or replying to this email.</p>
           
-          <p>Best regards,<br>Eltooro Support Team</p>
+          <p>Best regards,<br>Toroglo Support Team</p>
         </div>
       </body>
     </html>
@@ -470,7 +470,7 @@ export async function sendAdminTicketNotificationEmail(
           
           <p>Please review and respond to this ticket in the admin panel.</p>
           
-          <p>Best regards,<br>Eltooro System</p>
+          <p>Best regards,<br>Toroglo System</p>
         </div>
       </body>
     </html>

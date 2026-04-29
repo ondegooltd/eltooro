@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { initModels } from "@/lib/models/helpers";
 import { Product, Category } from "@/lib/models";
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {

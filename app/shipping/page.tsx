@@ -21,19 +21,19 @@ import {
 } from "@/components/ui/accordion";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Shipping & Delivery - Eltooro Ghana",
+  title: "Shipping & Delivery - Toroglo Ghana",
   description:
-    "Eltooro shipping and delivery. Standard and Express options in Winneba and Accra. Free delivery on orders over GH₵1000. We ship to all 16 regions in Ghana and internationally.",
+    "Toroglo shipping and delivery. Standard and Express options in Winneba and Accra. Free delivery on orders over GH₵1150. We ship to all 16 regions in Ghana and internationally.",
   keywords: [
-    "Eltooro shipping",
-    "Eltooro delivery Ghana",
+    "Toroglo shipping",
+    "Toroglo delivery Ghana",
     "free shipping Ghana",
     "delivery Winneba",
     "delivery Accra",
     "express delivery Ghana",
-    "international shipping Eltooro",
+    "international shipping Toroglo",
   ],
-  url: "https://www.eltooro.com/shipping",
+  url: "https://www.toroglo.com/shipping",
 });
 
 const shippingRates = [
@@ -82,7 +82,7 @@ export default function ShippingPage() {
               Shipping & Delivery
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              At Eltooro, we are committed to getting your organic wellness
+              At Toroglo, we are committed to getting your organic wellness
               essentials to your doorstep as quickly and safely as possible.
               Whether you are in the heart of Accra or across the globe,
               we&apos;ve got you covered.
@@ -196,7 +196,7 @@ export default function ShippingPage() {
               🌍 International Shipping
             </h2>
             <p className="text-muted-foreground mb-6 max-w-3xl">
-              Eltooro is going global! We bring the best of Ghanaian organic
+              Toroglo is going global! We bring the best of Ghanaian organic
               beauty to your doorstep, no matter where you are.
             </p>
             <ul className="space-y-4 max-w-3xl">
@@ -267,10 +267,10 @@ export default function ShippingPage() {
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-iherb-green shrink-0" />
                 <a
-                  href="mailto:eltooroltd@gmail.com"
+                  href="mailto:info@toroglo.com"
                   className="text-iherb-green hover:underline break-all"
                 >
-                  Email: eltooroltd@gmail.com
+                  Email: info@toroglo.com
                 </a>
               </li>
             </ul>

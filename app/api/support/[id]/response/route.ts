@@ -80,7 +80,7 @@ export async function POST(
       // Get admin settings for support email
       const adminSettings = await AdminSettings.findOne({}).lean();
       const supportEmail =
-        adminSettings?.business?.email || "support@eltooro.com";
+        adminSettings?.business?.email || "info@toroglo.com";
 
       // Notify the other party
       const recipientEmail = isAdmin ? ticket.email : supportEmail;

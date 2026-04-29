@@ -176,7 +176,7 @@ export const SMS_TEMPLATE_VARIABLES: Record<SMSEventType, string[]> = {
 export const DEFAULT_SMS_TEMPLATES: Record<SMSEventType, string> = {
   // Order Events
   [SMSEventType.ORDER_CONFIRMATION]:
-    "Hi {{name}}, your order {{orderNumber}} has been confirmed. We'll notify you when it ships. Thank you for shopping with Eltooro!",
+    "Hi {{name}}, your order {{orderNumber}} has been confirmed. We'll notify you when it ships. Thank you for shopping with Toroglo!",
   [SMSEventType.ORDER_CONFIRMED]:
     "Hi {{name}}, your order {{orderNumber}} ({{currency}} {{orderTotal}}) has been confirmed and is being prepared.",
   [SMSEventType.ORDER_PROCESSING]:
@@ -184,7 +184,7 @@ export const DEFAULT_SMS_TEMPLATES: Record<SMSEventType, string> = {
   [SMSEventType.ORDER_SHIPPED]:
     "Your order {{orderNumber}} has been shipped! Tracking: {{trackingNumber}}. Track your order in your account.",
   [SMSEventType.ORDER_DELIVERED]:
-    "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Eltooro!",
+    "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Toroglo!",
   [SMSEventType.ORDER_CANCELLED]:
     "Hi {{name}}, your order {{orderNumber}} has been cancelled. Refund of {{currency}} {{refundAmount}} will be processed if applicable.",
   [SMSEventType.ORDER_REFUNDED]:
@@ -210,7 +210,7 @@ export const DEFAULT_SMS_TEMPLATES: Record<SMSEventType, string> = {
 
   // Account Events
   [SMSEventType.ACCOUNT_WELCOME]:
-    "Welcome to Eltooro, {{name}}! Your {{accountType}} account has been created. Start shopping now!",
+    "Welcome to Toroglo, {{name}}! Your {{accountType}} account has been created. Start shopping now!",
   [SMSEventType.PASSWORD_RESET]:
     "Hi {{name}}, reset your password: {{resetLink}}. Link expires in {{expiryMinutes}} minutes.",
   [SMSEventType.EMAIL_VERIFIED]:
@@ -220,7 +220,7 @@ export const DEFAULT_SMS_TEMPLATES: Record<SMSEventType, string> = {
 
   // OTP & Verification
   [SMSEventType.OTP]:
-    "Your Eltooro verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
+    "Your Toroglo verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
 
   // Support Events
   [SMSEventType.SUPPORT_TICKET_CREATED]:

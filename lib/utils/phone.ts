@@ -7,7 +7,7 @@ export function normalizePhoneNumber(phone: string): string {
     if (phoneNumber.isValid()) {
       return phoneNumber.format("E.164");
     }
-  } catch (error) {
+  } catch {
     // If parsing fails, try to add country code if missing
     if (phone.startsWith("0")) {
       // Local format like 020XXXXXXX or 024XXXXXXX

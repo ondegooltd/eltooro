@@ -1,50 +1,51 @@
-import { MongoClient, Db } from "mongodb";
+/**
+ * Native MongoDB driver access on top of the **same** Mongoose connection pool.
+ * Used by: NextAuth MongoDB adapter, OTP counters, order number sequences, raw DB helpers.
+ * Do not create a second MongoClient here — that avoids split-brain connections.
+ */
+import type { Db, MongoClient } from "mongodb";
+import mongoose from "mongoose";
+import connectDB from "./mongoose";
 
-if (!process.env.MONGODB_URI) {
-  throw new Error("Please add your Mongo URI to .env.local");
-}
-
-const uri: string = process.env.MONGODB_URI || "";
-
-// Extract database name from URI if present
+const uri = process.env.MONGODB_URI || "";
 const dbNameMatch = uri.match(/\/([^/?]+)(\?|$)/);
-export const DATABASE_NAME = dbNameMatch ? dbNameMatch[1] : undefined;
+const databaseName = dbNameMatch ? dbNameMatch[1] : undefined;
 
-const options = {};
-
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
-
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
-  }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-  clientPromise = client.connect();
+declare global {
+  // eslint-disable-next-line no-var -- TypeScript global augmentation requires `var`
+  var _mongoAdapterClientPromise: Promise<MongoClient> | undefined;
 }
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
+function createMongoClientPromise(): Promise<MongoClient> {
+  return (async () => {
+    await connectDB();
+    // Mongoose bundles a compatible driver; cast for NextAuth / getDb typings vs root `mongodb`.
+    return mongoose.connection.getClient() as unknown as MongoClient;
+  })();
+}
+
+let prodAdapterClientPromise: Promise<MongoClient> | null = null;
+
+function getAdapterClientPromise(): Promise<MongoClient> {
+  if (process.env.NODE_ENV === "development") {
+    return (global._mongoAdapterClientPromise ??= createMongoClientPromise());
+  }
+  prodAdapterClientPromise ??= createMongoClientPromise();
+  return prodAdapterClientPromise;
+}
+
+/** Shared MongoClient promise for @next-auth/mongodb-adapter */
+const clientPromise = getAdapterClientPromise();
+
 export default clientPromise;
 
 export async function getDb(): Promise<Db> {
-  const client = await clientPromise;
-
-  // Use the database name from URI if present
-  if (DATABASE_NAME) {
-    return client.db(DATABASE_NAME);
+  await connectDB();
+  const client = mongoose.connection.getClient();
+  const rawDb =
+    databaseName != null ? client.db(databaseName) : mongoose.connection.db;
+  if (!rawDb) {
+    throw new Error("MongoDB database not available");
   }
-
-  // Fallback to default database
-  return client.db();
+  return rawDb as unknown as Db;
 }

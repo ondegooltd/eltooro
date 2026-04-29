@@ -1,12 +1,12 @@
 /**
- * Eltooro SEO Keywords Database
+ * Toroglo SEO Keywords Database
  * Comprehensive keyword list for SEO and AI search engine optimization
  */
 
-export const ELTOORO_KEYWORDS = {
+export const TOROGLO_KEYWORDS = {
   // Core Brand & Category Keywords
   core: [
-    "Eltooro Ghana",
+    "Toroglo Ghana",
     "Organic hair care Ghana",
     "Natural skin care products Ghana",
     "Ghanaian organic supplements",
@@ -117,7 +117,7 @@ export const ELTOORO_KEYWORDS = {
     "Organic skincare price in Ghana",
     "Natural hair products Kumasi",
     "Wholesale organic products Ghana",
-    "Eltooro reviews Ghana",
+    "Toroglo reviews Ghana",
     "Beauty delivery service Accra",
     "Organic cosmetics shop near me",
     "Cash on delivery beauty products Ghana",
@@ -129,7 +129,7 @@ export const ELTOORO_KEYWORDS = {
     "Best organic soap for glowing skin in Ghana",
     "How to grow my hair fast with natural products",
     "Which organic lotion is best for dark skin in Ghana?",
-    "Is Eltooro organic hair oil safe for kids?",
+    "Is Toroglo organic hair oil safe for kids?",
     "Natural remedies for beard growth in Ghana",
     "Price of organic shampoo and conditioner in Ghana",
     "Organic skincare routine for Ghanaian weather",
@@ -170,7 +170,7 @@ export const ELTOORO_KEYWORDS = {
     "#OrganicGhana",
     "#AccraBeauty",
     "#NaturalHairGhana",
-    "#EltooroGlow",
+    "#TorogloGlow",
     "#GhanaMadeBeauty",
     "#OrganicSkincareAccra",
     "#BeardGangGhana",
@@ -184,14 +184,14 @@ export const ELTOORO_KEYWORDS = {
  * Get all keywords as a flat array
  */
 export function getAllKeywords(): string[] {
-  return Object.values(ELTOORO_KEYWORDS).flat();
+  return Object.values(TOROGLO_KEYWORDS).flat();
 }
 
 /**
  * Get keywords for a specific category
  */
-export function getKeywordsByCategory(category: keyof typeof ELTOORO_KEYWORDS): string[] {
-  return ELTOORO_KEYWORDS[category] || [];
+export function getKeywordsByCategory(category: keyof typeof TOROGLO_KEYWORDS): string[] {
+  return TOROGLO_KEYWORDS[category] || [];
 }
 
 /**
@@ -199,11 +199,11 @@ export function getKeywordsByCategory(category: keyof typeof ELTOORO_KEYWORDS): 
  */
 export function getMetaKeywords(): string {
   const relevant = [
-    ...ELTOORO_KEYWORDS.core,
-    ...ELTOORO_KEYWORDS.womensHair.slice(0, 5),
-    ...ELTOORO_KEYWORDS.mensGrooming.slice(0, 5),
-    ...ELTOORO_KEYWORDS.skincare.slice(0, 5),
-    ...ELTOORO_KEYWORDS.local.slice(0, 3),
+    ...TOROGLO_KEYWORDS.core,
+    ...TOROGLO_KEYWORDS.womensHair.slice(0, 5),
+    ...TOROGLO_KEYWORDS.mensGrooming.slice(0, 5),
+    ...TOROGLO_KEYWORDS.skincare.slice(0, 5),
+    ...TOROGLO_KEYWORDS.local.slice(0, 3),
   ];
   return relevant.join(", ");
 }

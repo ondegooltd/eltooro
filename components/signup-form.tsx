@@ -131,7 +131,7 @@ export function SignupForm() {
                 className="fill-iherb-green font-bold text-2xl sm:text-3xl"
                 style={{ fontFamily: "Arial, sans-serif" }}
               >
-                Eltooro
+                Toroglo
               </text>
             </svg>
           </Link>

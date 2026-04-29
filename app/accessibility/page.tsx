@@ -7,11 +7,11 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Accessibility Statement - Eltooro Ghana",
+  title: "Accessibility Statement - Toroglo Ghana",
   description:
-    "Eltooro is committed to making our website accessible to everyone. Learn about our accessibility features, WCAG compliance, and how we ensure an inclusive shopping experience for all users.",
+    "Toroglo is committed to making our website accessible to everyone. Learn about our accessibility features, WCAG compliance, and how we ensure an inclusive shopping experience for all users.",
   keywords: [
-    "Eltooro accessibility",
+    "Toroglo accessibility",
     "website accessibility Ghana",
     "WCAG compliance",
     "accessible shopping",
@@ -20,7 +20,7 @@ export const metadata: Metadata = generateMetadata({
     "keyboard navigation",
     "accessibility features",
   ],
-  url: "https://www.eltooro.com/accessibility",
+  url: "https://www.toroglo.com/accessibility",
 });
 
 const features = [
@@ -46,7 +46,7 @@ export default function AccessibilityPage() {
               Accessibility Statement
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Eltooro is committed to making our website accessible to everyone
+              Toroglo is committed to making our website accessible to everyone
             </p>
           </div>
         </section>
@@ -56,7 +56,7 @@ export default function AccessibilityPage() {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl font-bold mb-6">Our Commitment</h2>
               <p className="text-muted-foreground mb-8">
-                At Eltooro, we believe that everyone deserves equal access to
+                At Toroglo, we believe that everyone deserves equal access to
                 health and wellness products. We are committed to ensuring that
                 our website is accessible to people with disabilities, including
                 those who use assistive technologies such as screen readers,
@@ -114,7 +114,7 @@ export default function AccessibilityPage() {
               <div className="bg-muted p-6 rounded-lg mb-8">
                 <div className="flex items-center gap-3 mb-4">
                   <Mail className="h-5 w-5 text-iherb-green" />
-                  <span className="font-medium">accessibility@Eltooro.com</span>
+                  <span className="font-medium">info@toroglo.com</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Please include the specific page URL and a description of the
@@ -129,8 +129,8 @@ export default function AccessibilityPage() {
               <p className="text-muted-foreground mb-8">
                 If you have difficulty using our website, our customer service
                 team is available to assist you with placing orders or finding
-                information. Please call us at 1-800-Eltooro (44372) or use our
-                live chat feature.
+                information. Please email us at info@toroglo.com or use our
+                contact form and we will be happy to assist you.
               </p>
 
               <div className="text-center">

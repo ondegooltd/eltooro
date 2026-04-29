@@ -4,7 +4,8 @@ import { NextResponse } from "next/server";
 export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
-    const isAdmin = (token as any)?.role === "admin";
+    const role = typeof token?.role === "string" ? token.role : "customer";
+    const isAdmin = role === "admin";
     const pathname = req.nextUrl.pathname;
 
     // Redirect admin users to dashboard if they try to access account page
@@ -44,6 +45,10 @@ export default withAuth(
           "/returns",
           "/help",
           "/blog",
+          "/accessibility",
+          "/rewards",
+          "/track-order",
+          "/auto-delivery",
         ];
 
         // Check if route is public

@@ -20,6 +20,7 @@ import {
   Loader2,
   X,
 } from "lucide-react";
+import { SITE_LOGO_URL } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -321,8 +322,8 @@ export function Header() {
             <div className="flex items-center md:mr-4 mr-2 md:w-24 w-16">
               <div className="absolute">
                 <Image
-                  src="https://res.cloudinary.com/duznylrc6/image/upload/v1770183821/logo8-removebg-preview_igfaro.png"
-                  alt="Eltooro"
+                  src={SITE_LOGO_URL}
+                  alt="Toroglo"
                   width={182}
                   height={59}
                   priority

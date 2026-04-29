@@ -9,6 +9,17 @@ import {
 } from "@/lib/auth/otp";
 
 describe("OTP System", () => {
+  it("should generate a 6-digit OTP", () => {
+    const otp = generateOTP();
+    expect(otp).toMatch(/^\d{6}$/);
+    expect(otp.length).toBe(6);
+  });
+});
+
+const runPersistence = process.env.RUN_DB_TESTS === "1";
+const persist = runPersistence ? describe : describe.skip;
+
+persist("OTP persistence (set RUN_DB_TESTS=1 and start MongoDB)", () => {
   let client: MongoClient;
 
   beforeAll(async () => {
@@ -19,12 +30,6 @@ describe("OTP System", () => {
 
   afterAll(async () => {
     await client.close();
-  });
-
-  it("should generate a 6-digit OTP", () => {
-    const otp = generateOTP();
-    expect(otp).toMatch(/^\d{6}$/);
-    expect(otp.length).toBe(6);
   });
 
   it("should store and verify OTP", async () => {

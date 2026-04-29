@@ -37,6 +37,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { SITE_PHONE_DISPLAY } from "@/lib/site";
 
 export default function AccountPage() {
   const { data: session } = useSession();
@@ -568,7 +569,7 @@ export default function AccountPage() {
                                   phone: e.target.value,
                                 })
                               }
-                              placeholder="+233XXXXXXXXX"
+                              placeholder={SITE_PHONE_DISPLAY}
                             />
                           </div>
                         </div>

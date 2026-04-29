@@ -11,6 +11,7 @@ import {
   generateWebSiteSchema,
 } from "@/lib/seo/structured-data";
 import { StructuredData } from "@/components/seo/structured-data";
+import { SITE_FAVICON_URL } from "@/lib/site";
 import "./globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -18,11 +19,11 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   ...generateSEOMetadata({
-    title: "Eltooro - Organic Beauty & Wellness Products in Ghana",
+    title: "Toroglo - Organic Beauty & Wellness Products in Ghana",
     description:
       "Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements. Fast delivery across Accra, Winneba, Kumasi, and all of Ghana. Organic hair growth oil, natural skincare, beard care products.",
     keywords: [
-      "Eltooro Ghana",
+      "Toroglo Ghana",
       "organic hair care Ghana",
       "natural skin care products Ghana",
       "beard growth oil Ghana",
@@ -34,27 +35,11 @@ export const metadata: Metadata = {
   }),
   icons: {
     icon: [
-      {
-        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
-        type: "image/jpeg",
-      },
-      {
-        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
-        type: "image/jpeg",
-        sizes: "32x32",
-      },
-      {
-        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
-        type: "image/jpeg",
-        sizes: "16x16",
-      },
+      { url: SITE_FAVICON_URL, type: "image/png" },
+      { url: SITE_FAVICON_URL, type: "image/png", sizes: "32x32" },
+      { url: SITE_FAVICON_URL, type: "image/png", sizes: "16x16" },
     ],
-    apple: [
-      {
-        url: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
-        type: "image/jpeg",
-      },
-    ],
+    apple: [{ url: SITE_FAVICON_URL, type: "image/png" }],
   },
 };
 

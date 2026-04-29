@@ -174,7 +174,7 @@ export async function PUT(request: NextRequest) {
     const validatedData = adminSettingsSchema.parse(body);
 
     // Ensure only one document exists
-    let settings = await AdminSettings.findOne({});
+    const settings = await AdminSettings.findOne({});
 
     if (!settings) {
       // If no settings exist, we need all required fields

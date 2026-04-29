@@ -39,17 +39,17 @@ export function CartContent() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [removingItems, setRemovingItems] = useState<Set<string>>(new Set());
   const [updatingQuantities, setUpdatingQuantities] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
 
   useEffect(() => {
     setSelectedItems(items.map((item) => item.productId || item.id));
   }, [items]);
 
-  const shippingThreshold = 1000;
+  const shippingThreshold = 1150;
   const freeShippingProgress = Math.min(
     (subtotal / shippingThreshold) * 100,
-    100
+    100,
   );
   const amountToFreeShipping = Math.max(shippingThreshold - subtotal, 0);
 
@@ -65,7 +65,7 @@ export function CartContent() {
 
   const toggleSelectItem = (id: string) => {
     setSelectedItems((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
@@ -227,7 +227,7 @@ export function CartContent() {
                 key={item.id}
                 className={cn(
                   "bg-white rounded-lg border border-border p-4 transition-all duration-300",
-                  isRemoving && "opacity-50 pointer-events-none"
+                  isRemoving && "opacity-50 pointer-events-none",
                 )}
               >
                 {isRemoving ? (
@@ -349,7 +349,7 @@ export function CartContent() {
                               <div className="text-xs sm:text-sm text-muted-foreground line-through">
                                 GH₵
                                 {(item.originalPrice * item.quantity).toFixed(
-                                  2
+                                  2,
                                 )}
                               </div>
                             )}
@@ -412,7 +412,7 @@ export function CartContent() {
                   disabled={promoApplied || !promoCode}
                   className={cn(
                     promoApplied &&
-                      "bg-iherb-green/10 text-iherb-green border-iherb-green"
+                      "bg-iherb-green/10 text-iherb-green border-iherb-green",
                   )}
                 >
                   {promoApplied ? "Applied" : "Apply"}
@@ -457,7 +457,7 @@ export function CartContent() {
                 <span
                   className={cn(
                     "font-medium",
-                    shippingCost === 0 && "text-iherb-green"
+                    shippingCost === 0 && "text-iherb-green",
                   )}
                 >
                   {shippingCost === 0

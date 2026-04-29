@@ -32,7 +32,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>If you have any questions, please contact our customer service team.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -60,7 +60,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>Your order is now being processed and will be shipped soon.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -90,7 +90,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>You can track your order status in your account or using the tracking number above.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -119,7 +119,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>Thank you for shopping with us!</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -147,25 +147,25 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>If you didn't request this code, please ignore this email.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
     `,
   },
   account_welcome: {
-    subject: "Welcome to Eltooro!",
+    subject: "Welcome to Toroglo!",
     body: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Welcome to Eltooro</title>
+          <title>Welcome to Toroglo</title>
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
           <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #4CAF50;">Welcome, {{name}}!</h1>
-            <p>Thank you for creating an account with Eltooro. We're excited to have you.</p>
+            <p>Thank you for creating an account with Toroglo. We're excited to have you.</p>
             
             <p>You can now:</p>
             <ul>
@@ -176,7 +176,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>If you have any questions, visit our <a href="{{loginUrl}}">account page</a> or contact us.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -207,7 +207,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>If you didn't request a password reset, please ignore this email.</p>
             
-            <p>Best regards,<br>Eltooro Team</p>
+            <p>Best regards,<br>Toroglo Team</p>
           </div>
         </body>
       </html>
@@ -238,7 +238,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>We typically respond within 24 hours during business days.</p>
             
-            <p>Best regards,<br>Eltooro Support Team</p>
+            <p>Best regards,<br>Toroglo Support Team</p>
           </div>
         </body>
       </html>
@@ -267,7 +267,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>You can view your ticket and add responses in your account.</p>
             
-            <p>Best regards,<br>Eltooro Support Team</p>
+            <p>Best regards,<br>Toroglo Support Team</p>
           </div>
         </body>
       </html>
@@ -291,7 +291,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
               <h2 style="margin-top: 0;">Ticket Details</h2>
               <p><strong>Ticket Number:</strong> {{ticketNumber}}</p>
-              <p><strong>From:</strong> {{#if isFromAdmin}}Eltooro Support Team{{else}}Customer{{/if}}</p>
+              <p><strong>From:</strong> {{#if isFromAdmin}}Toroglo Support Team{{else}}Customer{{/if}}</p>
             </div>
             
             <div style="background-color: #fff; padding: 15px; border-left: 4px solid #2196F3; margin: 20px 0;">
@@ -300,7 +300,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>You can respond to this ticket by logging into your account or replying to this email.</p>
             
-            <p>Best regards,<br>Eltooro Support Team</p>
+            <p>Best regards,<br>Toroglo Support Team</p>
           </div>
         </body>
       </html>
@@ -330,7 +330,7 @@ const DEFAULT_EMAIL_TEMPLATES: Record<string, { subject: string; body: string }>
             
             <p>Please review and respond to this ticket in the admin panel.</p>
             
-            <p>Best regards,<br>Eltooro System</p>
+            <p>Best regards,<br>Toroglo System</p>
           </div>
         </body>
       </html>
@@ -346,9 +346,9 @@ const DEFAULT_SMS_TEMPLATES: Record<string, string> = {
   order_confirmation: "Hi {{name}}, your order {{orderNumber}} has been confirmed. Total: {{currency}} {{orderTotal}}. We'll notify you when it ships. Thank you!",
   payment_confirmation: "Payment confirmed for order {{orderNumber}}. Amount: {{currency}} {{amount}}. Your order is being processed.",
   order_shipped: "Your order {{orderNumber}} has been shipped!{{#if trackingNumber}} Tracking: {{trackingNumber}}.{{/if}} Track in your account.",
-  order_delivered: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Eltooro!",
-  otp: "Your Eltooro verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
-  account_welcome: "Welcome to Eltooro, {{name}}! Your account is ready. Browse products and track orders at eltooro.com. Thank you!",
+  order_delivered: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Toroglo!",
+  otp: "Your Toroglo verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
+  account_welcome: "Welcome to Toroglo, {{name}}! Your account is ready. Browse products and track orders at toroglo.com. Thank you!",
   // Additional event types for backward compatibility
   order_confirmed: "Hi {{name}}, your order {{orderNumber}} ({{currency}} {{orderTotal}}) has been confirmed and is being prepared.",
   order_processing: "Hi {{name}}, your order {{orderNumber}} is now being processed. Expected delivery: {{estimatedDelivery}}.",

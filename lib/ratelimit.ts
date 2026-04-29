@@ -1,3 +1,7 @@
+/**
+ * Rate limiting: Upstash Redis when `UPSTASH_REDIS_REST_*` are set; otherwise an
+ * in-process fallback (OK for single instance — not shared across servers).
+ */
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 

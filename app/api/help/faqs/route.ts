@@ -120,7 +120,7 @@ export async function GET(request: NextRequest) {
         {
           question: "What is your return policy?",
           answer:
-            "Eltooro accepts returns on unused and unopened items within 7 days of delivery. Products must be in original packaging with all tags and labels attached. No refunds are issued—returns result in store credit or replacement products. Visit our Returns page for full details.",
+            "Toroglo accepts returns on unused and unopened items within 7 days of delivery. Products must be in original packaging with all tags and labels attached. No refunds are issued—returns result in store credit or replacement products. Visit our Returns page for full details.",
           category: "returns",
         },
         {
@@ -132,7 +132,7 @@ export async function GET(request: NextRequest) {
         {
           question: "Are your products authentic?",
           answer:
-            "Yes, all products sold on Eltooro are 100% authentic. We source directly from trusted manufacturers and authorized distributors. Our products are carefully selected and verified for quality and authenticity before being offered to customers.",
+            "Yes, all products sold on Toroglo are 100% authentic. We source directly from trusted manufacturers and authorized distributors. Our products are carefully selected and verified for quality and authenticity before being offered to customers.",
           category: "products",
         },
         {
@@ -150,13 +150,13 @@ export async function GET(request: NextRequest) {
         {
           question: "Do you ship internationally?",
           answer:
-            "Yes, Eltooro ships internationally. However, delivery times, shipping costs, and available products may vary by country. International customers are responsible for ensuring products comply with their country's import regulations and for paying any applicable customs duties or taxes.",
+            "Yes, Toroglo ships internationally. However, delivery times, shipping costs, and available products may vary by country. International customers are responsible for ensuring products comply with their country's import regulations and for paying any applicable customs duties or taxes.",
           category: "shipping",
         },
         {
           question: "How do I contact customer support?",
           answer:
-            "You can contact our customer support team via email at eltooroltd@gmail.com, through our Contact page, or by submitting a support ticket. We typically respond within 24 hours during business days. For urgent matters, please use our contact form with 'Urgent' in the subject line.",
+            "You can contact our customer support team via email at info@toroglo.com, through our Contact page, or by submitting a support ticket. We typically respond within 24 hours during business days. For urgent matters, please use our contact form with 'Urgent' in the subject line.",
           category: "support",
         },
       ];

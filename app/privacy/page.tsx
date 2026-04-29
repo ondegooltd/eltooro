@@ -5,22 +5,22 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Privacy Policy - Eltooro Ghana",
+  title: "Privacy Policy - Toroglo Ghana",
   description:
-    "Eltooro Privacy Policy. Learn how we collect, use, and protect your personal information. Compliant with Ghana Data Protection Act 2012. Your privacy matters to us. Read our complete privacy policy.",
+    "Toroglo Privacy Policy. Learn how we collect, use, and protect your personal information. Compliant with Ghana Data Protection Act 2012. Your privacy matters to us. Read our complete privacy policy.",
   keywords: [
-    "Eltooro privacy policy",
+    "Toroglo privacy policy",
     "data protection Ghana",
     "privacy policy Ghana",
-    "Eltooro data protection",
+    "Toroglo data protection",
     "Ghana Data Protection Act",
     "privacy policy organic store",
     "customer data protection",
     "online privacy Ghana",
-    "data security Eltooro",
+    "data security Toroglo",
     "personal information protection",
   ],
-  url: "https://www.eltooro.com/privacy",
+  url: "https://www.toroglo.com/privacy",
 });
 
 export default function PrivacyPage() {
@@ -42,14 +42,14 @@ export default function PrivacyPage() {
               {/* Introduction */}
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Your privacy matters to us. Eltooro collects and uses personal
+                  Your privacy matters to us. Toroglo collects and uses personal
                   information only to provide a safe, reliable, and smooth
                   shopping experience. This Privacy Policy explains how we
                   collect, use, protect, and handle your personal information
                   when you use our platform.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  By using Eltooro, you agree to the collection and use of
+                  By using Toroglo, you agree to the collection and use of
                   information in accordance with this policy. We are committed
                   to protecting your privacy and ensuring the security of your
                   personal data.
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
                     </ul>
                     <p className="text-sm text-muted-foreground mt-2 italic">
                       Note: Payments are processed securely by third-party
-                      payment providers. Eltooro does not store your complete
+                      payment providers. Toroglo does not store your complete
                       payment card information on our servers.
                     </p>
                   </div>
@@ -235,7 +235,7 @@ export default function PrivacyPage() {
                       We Do Not Sell Your Information
                     </h3>
                     <p className="text-muted-foreground">
-                      Eltooro does not sell, rent, or trade your personal
+                      Toroglo does not sell, rent, or trade your personal
                       information to third parties for their marketing purposes.
                       We may share information only with trusted service
                       providers who assist us in operating our platform,
@@ -327,10 +327,10 @@ export default function PrivacyPage() {
                       </strong>{" "}
                       Contact us at{" "}
                       <a
-                        href="mailto:eltooroltd@gmail.com"
+                        href="mailto:info@toroglo.com"
                         className="text-iherb-green hover:underline font-medium"
                       >
-                        eltooroltd@gmail.com
+                        info@toroglo.com
                       </a>{" "}
                       with your request. We will respond within a reasonable
                       time frame and may require verification of your identity
@@ -469,10 +469,10 @@ export default function PrivacyPage() {
                   <p className="text-muted-foreground">
                     <strong className="text-foreground">Email:</strong>{" "}
                     <a
-                      href="mailto:eltooroltd@gmail.com"
+                      href="mailto:info@toroglo.com"
                       className="text-iherb-green hover:underline"
                     >
-                      eltooroltd@gmail.com
+                      info@toroglo.com
                     </a>
                   </p>
                   <p className="text-muted-foreground">

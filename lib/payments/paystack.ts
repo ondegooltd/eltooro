@@ -1,7 +1,7 @@
 import axios from "axios";
+import { createHmac } from "crypto";
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
-const PAYSTACK_PUBLIC_KEY = process.env.PAYSTACK_PUBLIC_KEY;
 
 export interface InitializePaymentData {
   email: string;
@@ -71,9 +71,7 @@ export function verifyWebhookSignature(
     return false;
   }
 
-  const crypto = require("crypto");
-  const hash = crypto
-    .createHmac("sha512", PAYSTACK_SECRET_KEY)
+  const hash = createHmac("sha512", PAYSTACK_SECRET_KEY)
     .update(typeof payload === "string" ? payload : JSON.stringify(payload))
     .digest("hex");
 

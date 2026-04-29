@@ -10,11 +10,11 @@ import { generateLocalBusinessSchema } from "@/lib/seo/structured-data"
 import { StructuredData } from "@/components/seo/structured-data"
 
 export const metadata = generateMetadata({
-  title: "Eltooro - Organic Beauty & Wellness Products in Ghana",
+  title: "Toroglo - Organic Beauty & Wellness Products in Ghana",
   description:
     "Shop organic hair care, natural skin care, beard products, and wellness supplements in Ghana. Fast delivery to Accra, Winneba, Kumasi, Cape Coast, Tamale, and Takoradi. Hair growth oil, organic skincare, beard care, and more.",
   keywords: [
-    "Eltooro Ghana",
+    "Toroglo Ghana",
     "organic hair care Ghana",
     "natural skin care products Ghana",
     "beard growth oil Ghana",
@@ -29,7 +29,7 @@ export const metadata = generateMetadata({
 
 export default function Home() {
   const localBusinessSchema = generateLocalBusinessSchema({
-    name: "Eltooro",
+    name: "Toroglo",
     address: {
       city: "Accra",
       region: "Greater Accra",

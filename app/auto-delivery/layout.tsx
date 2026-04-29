@@ -2,11 +2,11 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Auto-Delivery - Subscribe & Save | Eltooro Ghana",
+  title: "Auto-Delivery - Subscribe & Save | Toroglo Ghana",
   description:
     "Set up auto-delivery for your favorite organic products and save. Never run out of your essentials. Manage subscriptions, skip deliveries, or cancel anytime. Convenient, flexible, and cost-effective.",
   keywords: [
-    "Eltooro auto-delivery",
+    "Toroglo auto-delivery",
     "subscribe and save",
     "auto-delivery Ghana",
     "product subscriptions",
@@ -15,7 +15,7 @@ export const metadata: Metadata = generateMetadata({
     "auto-reorder",
     "save on subscriptions",
   ],
-  url: "https://www.eltooro.com/auto-delivery",
+  url: "https://www.toroglo.com/auto-delivery",
 });
 
 export default function AutoDeliveryLayout({

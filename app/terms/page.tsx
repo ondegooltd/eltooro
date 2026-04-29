@@ -16,22 +16,22 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Terms of Service - Eltooro Ghana",
+  title: "Terms of Service - Toroglo Ghana",
   description:
-    "Eltooro Terms of Service. Read our terms and conditions for using our platform. Product disclaimers, shipping policies, returns policy, payment terms, and user responsibilities. Effective January 2026.",
+    "Toroglo Terms of Service. Read our terms and conditions for using our platform. Product disclaimers, shipping policies, returns policy, payment terms, and user responsibilities. Effective January 2026.",
   keywords: [
-    "Eltooro terms of service",
+    "Toroglo terms of service",
     "terms and conditions Ghana",
-    "Eltooro user agreement",
+    "Toroglo user agreement",
     "terms of use Ghana",
     "online store terms",
     "product disclaimer",
     "shipping terms Ghana",
-    "return terms Eltooro",
+    "return terms Toroglo",
     "payment terms Ghana",
     "user agreement organic store",
   ],
-  url: "https://www.eltooro.com/terms",
+  url: "https://www.toroglo.com/terms",
 });
 
 export default function TermsPage() {
@@ -53,12 +53,12 @@ export default function TermsPage() {
               {/* Introduction */}
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Welcome to Eltooro. By accessing or using our platform, you
+                  Welcome to Toroglo. By accessing or using our platform, you
                   agree to these Terms of Service. If you do not agree, please
                   discontinue use immediately.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  These Terms govern your access to and use of the Eltooro
+                  These Terms govern your access to and use of the Toroglo
                   website, mobile application, and services (collectively, the
                   &quot;Platform&quot;). Please read these Terms carefully
                   before using our services.
@@ -78,7 +78,7 @@ export default function TermsPage() {
                     </h3>
                     <p className="text-muted-foreground">
                       You must be at least 18 years old (or the legal age in
-                      your jurisdiction) to use our services. By using Eltooro,
+                      your jurisdiction) to use our services. By using Toroglo,
                       you represent and warrant that you meet this age
                       requirement and have the legal capacity to enter into
                       these Terms.
@@ -89,7 +89,7 @@ export default function TermsPage() {
                       Lawful and Responsible Use
                     </h3>
                     <p className="text-muted-foreground">
-                      You agree to use Eltooro lawfully and responsibly. You
+                      You agree to use Toroglo lawfully and responsibly. You
                       will not:
                     </p>
                     <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4 mt-2">
@@ -114,7 +114,7 @@ export default function TermsPage() {
                       You are responsible for safeguarding your account
                       credentials and all activities under your account. You
                       must immediately notify us of any unauthorized use of your
-                      account. Eltooro is not liable for any loss or damage
+                      account. Toroglo is not liable for any loss or damage
                       arising from your failure to protect your account
                       information.
                     </p>
@@ -136,7 +136,7 @@ export default function TermsPage() {
                       Product Classification
                     </h3>
                     <p className="text-red-800 dark:text-red-200">
-                      Eltooro products are classified as cosmetic, wellness, or
+                      Toroglo products are classified as cosmetic, wellness, or
                       dietary supplement products. These products are not
                       pharmaceutical drugs and are not intended to treat, cure,
                       or prevent diseases.
@@ -149,7 +149,7 @@ export default function TermsPage() {
                     <ul className="list-disc list-inside space-y-2 text-red-800 dark:text-red-200 ml-4">
                       <li>
                         <strong>
-                          Products sold on Eltooro are not intended to diagnose,
+                          Products sold on Toroglo are not intended to diagnose,
                           treat, cure, or prevent any disease.
                         </strong>
                       </li>
@@ -184,10 +184,10 @@ export default function TermsPage() {
                       User Responsibility
                     </h3>
                     <p className="text-red-800 dark:text-red-200">
-                      You acknowledge that you are using Eltooro products at
+                      You acknowledge that you are using Toroglo products at
                       your own risk. You are responsible for reading product
                       labels, following usage instructions, and consulting
-                      healthcare professionals when appropriate. Eltooro is not
+                      healthcare professionals when appropriate. Toroglo is not
                       liable for any adverse reactions or health issues
                       resulting from product use.
                     </p>
@@ -237,7 +237,7 @@ export default function TermsPage() {
                       Customs and Restrictions
                     </h3>
                     <p className="text-muted-foreground">
-                      Eltooro is not responsible for customs delays, seizures,
+                      Toroglo is not responsible for customs delays, seizures,
                       or regulatory restrictions imposed by foreign authorities.
                       If your order is detained, rejected, or destroyed by
                       customs, we cannot provide refunds unless the issue is due
@@ -303,7 +303,7 @@ export default function TermsPage() {
                   <div>
                     <h3 className="text-lg font-semibold mb-2">Order Limits</h3>
                     <p className="text-muted-foreground">
-                      Eltooro reserves the right to cancel or limit quantities
+                      Toroglo reserves the right to cancel or limit quantities
                       at its discretion, including limiting orders per
                       household, per person, or per order. This helps us prevent
                       abuse and ensure fair access to products for all
@@ -328,7 +328,7 @@ export default function TermsPage() {
                   </p>
                   <div className="bg-muted/50 rounded-lg p-6">
                     <h3 className="font-semibold mb-2">
-                      Eltooro is not liable for delays caused by:
+                      Toroglo is not liable for delays caused by:
                     </h3>
                     <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
                       <li>Customs clearance processes and inspections</li>
@@ -372,7 +372,7 @@ export default function TermsPage() {
                       Important: Returns Only Policy
                     </p>
                     <p className="text-yellow-800 dark:text-yellow-200">
-                      Eltooro accepts returns only. No refunds are issued.
+                      Toroglo accepts returns only. No refunds are issued.
                       Returned items must be unused, unopened, and in original
                       condition. Products cannot be returned after 7 days of
                       delivery.
@@ -403,10 +403,10 @@ export default function TermsPage() {
                     <p className="text-muted-foreground">
                       To initiate a return, contact our customer support at{" "}
                       <a
-                        href="mailto:eltooroltd@gmail.com"
+                        href="mailto:info@toroglo.com"
                         className="text-iherb-green hover:underline"
                       >
-                        eltooroltd@gmail.com
+                        info@toroglo.com
                       </a>{" "}
                       within 7 days of delivery. We will provide return
                       instructions and a return authorization number. Return
@@ -419,7 +419,7 @@ export default function TermsPage() {
                       No Refunds Policy
                     </h3>
                     <p className="text-muted-foreground">
-                      Please note that Eltooro operates on a returns-only
+                      Please note that Toroglo operates on a returns-only
                       policy. We do not issue monetary refunds. Upon successful
                       return and inspection, you will receive store credit or a
                       replacement product (subject to availability) at our
@@ -450,7 +450,7 @@ export default function TermsPage() {
                   <p className="text-muted-foreground mb-4">
                     All platform content—including text, images, logos,
                     trademarks, graphics, software, and design elements—is the
-                    property of Eltooro or its licensors and is protected by
+                    property of Toroglo or its licensors and is protected by
                     copyright, trademark, and other intellectual property laws.
                   </p>
                   <p className="text-muted-foreground mb-4">
@@ -490,7 +490,7 @@ export default function TermsPage() {
                   <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                     <li>
                       <strong>
-                        Eltooro is not liable for indirect, incidental, or
+                        Toroglo is not liable for indirect, incidental, or
                         consequential damages,
                       </strong>{" "}
                       including but not limited to lost profits, lost data,
@@ -531,7 +531,7 @@ export default function TermsPage() {
                   Modifications to Terms
                 </h2>
                 <p className="text-muted-foreground">
-                  Eltooro may update these Terms at any time to reflect changes
+                  Toroglo may update these Terms at any time to reflect changes
                   in our services, legal requirements, or business practices. We
                   will notify you of material changes by posting the updated
                   Terms on this page and updating the &quot;Effective
@@ -569,10 +569,10 @@ export default function TermsPage() {
                   <p className="text-muted-foreground">
                     <strong className="text-foreground">Email:</strong>{" "}
                     <a
-                      href="mailto:eltooroltd@gmail.com"
+                      href="mailto:info@toroglo.com"
                       className="text-iherb-green hover:underline"
                     >
-                      eltooroltd@gmail.com
+                      info@toroglo.com
                     </a>
                   </p>
                   <p className="text-muted-foreground">

@@ -1,5 +1,18 @@
-import { describe, it, expect } from "@jest/globals";
-import { generateOrderNumber } from "@/lib/orders/generateOrderNumber";
+import { describe, it, expect, beforeEach, jest } from "@jest/globals";
+
+let generateOrderNumber: typeof import("@/lib/orders/generateOrderNumber").generateOrderNumber;
+
+beforeEach(async () => {
+  jest.resetModules();
+  jest.doMock("@/lib/db/mongodb", () => ({
+    getDb: jest.fn().mockResolvedValue({
+      collection: () => ({
+        findOne: jest.fn().mockResolvedValue(null),
+      }),
+    }),
+  }));
+  ({ generateOrderNumber } = await import("@/lib/orders/generateOrderNumber"));
+});
 
 describe("generateOrderNumber", () => {
   it("should generate order number with correct format", async () => {

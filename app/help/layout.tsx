@@ -2,22 +2,22 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Help Center - Eltooro Customer Support",
+  title: "Help Center - Toroglo Customer Support",
   description:
-    "Eltooro Help Center. Find answers to frequently asked questions about orders, payments, shipping, returns, products, and account management. Browse help topics or contact our support team for assistance.",
+    "Toroglo Help Center. Find answers to frequently asked questions about orders, payments, shipping, returns, products, and account management. Browse help topics or contact our support team for assistance.",
   keywords: [
-    "Eltooro help",
-    "Eltooro FAQ",
+    "Toroglo help",
+    "Toroglo FAQ",
     "customer support Ghana",
-    "help center Eltooro",
+    "help center Toroglo",
     "frequently asked questions",
     "order help Ghana",
     "shipping help",
     "return help",
     "product questions",
-    "account help Eltooro",
+    "account help Toroglo",
   ],
-  url: "https://www.eltooro.com/help",
+  url: "https://www.toroglo.com/help",
 });
 
 export default function HelpLayout({

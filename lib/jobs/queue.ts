@@ -1,243 +1,125 @@
-import Agenda, { Job } from "agenda";
+/**
+ * Notification dispatch — **serverless-safe** (no Agenda / dedicated worker).
+ *
+ * Uses `after()` from Next.js so the HTTP response can finish while email/SMS
+ * runs afterward in the same runtime (Vercel Fluid compute / Node server).
+ *
+ * **Resend webhooks** (see `/api/webhooks/resend`) are complementary: they tell you
+ * *after* Resend accepted or bounced a message — they do not queue outbound mail.
+ * For outbound without a worker, we send here and rely on Resend’s HTTP API + retries.
+ *
+ * In Jest, work runs synchronously (`await`) so tests stay deterministic.
+ */
 import { logger } from "@/lib/logger";
+import { initModels } from "@/lib/models/helpers";
 
-// Get MongoDB URI for Agenda
-const MONGODB_URI = process.env.MONGODB_URI as string;
+const runSync =
+  process.env.NODE_ENV === "test" || process.env.NOTIFICATIONS_SYNC === "1";
 
-if (!MONGODB_URI) {
-  throw new Error("MONGODB_URI is required for Agenda job queue");
-}
-
-// Initialize Agenda with MongoDB connection
-// Agenda will create a collection called 'agendaJobs' in your MongoDB database
-const agenda = new Agenda({
-  db: { address: MONGODB_URI, collection: "agendaJobs" },
-  processEvery: "10 seconds", // Check for new jobs every 10 seconds
-  maxConcurrency: 5, // Process up to 5 jobs concurrently
-  defaultConcurrency: 5,
-  defaultLockLifetime: 10 * 60 * 1000, // 10 minutes lock lifetime
-});
-
-// Handle Agenda ready event
-agenda.on("ready", () => {
-  logger.info("Agenda job queue initialized and ready");
-  // Don't start here - we'll start lazily when first job is added
-});
-
-// Handle Agenda errors
-agenda.on("error", (error) => {
-  logger.error("Agenda error", error, { context: "agenda" });
-});
-
-/**
- * Email Job Processor
- * Handles all email-related jobs using templates
- */
-agenda.define("email", { concurrency: 5, lockLifetime: 10 * 60 * 1000 }, async (job: Job) => {
-  const { event, data } = job.attrs.data;
-
-  try {
-    // Initialize models
-    await import("@/lib/models/helpers").then((m) => m.initModels());
-
-    // Use templated notification system
-    const { sendTemplatedEmail } = await import(
-      "@/lib/notifications/templated-notifications"
-    );
-
-    await sendTemplatedEmail(event, data);
-  } catch (error) {
-    logger.error("Email job failed", error as Error, {
-      event,
-      data,
-      jobId: job.attrs._id?.toString(),
+function scheduleWork(task: () => Promise<void>): void {
+  const run = () =>
+    task().catch((error) => {
+      logger.error("Background notification task failed", error as Error);
     });
-    throw error; // Re-throw to trigger Agenda retry mechanism
+
+  if (runSync) {
+    void run();
+    return;
   }
-});
 
-/**
- * SMS Job Processor
- * Handles all SMS-related jobs using templates
- */
-agenda.define("sms", { concurrency: 5, lockLifetime: 10 * 60 * 1000 }, async (job: Job) => {
-  const { event, data } = job.attrs.data;
-
-  try {
-    // Initialize models
-    await import("@/lib/models/helpers").then((m) => m.initModels());
-
-    // Use templated notification system
-    const { sendTemplatedSMS } = await import(
-      "@/lib/notifications/templated-notifications"
-    );
-
-    await sendTemplatedSMS(event, data);
-  } catch (error) {
-    logger.error("SMS job failed", error as Error, {
-      event,
-      data,
-      jobId: job.attrs._id?.toString(),
-    });
-    throw error; // Re-throw to trigger Agenda retry mechanism
-  }
-});
-
-// Job completion and failure handlers
-agenda.on("start", (job: Job) => {
-  logger.info(`Job started: ${job.attrs.name}`, {
-    jobId: job.attrs._id?.toString(),
-    jobName: job.attrs.name,
-  });
-});
-
-agenda.on("success", (job: Job) => {
-  logger.info(`Job completed: ${job.attrs.name}`, {
-    jobId: job.attrs._id?.toString(),
-    jobName: job.attrs.name,
-  });
-});
-
-agenda.on("fail", (error: Error, job: Job) => {
-  logger.error(`Job failed: ${job.attrs.name}`, error, {
-    jobId: job.attrs._id?.toString(),
-    jobName: job.attrs.name,
-    attempts: job.attrs.failCount || 0,
-  });
-});
-
-/**
- * Initialize Agenda (call this during app startup)
- */
-export async function initAgenda(): Promise<void> {
-  try {
-    await agenda.start();
-    logger.info("Agenda job queue started successfully");
-  } catch (error) {
-    logger.error("Failed to start Agenda", error as Error);
-    throw error;
-  }
-}
-
-/**
- * Gracefully shutdown Agenda (call this during app shutdown)
- */
-export async function shutdownAgenda(): Promise<void> {
-  try {
-    await agenda.stop();
-    await agenda.close({ force: true });
-    logger.info("Agenda job queue shut down successfully");
-  } catch (error) {
-    logger.error("Error shutting down Agenda", error as Error);
-  }
-}
-
-// Track if Agenda has been started
-let agendaStarted = false;
-
-/**
- * Ensure Agenda is started (lazy initialization)
- */
-async function ensureAgendaStarted(): Promise<void> {
-  if (!agendaStarted) {
+  void (async () => {
     try {
-      await agenda.start();
-      agendaStarted = true;
-      logger.info("Agenda job queue started (lazy initialization)");
-    } catch (error) {
-      // If already started, ignore the error
-      if (error instanceof Error && error.message.includes("already started")) {
-        agendaStarted = true;
-      } else {
-        logger.error("Failed to start Agenda", error as Error);
-        throw error;
-      }
+      const { after } = await import("next/server");
+      after(() => {
+        void run();
+      });
+    } catch {
+      void run();
     }
-  }
+  })();
 }
 
-/**
- * Add email job to queue
- * @param event - Event type (e.g., "order_confirmation", "otp")
- * @param data - Email data (must include 'email' field)
- * @param options - Job options (delay in milliseconds, attempts for retries)
- */
+async function runEmailJob(event: string, data: Record<string, unknown>): Promise<void> {
+  await initModels();
+  const { sendTemplatedEmail } = await import("@/lib/notifications/templated-notifications");
+  await sendTemplatedEmail(event, data as Record<string, any>);
+}
+
+async function runSmsJob(event: string, data: Record<string, unknown>): Promise<void> {
+  await initModels();
+  const { sendTemplatedSMS } = await import("@/lib/notifications/templated-notifications");
+  await sendTemplatedSMS(event, data as Record<string, any>);
+}
+
 export async function addEmailJob(
   event: string,
-  data: any,
-  options?: { delay?: number; attempts?: number }
+  data: Record<string, unknown>,
+  options?: { delay?: number; attempts?: number },
 ): Promise<void> {
-  try {
-    await ensureAgendaStarted();
-    
-    const jobData = {
-      event,
-      data,
-    };
+  const delayMs = options?.delay ?? 0;
 
-    // If delay is specified, schedule the job
-    if (options?.delay) {
-      await agenda.schedule(new Date(Date.now() + options.delay), "email", jobData);
-    } else {
-      await agenda.now("email", jobData);
+  const execute = async () => {
+    if (delayMs > 0) {
+      await new Promise((r) => setTimeout(r, delayMs));
     }
-  } catch (error) {
-    logger.error("Failed to add email job", error as Error, { event, data });
-    throw error;
+    await runEmailJob(event, data);
+  };
+
+  if (runSync) {
+    await execute();
+    return;
   }
+
+  scheduleWork(execute);
 }
 
-/**
- * Add SMS job to queue
- * @param event - Event type (e.g., "order_confirmation", "otp")
- * @param data - SMS data (must include 'phone' field)
- * @param options - Job options (delay in milliseconds, attempts for retries)
- */
 export async function addSMSJob(
   event: string,
-  data: any,
-  options?: { delay?: number; attempts?: number }
+  data: Record<string, unknown>,
+  options?: { delay?: number; attempts?: number },
 ): Promise<void> {
-  try {
-    await ensureAgendaStarted();
-    
-    const jobData = {
-      event,
-      data,
-    };
+  const delayMs = options?.delay ?? 0;
 
-    // If delay is specified, schedule the job
-    if (options?.delay) {
-      await agenda.schedule(new Date(Date.now() + options.delay), "sms", jobData);
-    } else {
-      await agenda.now("sms", jobData);
+  const execute = async () => {
+    if (delayMs > 0) {
+      await new Promise((r) => setTimeout(r, delayMs));
     }
-  } catch (error) {
-    logger.error("Failed to add SMS job", error as Error, { event, data });
-    throw error;
+    await runSmsJob(event, data);
+  };
+
+  if (runSync) {
+    await execute();
+    return;
   }
+
+  scheduleWork(execute);
 }
 
-/**
- * Add notification job (both email and SMS)
- * @param event - Event type (e.g., "order_confirmation", "otp")
- * @param emailData - Email data (optional, must include 'email' field)
- * @param smsData - SMS data (optional, must include 'phone' field)
- * @param options - Job options (delay in milliseconds, attempts for retries)
- */
 export async function addNotificationJob(
   event: string,
-  emailData?: any,
-  smsData?: any,
-  options?: { delay?: number; attempts?: number }
+  emailData?: Record<string, unknown>,
+  smsData?: Record<string, unknown>,
+  options?: { delay?: number; attempts?: number },
 ): Promise<void> {
+  if (runSync) {
+    if (emailData) await addEmailJob(event, emailData, options);
+    if (smsData) await addSMSJob(event, smsData, options);
+    return;
+  }
+
   if (emailData) {
-    await addEmailJob(event, emailData, options);
+    void addEmailJob(event, emailData, options);
   }
   if (smsData) {
-    await addSMSJob(event, smsData, options);
+    void addSMSJob(event, smsData, options);
   }
 }
 
-// Export agenda instance for advanced usage if needed
-export { agenda };
+/** No-op stubs for legacy callers / scripts */
+export async function initAgenda(): Promise<void> {
+  logger.info("initAgenda: no-op (notifications use after() + direct send)");
+}
+
+export async function shutdownAgenda(): Promise<void> {
+  logger.info("shutdownAgenda: no-op");
+}

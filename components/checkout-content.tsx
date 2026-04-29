@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/collapsible";
 import { useCart } from "@/contexts/cart-context";
 import { useToast } from "@/hooks/use-toast";
+import { useCheckoutDelivery } from "@/hooks/use-checkout-delivery";
+import { SITE_PHONE_DISPLAY } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { ProtectedRoute } from "@/components/auth/protected-route";
 
@@ -47,10 +49,14 @@ export function CheckoutContent() {
   const [isOrderSummaryOpen, setIsOrderSummaryOpen] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [isInitializingPayment, setIsInitializingPayment] = useState(false);
-  const [deliveryFees, setDeliveryFees] = useState<any>(null);
-  const [isLoadingFees, setIsLoadingFees] = useState(true);
-  const [shippingMethods, setShippingMethods] = useState<any[]>([]);
-  const [isLoadingShippingMethods, setIsLoadingShippingMethods] = useState(true);
+  const {
+    deliveryFees,
+    shippingMethods,
+    shippingMethod,
+    setShippingMethod,
+    isLoadingFees,
+    isLoadingShippingMethods,
+  } = useCheckoutDelivery();
 
   // Shipping Form State
   const [shippingData, setShippingData] = useState({
@@ -65,9 +71,6 @@ export function CheckoutContent() {
     phone: "",
     saveInfo: true,
   });
-
-  // Shipping Method State
-  const [shippingMethod, setShippingMethod] = useState<string>("");
 
   // Payment State - Only Mobile Money
   const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
@@ -84,52 +87,12 @@ export function CheckoutContent() {
     }
   }, []);
 
-  // Fetch delivery fees and shipping methods
-  useEffect(() => {
-    fetchDeliveryFees();
-    fetchShippingMethods();
-  }, []);
-
   // Load user data if logged in
   useEffect(() => {
     if (session?.user) {
       loadUserData();
     }
   }, [session]);
-
-  const fetchDeliveryFees = async () => {
-    try {
-      setIsLoadingFees(true);
-      const response = await fetch("/api/admin/settings");
-      const data = await response.json();
-      if (data.success) {
-        setDeliveryFees(data.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch delivery fees:", error);
-    } finally {
-      setIsLoadingFees(false);
-    }
-  };
-
-  const fetchShippingMethods = async () => {
-    try {
-      setIsLoadingShippingMethods(true);
-      const response = await fetch("/api/shipping-methods");
-      const data = await response.json();
-      if (data.success && data.data && data.data.length > 0) {
-        setShippingMethods(data.data);
-        // Set default to first method if not set
-        if (!shippingMethod) {
-          setShippingMethod(data.data[0].code);
-        }
-      }
-    } catch (error) {
-      console.error("Failed to fetch shipping methods:", error);
-    } finally {
-      setIsLoadingShippingMethods(false);
-    }
-  };
 
   const loadUserData = async () => {
     try {
@@ -597,7 +560,7 @@ export function CheckoutContent() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+233 XX XXX XXXX"
+                    placeholder={SITE_PHONE_DISPLAY}
                     value={shippingData.phone}
                     onChange={(e) =>
                       setShippingData({
@@ -736,7 +699,7 @@ export function CheckoutContent() {
                     <Input
                       id="mobileMoneyNumber"
                       type="tel"
-                      placeholder="+233 XX XXX XXXX"
+                      placeholder={SITE_PHONE_DISPLAY}
                       value={mobileMoneyNumber}
                       onChange={(e) => setMobileMoneyNumber(e.target.value)}
                       required

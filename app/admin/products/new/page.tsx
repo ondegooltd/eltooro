@@ -459,7 +459,7 @@ export default function AdminProductCreatePage() {
                           onChange={(e) =>
                             setFormData({ ...formData, brand: e.target.value })
                           }
-                          placeholder="e.g. Eltooro"
+                          placeholder="e.g. Toroglo"
                         />
                       </div>
                       <div>

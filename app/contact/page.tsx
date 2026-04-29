@@ -24,6 +24,7 @@ import {
   Check,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site";
 
 type SubjectType =
   | "order"
@@ -194,12 +195,12 @@ export default function ContactPage() {
                 <h3 className="font-semibold text-lg mb-2">Phone / WhatsApp</h3>
                 <p className="text-muted-foreground mb-2">Call or message us</p>
                 <a
-                  href="https://wa.me/233537182367"
+                  href={`https://wa.me/${SITE_PHONE_E164.replace(/^\+/, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-iherb-green hover:underline block"
                 >
-                  +233-537-182-367
+                  {SITE_PHONE_DISPLAY}
                 </a>
               </div>
               <div className="text-center p-6 border rounded-lg">
@@ -209,10 +210,10 @@ export default function ContactPage() {
                 <h3 className="font-semibold text-lg mb-2">Email</h3>
                 <p className="text-muted-foreground mb-2">Send us a message</p>
                 <a
-                  href="mailto:eltooroltd@gmail.com"
+                  href="mailto:info@toroglo.com"
                   className="font-medium text-iherb-green hover:underline block break-all"
                 >
-                  eltooroltd@gmail.com
+                  info@toroglo.com
                 </a>
               </div>
               <div className="text-center p-6 border rounded-lg">
@@ -225,7 +226,7 @@ export default function ContactPage() {
                 </p>
                 <div className="flex gap-3 justify-center">
                   <a
-                    href="https://www.instagram.com/eltooro_gh/"
+                    href="https://www.instagram.com/toroglo_gh/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-iherb-green/10 rounded-full hover:bg-iherb-green/20 transition-colors"
@@ -240,7 +241,7 @@ export default function ContactPage() {
                     </svg>
                   </a>
                   <a
-                    href="https://www.tiktok.com/@eltooro.com"
+                    href="https://www.tiktok.com/@toroglo.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-iherb-green/10 rounded-full hover:bg-iherb-green/20 transition-colors"
@@ -421,7 +422,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Headquarters</h3>
-                      <p className="text-muted-foreground">Eltooro Ghana</p>
+                      <p className="text-muted-foreground">Toroglo Ghana</p>
                       <p className="text-muted-foreground">
                         ALX Tech Hub, 4th Floor, One Airport Square,
                       </p>

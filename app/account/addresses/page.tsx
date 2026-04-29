@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { SITE_PHONE_DISPLAY } from "@/lib/site";
 
 interface Address {
   _id: string;
@@ -455,7 +456,7 @@ export default function AddressesPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, phone: e.target.value })
                         }
-                        placeholder="+233XXXXXXXXX"
+                        placeholder={SITE_PHONE_DISPLAY}
                         required
                       />
                     </div>

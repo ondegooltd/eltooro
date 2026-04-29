@@ -56,7 +56,7 @@ async function seedUsers(db: any) {
     // Admin Users
     {
       email: "admin@etoroo.com",
-      phone: "+233241234567",
+      phone: "+233537182367",
       emailVerified: true,
       phoneVerified: true,
       password: await hashPassword("Admin@123"),
@@ -435,17 +435,17 @@ async function seedAdminSettings(db: any) {
       smsEnabled: true,
       emailProvider: "resend",
       smsProvider: "mnotify",
-      emailFrom: "noreply@eltooro.com",
-      smsFrom: "eltooro",
+      emailFrom: "info@toroglo.com",
+      smsFrom: "toroglo",
     },
     seo: {
-      siteName: "Eltooro",
+      siteName: "Toroglo",
       siteDescription:
         "Shop vitamins, supplements, and natural health products",
       defaultMetaTags: {
-        title: "Eltooro - Vitamins, Supplements, Natural Health Products",
+        title: "Toroglo - Vitamins, Supplements, Natural Health Products",
         description:
-          "Shop vitamins, supplements, and natural health products at eltooro. Best prices on premium brands.",
+          "Shop vitamins, supplements, and natural health products at toroglo.com. Best prices on premium brands.",
         keywords: [
           "vitamins",
           "supplements",
@@ -456,9 +456,9 @@ async function seedAdminSettings(db: any) {
       },
     },
     business: {
-      name: "Eltooro",
-      email: "info@eltooro.com",
-      phone: "+233241234567",
+      name: "Toroglo",
+      email: "info@toroglo.com",
+      phone: "+233537182367",
       address: {
         street: "123 Business Street",
         city: "Accra",
@@ -470,9 +470,9 @@ async function seedAdminSettings(db: any) {
       registrationNumber: "",
     },
     socialMedia: {
-      facebook: "https://facebook.com/eltooro",
-      instagram: "https://instagram.com/eltooro",
-      twitter: "https://twitter.com/eltooro",
+      facebook: "https://facebook.com/toroglo",
+      instagram: "https://instagram.com/toroglo",
+      twitter: "https://twitter.com/toroglo",
       youtube: "",
       linkedin: "",
     },
@@ -494,7 +494,7 @@ async function seedAdminInfo(db: any) {
 
   // Get admin user ID
   const adminUser = await db.collection("users").findOne({
-    email: "admin@eltooro.com",
+    email: "admin@toroglo.com",
   });
 
   const adminInfoRecords = [
@@ -586,8 +586,8 @@ async function seedAdminInfo(db: any) {
         <h1>Contact Us</h1>
         <p>We'd love to hear from you. Get in touch with us through any of the following channels:</p>
         <h2>Customer Service</h2>
-        <p>Email: support@eltooro.com</p>
-        <p>Phone: +233 XX XXX XXXX</p>
+        <p>Email: info@toroglo.com</p>
+        <p>Phone: +233 537 182 367</p>
         <p>Hours: Monday - Friday, 9:00 AM - 5:00 PM GMT</p>
       `,
       excerpt: "Get in touch with our customer service team.",
@@ -595,8 +595,8 @@ async function seedAdminInfo(db: any) {
       status: "published",
       order: 4,
       metadata: {
-        email: "support@eltooro.com",
-        phone: "+233241234567",
+        email: "info@toroglo.com",
+        phone: "+233537182367",
         address: "123 Business Street, Accra, Ghana",
       },
       views: 0,
@@ -660,8 +660,8 @@ async function seedAdminInfo(db: any) {
       title: "About Us",
       slug: "about-us",
       content: `
-        <h1>About Eltooro</h1>
-        <p>Eltooro is your trusted source for vitamins, supplements, and natural health products...</p>
+        <h1>About Toroglo</h1>
+        <p>Toroglo is your trusted source for vitamins, supplements, and natural health products...</p>
         <h2>Our Mission</h2>
         <p>To provide high-quality health and wellness products at affordable prices...</p>
         <h2>Our Values</h2>
@@ -671,7 +671,7 @@ async function seedAdminInfo(db: any) {
           <li>Transparency</li>
         </ul>
       `,
-      excerpt: "Learn more about Eltooro and our mission.",
+      excerpt: "Learn more about Toroglo and our mission.",
       author: adminUser?._id || null,
       status: "published",
       order: 7,
@@ -822,7 +822,7 @@ async function seedSMSTemplates(db: any) {
   console.log("📱 Seeding SMS templates...");
   const templatesCollection = db.collection("sms_templates");
   const adminUser = await db.collection("users").findOne({
-    email: "admin@eltooro.com",
+    email: "admin@toroglo.com",
   });
 
   // Import SMS template constants

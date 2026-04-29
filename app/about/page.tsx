@@ -16,12 +16,12 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "About Eltooro - Organic Beauty & Wellness in Ghana",
+  title: "About Toroglo - Organic Beauty & Wellness in Ghana",
   description:
-    "Learn about Eltooro, Ghana's premier organic beauty and wellness store. Discover our mission, values, and commitment to natural hair care, skin care, beard products, and organic supplements. Quality, transparency, and customer care.",
+    "Learn about Toroglo, Ghana's premier organic beauty and wellness store. Discover our mission, values, and commitment to natural hair care, skin care, beard products, and organic supplements. Quality, transparency, and customer care.",
   keywords: [
-    "Eltooro Ghana",
-    "about Eltooro",
+    "Toroglo Ghana",
+    "about Toroglo",
     "organic beauty store Ghana",
     "natural wellness products Ghana",
     "organic hair care Ghana",
@@ -31,7 +31,7 @@ export const metadata: Metadata = generateMetadata({
     "Ghanaian organic products",
     "natural beauty products Ghana",
   ],
-  url: "https://www.eltooro.com/about",
+  url: "https://www.toroglo.com/about",
 });
 
 export default function AboutPage() {
@@ -42,7 +42,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <section className="bg-iherb-green text-white py-16">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">About Eltooro</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">About Toroglo</h1>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Your Trusted Partner in Natural Wellness and Beauty
             </p>
@@ -55,7 +55,7 @@ export default function AboutPage() {
             <div className="max-w-4xl mx-auto">
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Eltooro is an online wellness and beauty platform offering
+                  Toroglo is an online wellness and beauty platform offering
                   organic hair growth, cosmetic, supplement, and wellness
                   products to customers in Ghana and around the world.
                 </p>
@@ -66,7 +66,7 @@ export default function AboutPage() {
                   naturally inspired ingredients.
                 </p>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  Eltooro makes it easy to discover and receive wellness
+                  Toroglo makes it easy to discover and receive wellness
                   products wherever you are, while promoting responsible use,
                   transparency, and quality. Our products are designed to support
                   beauty and wellness routines, not replace professional medical
@@ -84,7 +84,7 @@ export default function AboutPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
-                  At Eltooro, our mission is to empower individuals on their
+                  At Toroglo, our mission is to empower individuals on their
                   wellness journey by providing access to high-quality, natural
                   products that enhance both beauty and health. We are committed
                   to making organic and naturally-inspired wellness solutions
@@ -108,7 +108,7 @@ export default function AboutPage() {
               <div className="relative h-80 rounded-lg overflow-hidden">
                 <Image
                   src="/wellness-healthy-lifestyle-products.jpg"
-                  alt="Eltooro Wellness Products"
+                  alt="Toroglo Wellness Products"
                   fill
                   className="object-cover"
                 />
@@ -296,7 +296,7 @@ export default function AboutPage() {
                       Building Confidence & Well-being
                     </h3>
                     <p className="text-muted-foreground">
-                      At Eltooro, we understand that wellness is deeply personal.
+                      At Toroglo, we understand that wellness is deeply personal.
                       Our products are chosen to support not just physical health,
                       but also confidence and everyday well-being. We believe that
                       when you feel good about yourself, you can live your best
@@ -319,7 +319,7 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-bold">Important Notice</h2>
               </div>
               <p className="text-lg text-white/90 leading-relaxed">
-                While Eltooro is committed to providing high-quality wellness and
+                While Toroglo is committed to providing high-quality wellness and
                 beauty products, we want to emphasize that our products are
                 designed to support your wellness routines and enhance your
                 natural beauty. They are not intended to diagnose, treat, cure,

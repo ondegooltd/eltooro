@@ -3,6 +3,8 @@
  * Implements Schema.org markup for better search engine understanding
  */
 
+import { SITE_CONTACT_EMAIL, SITE_LOGO_URL } from "@/lib/site";
+
 export interface OrganizationSchema {
   "@context": "https://schema.org";
   "@type": "Organization";
@@ -86,14 +88,14 @@ export interface FAQSchema {
 export function generateOrganizationSchema(
   options: Partial<OrganizationSchema> = {},
 ): OrganizationSchema {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://eltooro.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
 
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Eltooro",
+    name: "Toroglo",
     url: baseUrl,
-    logo: "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+    logo: SITE_LOGO_URL,
     description:
       "Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements.",
     address: {
@@ -105,13 +107,14 @@ export function generateOrganizationSchema(
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
+      email: SITE_CONTACT_EMAIL,
       areaServed: "GH",
     },
     sameAs: [
       // Add social media links when available
-      // "https://www.facebook.com/eltooro",
-      // "https://www.instagram.com/eltooro",
-      // "https://www.twitter.com/eltooro",
+      // "https://www.facebook.com/toroglo",
+      // "https://www.instagram.com/toroglo",
+      // "https://www.twitter.com/toroglo",
     ],
     ...options,
   };
@@ -134,7 +137,7 @@ export function generateProductSchema(product: {
   reviewCount?: number;
   category?: string;
 }): ProductSchema {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
   const images = product.image
     ? Array.isArray(product.image)
       ? product.image
@@ -238,15 +241,15 @@ export function generateLocalBusinessSchema(
     openingHours?: string[];
   } = {},
 ) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
 
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${baseUrl}#organization`,
-    name: options.name || "Eltooro",
+    name: options.name || "Toroglo",
     image:
-      "https://res.cloudinary.com/duznylrc6/image/upload/v1770031906/eltooro_logo_white_on_green.png_jk3lrv.jpg",
+      SITE_LOGO_URL,
     url: baseUrl,
     telephone: options.phone,
     priceRange: options.priceRange || "$$",
@@ -309,12 +312,12 @@ export function generateLocalBusinessSchema(
  * Generate WebSite structured data with search action
  */
 export function generateWebSiteSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.eltooro.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.toroglo.com";
 
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Eltooro",
+    name: "Toroglo",
     url: baseUrl,
     potentialAction: {
       "@type": "SearchAction",

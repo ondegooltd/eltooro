@@ -20,19 +20,19 @@ import { generateMetadata } from "@/lib/seo/metadata";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetadata({
-  title: "Returns & Exchange Policy - Eltooro Ghana",
+  title: "Returns & Exchange Policy - Toroglo Ghana",
   description:
-    "Eltooro return and exchange policy. No refunds; exchanges within 7 days for unopened items. Damaged or defective goods reported within 48 hours get a free replacement. Contact us via WhatsApp or email.",
+    "Toroglo return and exchange policy. No refunds; exchanges within 7 days for unopened items. Damaged or defective goods reported within 48 hours get a free replacement. Contact us via WhatsApp or email.",
   keywords: [
-    "Eltooro returns",
-    "Eltooro exchange policy",
+    "Toroglo returns",
+    "Toroglo exchange policy",
     "no refund policy Ghana",
     "exchange policy Ghana",
     "damaged goods replacement",
     "organic products exchange",
-    "Eltooro contact",
+    "Toroglo contact",
   ],
-  url: "https://www.eltooro.com/returns",
+  url: "https://www.toroglo.com/returns",
 });
 
 export default function ReturnsPage() {
@@ -48,7 +48,7 @@ export default function ReturnsPage() {
               Return & Exchange Policy
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              At Eltooro, we take pride in the quality and organic integrity of
+              At Toroglo, we take pride in the quality and organic integrity of
               our products. Due to the nature of our items (supplements, serums,
               and personal care), we maintain a strict hygiene and safety
               protocol.
@@ -169,10 +169,10 @@ export default function ReturnsPage() {
                   <li className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-iherb-green shrink-0" />
                     <a
-                      href="mailto:eltooroltd@gmail.com"
+                      href="mailto:info@toroglo.com"
                       className="text-iherb-green hover:underline break-all"
                     >
-                      Email: eltooroltd@gmail.com
+                      Email: info@toroglo.com
                     </a>
                   </li>
                 </ul>

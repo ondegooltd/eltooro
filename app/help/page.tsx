@@ -28,6 +28,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useDebounce } from "@/hooks/use-debounce";
+import { SITE_PHONE_E164 } from "@/lib/site";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface FAQ {
@@ -180,7 +181,7 @@ export default function HelpPage() {
 
   const handlePhoneSupport = () => {
     // Open phone dialer or show phone number
-    window.location.href = "tel:+233XXXXXXXXX";
+    window.location.href = `tel:${SITE_PHONE_E164}`;
   };
 
   return (

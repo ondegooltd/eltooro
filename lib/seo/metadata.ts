@@ -1,10 +1,10 @@
 import { Metadata } from "next";
+import { DEFAULT_SITE_URL, SITE_NAME } from "@/lib/site";
 import { getMetaKeywords } from "./keywords";
 
-const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://eltooro.com";
-const SITE_NAME = "Eltooro";
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || DEFAULT_SITE_URL;
 const DEFAULT_DESCRIPTION =
-  "Eltooro - Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements. Fast delivery across Accra, Winneba, Kumasi, and all of Ghana.";
+  "Toroglo - Ghana's premier organic beauty and wellness store. Shop natural hair care, skin care, beard products, and organic supplements. Fast delivery across Accra, Winneba, Kumasi, and all of Ghana.";
 
 interface GenerateMetadataOptions {
   title?: string;
@@ -75,8 +75,8 @@ export function generateMetadata(options: GenerateMetadataOptions = {}): Metadat
       title: fullTitle,
       description,
       images: [image],
-      creator: "@eltooro",
-      site: "@eltooro",
+      creator: "@toroglo",
+      site: "@toroglo",
     },
     alternates: {
       canonical: canonicalUrl,
@@ -112,7 +112,7 @@ export function generateProductMetadata(product: {
   const image = product.image || `${SITE_URL}/og-image.jpg`;
   const description =
     product.description ||
-    `Buy ${product.name} from Eltooro. ${product.brand ? `${product.brand} ` : ""}Organic beauty products in Ghana. Fast delivery available.`;
+    `Buy ${product.name} from Toroglo. ${product.brand ? `${product.brand} ` : ""}Organic beauty products in Ghana. Fast delivery available.`;
 
   const keywords = [
     product.name,
@@ -120,7 +120,7 @@ export function generateProductMetadata(product: {
     product.category,
     "organic products Ghana",
     "buy online Ghana",
-    "Eltooro",
+    "Toroglo",
   ].filter((k): k is string => Boolean(k));
 
   return generateMetadata({
@@ -145,14 +145,14 @@ export function generateCategoryMetadata(category: {
   const url = `${SITE_URL}/products?category=${category.slug}`;
   const description =
     category.description ||
-    `Shop ${category.name} products at Eltooro. Organic, natural beauty and wellness products in Ghana. Fast delivery available.`;
+    `Shop ${category.name} products at Toroglo. Organic, natural beauty and wellness products in Ghana. Fast delivery available.`;
 
   const keywords = [
     category.name,
     `${category.name} Ghana`,
     `organic ${category.name}`,
     `buy ${category.name} online`,
-    "Eltooro",
+    "Toroglo",
   ];
 
   return generateMetadata({

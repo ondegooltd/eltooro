@@ -33,7 +33,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>If you have any questions, please contact our customer service team.</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -63,7 +63,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>Your order is now being processed and will be shipped soon.</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -95,7 +95,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>You can track your order status in your account or using the tracking number above.</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -126,7 +126,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>Thank you for shopping with us!</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -156,7 +156,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>If you didn't request this code, please ignore this email.</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -189,7 +189,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>If you didn't request a password reset, please ignore this email.</p>
     
-    <p>Best regards,<br>Eltooro Team</p>
+    <p>Best regards,<br>Toroglo Team</p>
   </div>
 </body>
 </html>`,
@@ -222,7 +222,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>We typically respond within 24 hours during business days.</p>
     
-    <p>Best regards,<br>Eltooro Support Team</p>
+    <p>Best regards,<br>Toroglo Support Team</p>
   </div>
 </body>
 </html>`,
@@ -253,7 +253,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>You can view your ticket and add responses in your account.</p>
     
-    <p>Best regards,<br>Eltooro Support Team</p>
+    <p>Best regards,<br>Toroglo Support Team</p>
   </div>
 </body>
 </html>`,
@@ -279,7 +279,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
       <h2 style="margin-top: 0;">Ticket Details</h2>
       <p><strong>Ticket Number:</strong> {{ticketNumber}}</p>
-      <p><strong>From:</strong> {{#if isFromAdmin}}Eltooro Support Team{{else}}Customer{{/if}}</p>
+      <p><strong>From:</strong> {{#if isFromAdmin}}Toroglo Support Team{{else}}Customer{{/if}}</p>
     </div>
     
     <div style="background-color: #fff; padding: 15px; border-left: 4px solid #2196F3; margin: 20px 0;">
@@ -288,7 +288,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>You can respond to this ticket by logging into your account or replying to this email.</p>
     
-    <p>Best regards,<br>Eltooro Support Team</p>
+    <p>Best regards,<br>Toroglo Support Team</p>
   </div>
 </body>
 </html>`,
@@ -320,7 +320,7 @@ const DEFAULT_EMAIL_TEMPLATES = [
     
     <p>Please review and respond to this ticket in the admin panel.</p>
     
-    <p>Best regards,<br>Eltooro System</p>
+    <p>Best regards,<br>Toroglo System</p>
   </div>
 </body>
 </html>`,
@@ -354,14 +354,14 @@ const DEFAULT_SMS_TEMPLATES = [
   {
     channel: "sms" as const,
     event: "order_delivered",
-    body: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Eltooro!",
+    body: "Your order {{orderNumber}} has been delivered! We hope you enjoy your purchase. Thank you for shopping with Toroglo!",
     isEnabled: true,
     locale: "en",
   },
   {
     channel: "sms" as const,
     event: "otp",
-    body: "Your Eltooro verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
+    body: "Your Toroglo verification code is: {{otp}}. This code expires in {{expiryMinutes}} minutes.",
     isEnabled: true,
     locale: "en",
   },
