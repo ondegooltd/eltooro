@@ -10,6 +10,7 @@
  *
  * In Jest, work runs synchronously (`await`) so tests stay deterministic.
  */
+import { after } from "next/server";
 import { logger } from "@/lib/logger";
 import { initModels } from "@/lib/models/helpers";
 
@@ -27,16 +28,18 @@ function scheduleWork(task: () => Promise<void>): void {
     return;
   }
 
-  void (async () => {
-    try {
-      const { after } = await import("next/server");
-      after(() => {
-        void run();
-      });
-    } catch {
+  // Try to defer to after the response is sent (Vercel Fluid / Node server).
+  // `after()` must be called synchronously while the request context is still
+  // active — a dynamic import would introduce a microtask gap that races with
+  // the response, so we import statically. If we are outside a request scope
+  // (scripts, init code) `after()` throws and we just run inline.
+  try {
+    after(() => {
       void run();
-    }
-  })();
+    });
+  } catch {
+    void run();
+  }
 }
 
 async function runEmailJob(event: string, data: Record<string, unknown>): Promise<void> {
