@@ -132,14 +132,10 @@ const UserSchema = new Schema<IUser>(
       type: String,
       lowercase: true,
       trim: true,
-      sparse: true,
-      unique: true,
     },
     phone: {
       type: String,
       trim: true,
-      sparse: true,
-      unique: true,
     },
     emailVerified: {
       type: Boolean,
@@ -207,8 +203,17 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Indexes
-// UserSchema.index({ email: 1 }, { unique: true, sparse: true });
-// UserSchema.index({ phone: 1 }, { unique: true, sparse: true });
+// Partial unique indexes: only enforce uniqueness for documents where the
+// field is a string. This avoids duplicate-key collisions on documents that
+// have the field absent or set to null (sparse: true alone does not skip nulls).
+UserSchema.index(
+  { email: 1 },
+  { unique: true, partialFilterExpression: { email: { $type: "string" } } }
+);
+UserSchema.index(
+  { phone: 1 },
+  { unique: true, partialFilterExpression: { phone: { $type: "string" } } }
+);
 UserSchema.index({ createdAt: -1 });
 UserSchema.index({ role: 1 });
 UserSchema.index({ lastLogin: -1 }); // For querying recently active users

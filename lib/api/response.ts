@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ApiError, ValidationError } from "@/lib/errors/api-error";
+import { ApiError, ConflictError, ValidationError } from "@/lib/errors/api-error";
 import { logger } from "@/lib/logger";
 
 export function successResponse(data: any, meta?: any, status: number = 200) {
@@ -46,6 +46,21 @@ export function handleApiError(error: unknown) {
 
   if (error instanceof ApiError) {
     return errorResponse(error);
+  }
+
+  // MongoDB duplicate key → 409 with the conflicting field
+  if (
+    error &&
+    typeof error === "object" &&
+    (error as any).name === "MongoServerError" &&
+    (error as any).code === 11000
+  ) {
+    const keyValue = (error as any).keyValue ?? {};
+    const field = Object.keys(keyValue)[0];
+    const message = field
+      ? `${field} already in use`
+      : "Duplicate value";
+    return errorResponse(new ConflictError(message, { field }));
   }
 
   // Unknown errors

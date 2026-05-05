@@ -70,10 +70,10 @@ export async function POST(request: NextRequest) {
         first: validatedData.firstName,
         last: validatedData.lastName,
       },
-      email: validatedData.email?.toLowerCase() || null,
+      email: validatedData.email?.toLowerCase() || undefined,
       phone: validatedData.phone
         ? normalizePhoneNumber(validatedData.phone)
-        : null,
+        : undefined,
       emailVerified: false,
       phoneVerified: false,
       password: hashedPassword,
