@@ -11,6 +11,7 @@ import {
   generateWebSiteSchema,
 } from "@/lib/seo/structured-data";
 import { StructuredData } from "@/components/seo/structured-data";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { SITE_FAVICON_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
     <html lang="en-GH">
       <head>
         <StructuredData data={[organizationSchema, websiteSchema]} />
+        <GoogleAnalytics />
       </head>
       <body className={`font-sans antialiased`}>
         <NextAuthSessionProvider>
